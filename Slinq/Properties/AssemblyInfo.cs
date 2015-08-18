@@ -22,6 +22,9 @@ using System.Runtime.InteropServices;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("77f6c5f3-539d-42d9-aca8-3bc9f98dbc31")]
 
+[assembly: InternalsVisibleTo("Slinq.Tests")]
+[assembly: InternalsVisibleTo("Slinq.Benchmarks")]
+
 // Version information for an assembly consists of the following four values:
 //
 //      Major Version

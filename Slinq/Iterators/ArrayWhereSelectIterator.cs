@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using Slinq.Abstract;
 
 namespace Slinq.Iterators
@@ -19,9 +20,11 @@ namespace Slinq.Iterators
 
         public TResult Current
         {
+            [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
             get { return _selector.Invoke(_source.Current); }
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public bool MoveNext()
         {
             return _source.MoveNext();

@@ -49,9 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Iterators\ArrayWhereIteratorBenchmarks.cs" />
+    <Compile Include="Iterators\ArrayWhereSelectIteratorBenchmarks.cs" />
+    <Compile Include="Iterators\ListWhereIteratorBenchmarks.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ArrayWhereIteratorBenchmarks.cs" />
+    <Compile Include="Utils\ArrayProviderBenchmarks.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\RuleSet.ruleset">

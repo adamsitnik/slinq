@@ -3,14 +3,14 @@ using BenchmarkDotNet;
 using BenchmarkDotNet.Tasks;
 using Slinq.Extensions;
 
-namespace Slinq.Benchmarks
+namespace Slinq.Benchmarks.Iterators
 {
     [BenchmarkTask(platform: BenchmarkPlatform.X86, warmupIterationCount: 2, targetIterationCount: 5)]
     [BenchmarkTask(platform: BenchmarkPlatform.X64, jitVersion: BenchmarkJitVersion.LegacyJit, warmupIterationCount: 2, targetIterationCount: 5)]
     [BenchmarkTask(platform: BenchmarkPlatform.X64, jitVersion: BenchmarkJitVersion.RyuJit, warmupIterationCount: 2, targetIterationCount: 5)]
     public class ArrayWhereIteratorBenchmarks
     {
-        private static readonly int[] Numbers = System.Linq.Enumerable.Range(1, 1000).ToArray();
+        private static readonly int[] Numbers = Enumerable.Range(1, 1000).ToArray();
 
         [Benchmark]
         public int IterateOverWhereResult_Struct()

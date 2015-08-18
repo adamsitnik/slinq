@@ -1,4 +1,7 @@
 ﻿using BenchmarkDotNet;
+using Slinq.Benchmarks.Iterators;
+using Slinq.Benchmarks.Utils;
+using Slinq.Utils;
 
 namespace Slinq.Benchmarks
 {
@@ -9,6 +12,9 @@ namespace Slinq.Benchmarks
             var competitionSwitch = new BenchmarkCompetitionSwitch(new[] 
             {
                 typeof(ArrayWhereIteratorBenchmarks),
+                typeof(ArrayWhereSelectIteratorBenchmarks),
+                typeof(ListWhereIteratorBenchmarks),
+                typeof(ArrayProviderBenchmarks)
             });
             competitionSwitch.Run(args);
         }

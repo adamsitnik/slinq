@@ -9,13 +9,15 @@ namespace Slinq.Iterators
     {
         private readonly T[] _source;
         private readonly Predicate<T> _predicate;
+        private readonly int _actualLength;
         private int _index;
 
-        internal ArrayWhereIterator(T[] source, Predicate<T> predicate)
+        internal ArrayWhereIterator(T[] source, Predicate<T> predicate, int actualLength)
             : this()
         {
             _source = source;
             _predicate = predicate;
+            _actualLength = actualLength;
             _index = -1;
         }
 
@@ -26,7 +28,7 @@ namespace Slinq.Iterators
 
         public bool MoveNext()
         {
-            while (++_index < _source.Length)
+            while (++_index < _actualLength)
             {
                 if (_predicate.Invoke(_source[_index]))
                 {
