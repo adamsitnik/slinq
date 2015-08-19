@@ -5,7 +5,7 @@ using Slinq.Extensions;
 namespace Slinq.Tests.Iterators
 {
     [TestFixture]
-    public class ArrayWhereIteratorTests
+    public class WhereIteratorTests
     {
         [Test]
         public void WhereReturnsItemsThatMatchPredicate()

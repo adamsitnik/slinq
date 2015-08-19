@@ -1,18 +1,19 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using Slinq.Abstract;
 
 namespace Slinq.Iterators
 {
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1815:OverrideEqualsAndOperatorEqualsOnValueTypes",
         Justification = "It is not going to be compared")]
-    public struct ArrayWhereIterator<T> : IStrongEnumerator<T>, IStrongEnumerable<T, ArrayWhereIterator<T>>
+    public struct WhereIterator<T> : IStrongEnumerator<T>, IStrongEnumerable<T, WhereIterator<T>>
     {
         private readonly T[] _source;
         private readonly Predicate<T> _predicate;
         private readonly int _actualLength;
         private int _index;
 
-        internal ArrayWhereIterator(T[] source, Predicate<T> predicate, int actualLength)
+        internal WhereIterator(T[] source, Predicate<T> predicate, int actualLength)
             : this()
         {
             _source = source;
@@ -23,9 +24,11 @@ namespace Slinq.Iterators
 
         public T Current
         {
+            [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
             get { return _source[_index]; }
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public bool MoveNext()
         {
             while (++_index < _actualLength)
@@ -39,14 +42,14 @@ namespace Slinq.Iterators
             return false;
         }
 
-        public ArrayWhereIterator<T> GetEnumerator()
+        public WhereIterator<T> GetEnumerator()
         {
             return this;
         }
 
-        public ArrayWhereSelectIterator<T, TResult> Select<TResult>(Func<T, TResult> selector)
+        public WhereSelectIterator<T, TResult> Select<TResult>(Func<T, TResult> selector)
         {
-            return new ArrayWhereSelectIterator<T, TResult>(this, selector);
+            return new WhereSelectIterator<T, TResult>(this, selector);
         }
     }
 }

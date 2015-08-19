@@ -1,7 +1,6 @@
 ﻿using BenchmarkDotNet;
 using Slinq.Benchmarks.Iterators;
 using Slinq.Benchmarks.Utils;
-using Slinq.Utils;
 
 namespace Slinq.Benchmarks
 {
