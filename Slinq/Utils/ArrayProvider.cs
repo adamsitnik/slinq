@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reflection;
+using System.Runtime.CompilerServices;
+using Slinq.Models;
 
 namespace Slinq.Utils
 {
@@ -47,6 +49,24 @@ namespace Slinq.Utils
         internal static T[] GetWrappedArray(List<T> source)
         {
             return ArrayFromListGetter.Invoke(source);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static ExtractedArray<T> Extract(T[] source)
+        {
+            return new ExtractedArray<T>(source, source.Length);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static ExtractedArray<T> Extract(List<T> source)
+        {
+            return new ExtractedArray<T>(GetWrappedArray(source), source.Count);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static ExtractedArray<T> Extract(ReadOnlyCollection<T> source)
+        {
+            return new ExtractedArray<T>(GetWrappedArray(source), source.Count);
         }
 
         internal static T[] GetWrappedArray(ReadOnlyCollection<T> source)
