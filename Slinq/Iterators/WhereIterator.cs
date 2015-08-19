@@ -9,31 +9,31 @@ namespace Slinq.Iterators
         Justification = "It is not going to be compared")]
     public struct WhereIterator<T> : IStrongEnumerator<T>, IStrongEnumerable<T, WhereIterator<T>>
     {
-        private readonly T[] _source;
-        private readonly Predicate<T> _predicate;
-        private readonly int _actualLength;
+        internal readonly T[] Source;
+        internal readonly Predicate<T> Predicate;
+        internal readonly int ActualLength;
         private int _index;
 
         internal WhereIterator(ExtractedArray<T> extractedArray, Predicate<T> predicate)
         {
-            _source = extractedArray.Array;
-            _predicate = predicate;
-            _actualLength = extractedArray.ActualLength;
+            Source = extractedArray.Array;
+            Predicate = predicate;
+            ActualLength = extractedArray.ActualLength;
             _index = -1;
         }
 
         public T Current
         {
             [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
-            get { return _source[_index]; }
+            get { return Source[_index]; }
         }
 
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public bool MoveNext()
         {
-            while (++_index < _actualLength)
+            while (++_index < ActualLength)
             {
-                if (_predicate.Invoke(_source[_index]))
+                if (Predicate(Source[_index]))
                 {
                     return true;
                 }
