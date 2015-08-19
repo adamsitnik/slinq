@@ -24,7 +24,7 @@ namespace Slinq.Benchmarks.Utils
         [Benchmark]
         public int[] GetArrayFromListDynamicCIL()
         {
-            return ArrayProvider<int>.GetWrappedArrayWithDynamicCilGeneration(ListOfSmallValueTypes);
+            return ArrayProvider<int>.GetWrappedArray(ListOfSmallValueTypes);
         }
     }
 }

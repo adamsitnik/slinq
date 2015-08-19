@@ -13,6 +13,7 @@ namespace Slinq.Benchmarks
                 typeof(ArrayWhereIteratorBenchmarks),
                 typeof(ArrayWhereSelectIteratorBenchmarks),
                 typeof(ListWhereIteratorBenchmarks),
+                typeof(ReadOnlyCollectionWhereIteratorBenchmark),
                 typeof(ArrayProviderBenchmarks)
             });
             competitionSwitch.Run(args);
