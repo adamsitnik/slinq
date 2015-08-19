@@ -9,15 +9,15 @@ namespace Slinq.Extensions
     {
         public static WhereIterator<T> Where<T>(this List<T> source, Predicate<T> predicate)
         {
-            return new WhereIterator<T>(
-                ArrayProvider<T>.GetWrappedArray(source), 
-                predicate,
-                actualLength: source.Count); // the wrapped array is not used in 100%, i.e. list of 10 elements has 16 long array
+            return ArrayProvider<T>.Extract(source).Where(predicate);
         }
 
-/* 
- * somehow auto-generated: 
- */
+        public static SelectIterator<TSource, TResult> Select<TSource, TResult>(
+            this List<TSource> source,
+            Func<TSource, TResult> selector)
+        {
+            return ArrayProvider<TSource>.Extract(source).Select(selector);
+        }
 
         public static bool Any<T>(this List<T> source)
         {

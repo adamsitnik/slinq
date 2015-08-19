@@ -9,21 +9,25 @@ namespace Slinq.Extensions
     public static class ReadOnlyCollectionExtensions
     {
         /// <summary>
-        /// supports only for Array/List based 
+        /// supports only Array/List based ReadOnlyCollections
         /// </summary>
         /// <param name="source">that wraps Array/List</param>
         /// <param name="predicate">the filter</param>
         public static WhereIterator<T> Where<T>(this ReadOnlyCollection<T> source, Predicate<T> predicate)
         {
-            return new WhereIterator<T>(
-                ArrayProvider<T>.GetWrappedArray(source),
-                predicate,
-                actualLength: source.Count);
+            return ArrayProvider<T>.Extract(source).Where(predicate);
         }
 
 /* 
  * somehow auto-generated: 
  */
+
+        public static SelectIterator<TSource, TResult> Select<TSource, TResult>(
+            this ReadOnlyCollection<TSource> source,
+            Func<TSource, TResult> selector)
+        {
+            return ArrayProvider<TSource>.Extract(source).Select(selector);
+        }
 
         public static bool Any<T>(this ReadOnlyCollection<T> source)
         {

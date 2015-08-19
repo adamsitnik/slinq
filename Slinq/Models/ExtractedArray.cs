@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Slinq.Iterators;
 
 namespace Slinq.Models
 {
@@ -7,12 +8,25 @@ namespace Slinq.Models
     {
         internal readonly T[] Array;
 
+        /// <summary>
+        /// the wrapped array is not used in 100%, i.e. list of 10 elements has 16 long array
+        /// </summary>
         internal readonly int ActualLength;
 
         public ExtractedArray(T[] array, int actualLength)
         {
             Array = array;
             ActualLength = actualLength;
+        }
+
+        internal WhereIterator<T> Where(Predicate<T> predicate)
+        {
+            return new WhereIterator<T>(this, predicate);
+        }
+
+        internal SelectIterator<T, TResult> Select<TResult>(Func<T, TResult> selector)
+        {
+            return new SelectIterator<T, TResult>(this, selector);
         }
 
         internal bool Any()

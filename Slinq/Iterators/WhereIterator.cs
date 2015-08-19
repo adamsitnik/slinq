@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using Slinq.Abstract;
+using Slinq.Models;
 
 namespace Slinq.Iterators
 {
@@ -13,12 +14,11 @@ namespace Slinq.Iterators
         private readonly int _actualLength;
         private int _index;
 
-        internal WhereIterator(T[] source, Predicate<T> predicate, int actualLength)
-            : this()
+        internal WhereIterator(ExtractedArray<T> extractedArray, Predicate<T> predicate)
         {
-            _source = source;
+            _source = extractedArray.Array;
             _predicate = predicate;
-            _actualLength = actualLength;
+            _actualLength = extractedArray.ActualLength;
             _index = -1;
         }
 

@@ -53,6 +53,7 @@
     <Compile Include="Extensions\ReadOnlyCollectionExtensions.cs" />
     <Compile Include="Extensions\SortingExtensions.cs" />
     <Compile Include="Extensions\StrongEnumeratorExtensions.cs" />
+    <Compile Include="Iterators\SelectIterator.cs" />
     <Compile Include="Iterators\WhereIterator.cs" />
     <Compile Include="Iterators\WhereSelectIterator.cs" />
     <Compile Include="Models\ExtractedArray.cs" />

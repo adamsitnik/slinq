@@ -9,12 +9,15 @@ namespace Slinq.Extensions
     {
         public static WhereIterator<T> Where<T>(this T[] source, Predicate<T> predicate)
         {
-            return new WhereIterator<T>(source, predicate, source.Length);
+            return ArrayProvider<T>.Extract(source).Where(predicate);
         }
 
-/* 
- * somehow auto-generated: 
- */
+        public static SelectIterator<TSource, TResult> Select<TSource, TResult>(
+            this TSource[] source, 
+            Func<TSource, TResult> selector)
+        {
+            return ArrayProvider<TSource>.Extract(source).Select(selector);
+        }
 
         public static bool Any<T>(this T[] source)
         {
