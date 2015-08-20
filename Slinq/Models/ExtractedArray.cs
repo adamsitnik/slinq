@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Slinq.Iterators;
+using Slinq.Utils;
 
 namespace Slinq.Models
 {
@@ -9,12 +10,14 @@ namespace Slinq.Models
         internal readonly T[] Array;
 
         /// <summary>
-        /// the wrapped array is not used in 100%, i.e. list of 10 elements has 16 long array
+        /// the wrapped array is not used in 100%, i.e. list of 10 sequentially added elements has 16 long array
         /// </summary>
         internal readonly int ActualLength;
 
         public ExtractedArray(T[] array, int actualLength)
         {
+            Contract.RequiresInInclusiveRange(actualLength, array.Length);
+
             Array = array;
             ActualLength = actualLength;
         }
@@ -138,6 +141,115 @@ namespace Slinq.Models
             Func<TAccumulate, TResult> resultSelector)
         {
             return resultSelector(Aggregate(seed, aggregator));
+        }
+
+        internal T First()
+        {
+            if (Any())
+            {
+                return Array[0];
+            }
+
+            throw Error.NoElements();
+        }
+
+        internal T First(Predicate<T> predicate)
+        {
+            for (int i = 0; i < ActualLength; i++)
+            {
+                if (predicate(Array[i]))
+                {
+                    return Array[i];
+                }
+            }
+
+            throw Error.NoElements();
+        }
+
+        internal T FirstOrDefault()
+        {
+            if (Any())
+            {
+                return Array[0];
+            }
+
+            return default(T);
+        }
+
+        internal T FirstOrDefault(Predicate<T> predicate)
+        {
+            for (int i = 0; i < ActualLength; i++)
+            {
+                if (predicate(Array[i]))
+                {
+                    return Array[i];
+                }
+            }
+
+            return default(T);
+        }
+
+        internal T Last()
+        {
+            if (Any())
+            {
+                return Array[ActualLength - 1];
+            }
+
+            throw Error.NoElements();
+        }
+
+        internal T Last(Predicate<T> predicate)
+        {
+            for (int i = ActualLength - 1; i >= 0; i--)
+            {
+                if (predicate(Array[i]))
+                {
+                    return Array[i];
+                }
+            }
+
+            throw Error.NoElements();
+        }
+
+        internal T LastOrDefault()
+        {
+            if (Any())
+            {
+                return Array[ActualLength - 1];
+            }
+
+            return default(T);
+        }
+
+        internal T LastOrDefault(Predicate<T> predicate)
+        {
+            for (int i = ActualLength - 1; i >= 0; i--)
+            {
+                if (predicate(Array[i]))
+                {
+                    return Array[i];
+                }
+            }
+
+            return default(T);
+        }
+
+        internal T ElementAt(int index)
+        {
+            Contract.RequiresInRange(index, ActualLength);
+
+            return Array[index];
+        }
+
+        internal T ElementAtOrDefault(int index)
+        {
+            if (Contract.IsInRange(index, ActualLength))
+            {
+                return Array[index];
+            }
+
+            return default(T);
         }
     }
 }

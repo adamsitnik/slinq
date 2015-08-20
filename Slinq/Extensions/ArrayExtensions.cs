@@ -75,5 +75,55 @@ namespace Slinq.Extensions
         {
             return ArrayProvider<TSource>.Extract(source).Aggregate(seed, aggregator, resultSelector);
         }
+
+        public static T First<T>(this T[] source)
+        {
+            return ArrayProvider<T>.Extract(source).First();
+        }
+
+        public static T First<T>(this T[] source, Predicate<T> predicate)
+        {
+            return ArrayProvider<T>.Extract(source).First(predicate);
+        }
+
+        public static T FirstOrDefault<T>(this T[] source)
+        {
+            return ArrayProvider<T>.Extract(source).FirstOrDefault();
+        }
+
+        public static T FirstOrDefault<T>(this T[] source, Predicate<T> predicate)
+        {
+            return ArrayProvider<T>.Extract(source).FirstOrDefault(predicate);
+        }
+
+        public static T Last<T>(this T[] source)
+        {
+            return ArrayProvider<T>.Extract(source).Last();
+        }
+
+        public static T Last<T>(this T[] source, Predicate<T> predicate)
+        {
+            return ArrayProvider<T>.Extract(source).Last(predicate);
+        }
+
+        public static T LastOrDefault<T>(this T[] source)
+        {
+            return ArrayProvider<T>.Extract(source).LastOrDefault();
+        }
+
+        public static T LastOrDefault<T>(this T[] source, Predicate<T> predicate)
+        {
+            return ArrayProvider<T>.Extract(source).LastOrDefault(predicate);
+        }
+
+        public static T ElementAt<T>(this T[] source, int index)
+        {
+            return ArrayProvider<T>.Extract(source).ElementAt(index);
+        }
+
+        public static T ElementAtOrDefault<T>(this T[] source, int index)
+        {
+            return ArrayProvider<T>.Extract(source).ElementAtOrDefault(index);
+        }
     }
 }
