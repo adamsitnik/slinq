@@ -1,0 +1,14 @@
+﻿<#@ assembly name="System.Core" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#+ 
+    /*    This file includes static data used as compilation configuration for the rest of the code generation. 
+        It is shared here to ensure that all generated code compiles with the same constants and configurations.    */
+
+    // The set of supported numeric types to compile
+    public static string[] supportedTypes = new[] 
+    { 
+        "List", "ReadOnlyCollection"
+    };
+#>

@@ -46,6 +46,16 @@
   <ItemGroup>
     <Compile Include="Abstract\IStrongEnumerable.cs" />
     <Compile Include="Abstract\IStrongEnumerator.cs" />
+    <Compile Include="CodeGeneration\CodeGenerationConfig1.cs">
+      <DependentUpon>CodeGenerationConfig.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="CodeGeneration\CollectionExtensions.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CollectionExtensions.tt</DependentUpon>
+    </Compile>
     <Compile Include="Error.cs" />
     <Compile Include="Extensions\ArrayExtensions.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />
@@ -69,9 +79,21 @@
     <None Include="..\Settings.StyleCop">
       <Link>Settings.StyleCop</Link>
     </None>
+    <Content Include="CodeGeneration\CodeGenerationConfig.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CodeGenerationConfig1.cs</LastGenOutput>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="CodeGeneration\CollectionExtensions.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CollectionExtensions.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\StyleCop.MSBuild.4.7.49.1\build\StyleCop.MSBuild.Targets" Condition="Exists('..\packages\StyleCop.MSBuild.4.7.49.1\build\StyleCop.MSBuild.Targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
