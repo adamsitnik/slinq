@@ -11,9 +11,11 @@ namespace Slinq.Benchmarks
             var competitionSwitch = new BenchmarkCompetitionSwitch(new[] 
             {
                 typeof(ArrayWhereIteratorBenchmarks),
-                typeof(ArrayWhereSelectIteratorBenchmarks),
                 typeof(ListWhereIteratorBenchmarks),
                 typeof(ReadOnlyCollectionWhereIteratorBenchmark),
+                typeof(ArrayWhereSelectIteratorBenchmarks),
+                typeof(ListWhereIteratorBenchmarks),
+                typeof(ReadOnlyCollectionWhereSelectIteratorBenchmark),
                 typeof(ArrayProviderBenchmarks)
             });
             competitionSwitch.Run(args);
