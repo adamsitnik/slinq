@@ -46,21 +46,19 @@
   <ItemGroup>
     <Compile Include="Abstract\IStrongEnumerable.cs" />
     <Compile Include="Abstract\IStrongEnumerator.cs" />
-    <Compile Include="CodeGeneration\CodeGenerationConfig1.cs">
-      <DependentUpon>CodeGenerationConfig.tt</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="CodeGeneration\CollectionExtensions.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CollectionExtensions.tt</DependentUpon>
-    </Compile>
     <Compile Include="Error.cs" />
     <Compile Include="Extensions\ArrayExtensions.cs" />
-    <Compile Include="Extensions\ListExtensions.cs" />
+    <Compile Include="Extensions\ListExtensions.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ListExtensionsGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\MathExtensions.cs" />
-    <Compile Include="Extensions\ReadOnlyCollectionExtensions.cs" />
+    <Compile Include="Extensions\ReadOnlyCollectionExtensions.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReadOnlyCollectionExtensionsGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\SortingExtensions.cs" />
     <Compile Include="Extensions\StrongEnumeratorExtensions.cs" />
     <Compile Include="Iterators\SelectIterator.cs" />
@@ -79,16 +77,20 @@
     <None Include="..\Settings.StyleCop">
       <Link>Settings.StyleCop</Link>
     </None>
-    <Content Include="CodeGeneration\CodeGenerationConfig.tt">
+    <Content Include="Extensions\ListExtensionsGenerator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>CodeGenerationConfig1.cs</LastGenOutput>
+      <LastGenOutput>ListExtensions.cs</LastGenOutput>
+      <!-- this little bastard is controlling the output file name -->
+    </Content>
+    <Content Include="Extensions\ReadOnlyCollectionExtensionsGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ReadOnlyCollectionExtensions.cs</LastGenOutput>
+      <!-- this little bastard is controlling the output file name -->
     </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CodeGeneration\CollectionExtensions.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>CollectionExtensions.cs</LastGenOutput>
+    <Content Include="CodeGeneration\CollectionExtensionsGenerator.tt">
     </Content>
   </ItemGroup>
   <ItemGroup>

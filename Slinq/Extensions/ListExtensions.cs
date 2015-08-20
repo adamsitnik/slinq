@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using Slinq.Iterators;
 using Slinq.Utils;

@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Slinq.Iterators;
 using Slinq.Utils;
@@ -16,10 +18,6 @@ namespace Slinq.Extensions
         {
             return ArrayProvider<T>.Extract(source).Where(predicate);
         }
-
-/* 
- * somehow auto-generated: 
- */
 
         public static SelectIterator<TSource, TResult> Select<TSource, TResult>(
             this ReadOnlyCollection<TSource> source,
@@ -58,7 +56,7 @@ namespace Slinq.Extensions
             return ArrayProvider<T>.Extract(source).Contains(item);
         }
 
-        public static bool Contains<T>(this ReadOnlyCollection<T> source, T item, System.Collections.Generic.IEqualityComparer<T> equalityComparer)
+        public static bool Contains<T>(this ReadOnlyCollection<T> source, T item, IEqualityComparer<T> equalityComparer)
         {
             return ArrayProvider<T>.Extract(source).Contains(item, equalityComparer);
         }

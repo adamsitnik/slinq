@@ -3,23 +3,39 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
-<#@ output extension=".cs" #>
-<#@ include file="CodeGenerationConfig.tt" #>
-
+<#+ 
+	public void GenerateCollectionExtension(string type)
+    {
+#>
 using System;
 using System.Collections.Generic;
+<#+ 
+	if(type == "ReadOnlyCollection")
+	{ 
+#>
 using System.Collections.ObjectModel;
+<#+  
+	} 
+#>
 using Slinq.Iterators;
 using Slinq.Utils;
 
 namespace Slinq.Extensions
 {
-<# 
-    foreach (var type in supportedTypes)
-    {
-#>
     public static class <#=type#>Extensions
     {
+<#+
+	if(type == "ReadOnlyCollection")
+	{
+#>
+        /// <summary>
+        /// supports only Array/List based ReadOnlyCollections
+        /// </summary>
+        /// <param name="source">that wraps Array/List</param>
+        /// <param name="predicate">the filter</param>
+<#+
+	}
+#>
         public static WhereIterator<T> Where<T>(this <#=type#><T> source, Predicate<T> predicate)
         {
             return ArrayProvider<T>.Extract(source).Where(predicate);
@@ -139,7 +155,7 @@ namespace Slinq.Extensions
             return ArrayProvider<T>.Extract(source).ElementAtOrDefault(index);
         }
     }
-<#
+}
+<#+
     }
 #>
-}
