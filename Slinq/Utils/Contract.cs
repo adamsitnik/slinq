@@ -40,5 +40,14 @@ namespace Slinq.Utils
                 return (uint)start < (uint)length;
             }
         }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void Requires(bool condition)
+        {
+            if (!condition)
+            {
+                throw new ArgumentException();
+            }
+        }
     }
 }

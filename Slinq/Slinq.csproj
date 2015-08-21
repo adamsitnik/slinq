@@ -60,8 +60,12 @@
       <DependentUpon>ReadOnlyCollectionExtensionsGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Extensions\SortingExtensions.cs" />
+    <Compile Include="Extensions\StrongEnumerable.cs" />
     <Compile Include="Extensions\StrongEnumeratorExtensions.cs" />
+    <Compile Include="Iterators\RangeIterator.cs" />
+    <Compile Include="Iterators\RangeSelectIterator.cs" />
     <Compile Include="Iterators\SelectIterator.cs" />
+    <Compile Include="Iterators\SelectWhereIterator.cs" />
     <Compile Include="Iterators\WhereIterator.cs" />
     <Compile Include="Iterators\WhereSelectIterator.cs" />
     <Compile Include="Models\ExtractedArray.cs" />
@@ -69,6 +73,8 @@
     <Compile Include="Utils\ArrayProvider.cs" />
     <Compile Include="Utils\CilGenerator.cs" />
     <Compile Include="Utils\Contract.cs" />
+    <Compile Include="Utils\ListFactory.cs" />
+    <Compile Include="Utils\ReverseEngineering.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\RuleSet.ruleset">
