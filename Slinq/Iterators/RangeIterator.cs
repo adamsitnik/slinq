@@ -49,5 +49,22 @@ namespace Slinq.Iterators
         {
             return new RangeSelectIterator<T>(this, selector);
         }
+
+        public void ForEach(Action<int> command)
+        {
+            for (int i = Start; i < End; i++)
+            {
+                command(i);
+            }
+        }
+
+        // it is not about performance but usability
+        public void ForEach(Action command)
+        {
+            for (int i = Start; i < End; i++)
+            {
+                command();
+            }
+        }
     }
 }
