@@ -1,11 +1,11 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Slinq.Iterators;
 using Slinq.Utils;
 
 namespace Slinq.Extensions
 {
+// ReSharper disable UnusedMember.Global, ClassTooBig, MethodNamesNotMeaningful, TooManyArguments, MaximumChainedReferences this is an API && we just follow the existing convention
     public static class ListExtensions
     {
         public static WhereIterator<T> Where<T>(this List<T> source, Predicate<T> predicate)
@@ -127,4 +127,5 @@ namespace Slinq.Extensions
             return ArrayProvider<T>.Extract(source).ElementAtOrDefault(index);
         }
     }
+// ReSharper restore UnusedMember.Global, ClassTooBig, MethodNamesNotMeaningful, TooManyArguments, MaximumChainedReferences
 }

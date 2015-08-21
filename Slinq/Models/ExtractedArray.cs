@@ -7,41 +7,42 @@ namespace Slinq.Models
 {
     internal struct ExtractedArray<T>
     {
-        internal readonly T[] Array;
+        private readonly T[] _array;
 
         /// <summary>
         /// the wrapped array is not used in 100%, i.e. list of 10 sequentially added elements has 16 long array
         /// </summary>
-        internal readonly int ActualLength;
+        private readonly int _actualLength;
 
-        public ExtractedArray(T[] array, int actualLength)
+        internal ExtractedArray(T[] array, int actualLength)
         {
             Contract.RequiresInInclusiveRange(actualLength, array.Length);
 
-            Array = array;
-            ActualLength = actualLength;
+            _array = array;
+            _actualLength = actualLength;
         }
 
+// ReSharper disable MethodNamesNotMeaningful we just follow the existing convention
         internal WhereIterator<T> Where(Predicate<T> predicate)
         {
-            return new WhereIterator<T>(this, predicate);
+            return new WhereIterator<T>(_array, _actualLength, predicate);
         }
 
         internal SelectIterator<T, TResult> Select<TResult>(Func<T, TResult> selector)
         {
-            return new SelectIterator<T, TResult>(this, selector);
+            return new SelectIterator<T, TResult>(_array, _actualLength, selector);
         }
 
         internal bool Any()
         {
-            return ActualLength > 0;
+            return _actualLength > 0;
         }
 
         internal bool Any(Predicate<T> predicate)
         {
-            for (int i = 0; i < ActualLength; i++)
+            for (int i = 0; i < _actualLength; i++)
             {
-                if (predicate(Array[i]))
+                if (predicate(_array[i]))
                 {
                     return true;
                 }
@@ -52,9 +53,9 @@ namespace Slinq.Models
 
         internal bool All(Predicate<T> predicate)
         {
-            for (int i = 0; i < ActualLength; i++)
+            for (int i = 0; i < _actualLength; i++)
             {
-                if (!predicate(Array[i]))
+                if (!predicate(_array[i]))
                 {
                     return false;
                 }
@@ -65,15 +66,15 @@ namespace Slinq.Models
 
         internal int Count()
         {
-            return ActualLength;
+            return _actualLength;
         }
 
         internal int Count(Predicate<T> predicate)
         {
             var count = 0;
-            for (int i = 0; i < ActualLength; i++)
+            for (int i = 0; i < _actualLength; i++)
             {
-                if (predicate(Array[i]))
+                if (predicate(_array[i]))
                 {
                     checked
                     {
@@ -95,9 +96,9 @@ namespace Slinq.Models
 
         internal bool Contains(T item, IEqualityComparer<T> equalityComparer)
         {
-            for (int i = 0; i < ActualLength; i++)
+            for (int i = 0; i < _actualLength; i++)
             {
-                if (equalityComparer.Equals(Array[i], item))
+                if (equalityComparer.Equals(_array[i], item))
                 {
                     return true;
                 }
@@ -108,34 +109,36 @@ namespace Slinq.Models
 
         internal T Aggregate(Func<T, T, T> aggregator)
         {
-            if (!Any())
+            if (_actualLength == 0)
             {
                 throw Error.NoElements();
             }
 
-            var aggregate = Array[0];
-            for (int i = 1; i < ActualLength; i++)
+            var aggregate = _array[0];
+            for (int i = 1; i < _actualLength; i++)
             {
-                aggregate = aggregator(aggregate, Array[i]);
+                aggregate = aggregator(aggregate, _array[i]);
             }
 
             return aggregate;
         }
 
         internal TAccumulate Aggregate<TAccumulate>(
+            
             TAccumulate seed,
             Func<TAccumulate, T, TAccumulate> aggregator)
         {
             var aggregate = seed;
-            for (int i = 1; i < ActualLength; i++)
+            for (int i = 1; i < _actualLength; i++)
             {
-                aggregate = aggregator(aggregate, Array[i]);
+                aggregate = aggregator(aggregate, _array[i]);
             }
 
             return aggregate;
         }
 
         internal TResult Aggregate<TAccumulate, TResult>(
+            
             TAccumulate seed,
             Func<TAccumulate, T, TAccumulate> aggregator,
             Func<TAccumulate, TResult> resultSelector)
@@ -145,9 +148,9 @@ namespace Slinq.Models
 
         internal T First()
         {
-            if (Any())
+            if (_actualLength > 0)
             {
-                return Array[0];
+                return _array[0];
             }
 
             throw Error.NoElements();
@@ -155,11 +158,11 @@ namespace Slinq.Models
 
         internal T First(Predicate<T> predicate)
         {
-            for (int i = 0; i < ActualLength; i++)
+            for (int i = 0; i < _actualLength; i++)
             {
-                if (predicate(Array[i]))
+                if (predicate(_array[i]))
                 {
-                    return Array[i];
+                    return _array[i];
                 }
             }
 
@@ -168,9 +171,9 @@ namespace Slinq.Models
 
         internal T FirstOrDefault()
         {
-            if (Any())
+            if (_actualLength > 0)
             {
-                return Array[0];
+                return _array[0];
             }
 
             return default(T);
@@ -178,11 +181,11 @@ namespace Slinq.Models
 
         internal T FirstOrDefault(Predicate<T> predicate)
         {
-            for (int i = 0; i < ActualLength; i++)
+            for (int i = 0; i < _actualLength; i++)
             {
-                if (predicate(Array[i]))
+                if (predicate(_array[i]))
                 {
-                    return Array[i];
+                    return _array[i];
                 }
             }
 
@@ -191,9 +194,9 @@ namespace Slinq.Models
 
         internal T Last()
         {
-            if (Any())
+            if (_actualLength > 0)
             {
-                return Array[ActualLength - 1];
+                return _array[_actualLength - 1];
             }
 
             throw Error.NoElements();
@@ -201,11 +204,11 @@ namespace Slinq.Models
 
         internal T Last(Predicate<T> predicate)
         {
-            for (int i = ActualLength - 1; i >= 0; i--)
+            for (int i = _actualLength - 1; i >= 0; i--)
             {
-                if (predicate(Array[i]))
+                if (predicate(_array[i]))
                 {
-                    return Array[i];
+                    return _array[i];
                 }
             }
 
@@ -214,9 +217,9 @@ namespace Slinq.Models
 
         internal T LastOrDefault()
         {
-            if (Any())
+            if (_actualLength > 0)
             {
-                return Array[ActualLength - 1];
+                return _array[_actualLength - 1];
             }
 
             return default(T);
@@ -224,11 +227,11 @@ namespace Slinq.Models
 
         internal T LastOrDefault(Predicate<T> predicate)
         {
-            for (int i = ActualLength - 1; i >= 0; i--)
+            for (int i = _actualLength - 1; i >= 0; i--)
             {
-                if (predicate(Array[i]))
+                if (predicate(_array[i]))
                 {
-                    return Array[i];
+                    return _array[i];
                 }
             }
 
@@ -237,19 +240,20 @@ namespace Slinq.Models
 
         internal T ElementAt(int index)
         {
-            Contract.RequiresInRange(index, ActualLength);
+            Contract.RequiresInRange(index, _actualLength);
 
-            return Array[index];
+            return _array[index];
         }
 
         internal T ElementAtOrDefault(int index)
         {
-            if (Contract.IsInRange(index, ActualLength))
+            if (Contract.IsInRange(index, _actualLength))
             {
-                return Array[index];
+                return _array[index];
             }
 
             return default(T);
         }
+// ReSharper restore MethodNamesNotMeaningful
     }
 }

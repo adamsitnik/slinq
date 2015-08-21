@@ -14,11 +14,11 @@ namespace Slinq.Iterators
         internal readonly int ActualLength;
         private int _index;
 
-        internal SelectIterator(ExtractedArray<TSource> extractedArray, Func<TSource, TResult> selector)
+        internal SelectIterator(TSource[] array, int actualLength, Func<TSource, TResult> selector)
         {
-            Source = extractedArray.Array;
+            Source = array;
             Selector = selector;
-            ActualLength = extractedArray.ActualLength;
+            ActualLength = actualLength;
             _index = -1;
         }
 

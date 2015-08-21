@@ -6,6 +6,15 @@ namespace Slinq.Utils
 {
     internal static class ReverseEngineering<T>
     {
+        internal static readonly FieldInfo ListsArrayField
+            = typeof(List<T>).GetField(ListFieldNameThatContainsArray, BindingFlags.NonPublic | BindingFlags.Instance);
+
+        internal static readonly FieldInfo ListsSizeField
+            = typeof(List<T>).GetField(ListFieldNameThatContainsSize, BindingFlags.NonPublic | BindingFlags.Instance);
+
+        internal static readonly FieldInfo ReadonlyCollectionIListField
+            = typeof(ReadOnlyCollection<T>).GetField(ReadonlyCollectionFieldNameThatContainsIList, BindingFlags.NonPublic | BindingFlags.Instance);
+
         /// <summary>
         /// source: http://referencesource.microsoft.com/#mscorlib/system/collections/generic/list.cs,2765070d40f47b98
         /// </summary>
@@ -20,14 +29,5 @@ namespace Slinq.Utils
         /// source: http://referencesource.microsoft.com/#mscorlib/system/collections/objectmodel/readonlycollection.cs,633b76eb3a793621
         /// </summary>
         private const string ReadonlyCollectionFieldNameThatContainsIList = "list";
-
-        internal static readonly FieldInfo ListsArrayField
-            = typeof(List<T>).GetField(ListFieldNameThatContainsArray, BindingFlags.NonPublic | BindingFlags.Instance);
-
-        internal static readonly FieldInfo ListsSizeField
-            = typeof(List<T>).GetField(ListFieldNameThatContainsSize, BindingFlags.NonPublic | BindingFlags.Instance);
-
-        internal static readonly FieldInfo ReadonlyCollectionIListField
-            = typeof(ReadOnlyCollection<T>).GetField(ReadonlyCollectionFieldNameThatContainsIList, BindingFlags.NonPublic | BindingFlags.Instance);
     }
 }

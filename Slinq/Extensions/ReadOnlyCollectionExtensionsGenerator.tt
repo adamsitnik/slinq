@@ -1,9 +1,18 @@
 ﻿<#@ assembly name="System.Core" #>
+<#@ output extension=".cs" #>
 <#@ import namespace="System" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Collections.Generic" #>
-<#@ include file="..\CodeGeneration\CollectionExtensionsGenerator.tt" #>
-<#@ output extension=".cs" #>
-<# 
-    GenerateCollectionExtension("ReadOnlyCollection");
-#>
+<#@ include file="..\CodeGeneration\CollectionExtensionsGenerator.tt" #>using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using Slinq.Iterators;
+using Slinq.Utils;
+
+namespace Slinq.Extensions
+{
+    /// <summary>
+    /// supports only Array/List based ReadOnlyCollections
+    /// </summary>
+    <# GenerateCollectionExtension("ReadOnlyCollection"); #>
+}

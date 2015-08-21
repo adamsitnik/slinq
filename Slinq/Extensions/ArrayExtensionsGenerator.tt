@@ -1,0 +1,19 @@
+﻿<#@ assembly name="System.Core" #>
+<#@ output extension=".cs" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ include file="..\CodeGeneration\ArrayMethodsGenerator.tt" #>using System;
+using System.Collections.Generic;
+using Slinq.Iterators;
+using Slinq.Utils;
+
+namespace Slinq.Extensions
+{
+// ReSharper disable UnusedMember.Global, ClassTooBig, MethodNamesNotMeaningful, TooManyArguments this is an API && we just follow the existing convention
+    public static class ArrayExtensions
+    {
+<# GenerateArrayExtensionsMethodsSet(); #>
+// ReSharper restore UnusedMember.Global, ClassTooBig, MethodNamesNotMeaningful, TooManyArguments
+    }
+}

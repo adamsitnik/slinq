@@ -13,7 +13,7 @@
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>d7d3adfd</NuGetPackageImportStamp>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <StyleCopTreatErrorsAsWarnings>false</StyleCopTreatErrorsAsWarnings>
+    <StyleCopTreatErrorsAsWarnings>true</StyleCopTreatErrorsAsWarnings>
     <CodeAnalysisRuleSet>..\RuleSet.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
@@ -47,7 +47,11 @@
     <Compile Include="Abstract\IStrongEnumerable.cs" />
     <Compile Include="Abstract\IStrongEnumerator.cs" />
     <Compile Include="Error.cs" />
-    <Compile Include="Extensions\ArrayExtensions.cs" />
+    <Compile Include="Extensions\ArrayExtensions.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ArrayExtensionsGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\ListExtensions.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -68,7 +72,11 @@
     <Compile Include="Iterators\SelectWhereIterator.cs" />
     <Compile Include="Iterators\WhereIterator.cs" />
     <Compile Include="Iterators\WhereSelectIterator.cs" />
-    <Compile Include="Models\ExtractedArray.cs" />
+    <Compile Include="Models\ExtractedArray.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExtractedArrayGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\ArrayProvider.cs" />
     <Compile Include="Utils\CilGenerator.cs" />
@@ -88,16 +96,26 @@
       <LastGenOutput>ListExtensions.cs</LastGenOutput>
       <!-- this little bastard is controlling the output file name -->
     </Content>
+    <Content Include="Extensions\ArrayExtensionsGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ArrayExtensions.cs</LastGenOutput>
+      <!-- this little bastard is controlling the output file name -->
+    </Content>
     <Content Include="Extensions\ReadOnlyCollectionExtensionsGenerator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ReadOnlyCollectionExtensions.cs</LastGenOutput>
       <!-- this little bastard is controlling the output file name -->
     </Content>
+    <Content Include="Models\ExtractedArrayGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ExtractedArray.cs</LastGenOutput>
+      <!-- this little bastard is controlling the output file name -->
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CodeGeneration\CollectionExtensionsGenerator.tt">
-    </Content>
+    <Content Include="CodeGeneration\CollectionExtensionsGenerator.tt" />
+    <Content Include="CodeGeneration\ArrayMethodsGenerator.tt" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

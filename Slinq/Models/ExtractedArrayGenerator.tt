@@ -1,0 +1,34 @@
+﻿<#@ assembly name="System.Core" #>
+<#@ output extension=".cs" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ include file="..\CodeGeneration\ArrayMethodsGenerator.tt" #>using System;
+using System.Collections.Generic;
+using Slinq.Iterators;
+using Slinq.Utils;
+
+namespace Slinq.Models
+{
+    internal struct ExtractedArray<T>
+    {
+        private readonly T[] _array;
+
+        /// <summary>
+        /// the wrapped array is not used in 100%, i.e. list of 10 sequentially added elements has 16 long array
+        /// </summary>
+        private readonly int _actualLength;
+
+        internal ExtractedArray(T[] array, int actualLength)
+        {
+            Contract.RequiresInInclusiveRange(actualLength, array.Length);
+
+            _array = array;
+            _actualLength = actualLength;
+        }
+
+// ReSharper disable MethodNamesNotMeaningful we just follow the existing convention
+<# GenerateExtractedArrayMethodsSet(); #>
+// ReSharper restore MethodNamesNotMeaningful
+    }
+}

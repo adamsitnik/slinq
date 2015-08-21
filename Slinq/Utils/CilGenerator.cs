@@ -42,6 +42,5 @@ namespace Slinq.Utils
             return (Action<TOwner, TField>)dynamicMethod
                 .CreateDelegate(typeof(Action<TOwner, TField>));
         }
-
     }
 }

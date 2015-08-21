@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Slinq.Iterators;
@@ -7,13 +6,12 @@ using Slinq.Utils;
 
 namespace Slinq.Extensions
 {
+    /// <summary>
+    /// supports only Array/List based ReadOnlyCollections
+    /// </summary>
+    // ReSharper disable UnusedMember.Global, ClassTooBig, MethodNamesNotMeaningful, TooManyArguments, MaximumChainedReferences this is an API && we just follow the existing convention
     public static class ReadOnlyCollectionExtensions
     {
-        /// <summary>
-        /// supports only Array/List based ReadOnlyCollections
-        /// </summary>
-        /// <param name="source">that wraps Array/List</param>
-        /// <param name="predicate">the filter</param>
         public static WhereIterator<T> Where<T>(this ReadOnlyCollection<T> source, Predicate<T> predicate)
         {
             return ArrayProvider<T>.Extract(source).Where(predicate);
@@ -133,4 +131,5 @@ namespace Slinq.Extensions
             return ArrayProvider<T>.Extract(source).ElementAtOrDefault(index);
         }
     }
+// ReSharper restore UnusedMember.Global, ClassTooBig, MethodNamesNotMeaningful, TooManyArguments, MaximumChainedReferences
 }

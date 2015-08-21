@@ -5,125 +5,240 @@ using Slinq.Utils;
 
 namespace Slinq.Extensions
 {
+// ReSharper disable UnusedMember.Global, ClassTooBig, MethodNamesNotMeaningful, TooManyArguments this is an API && we just follow the existing convention
     public static class ArrayExtensions
     {
-        public static WhereIterator<T> Where<T>(this T[] source, Predicate<T> predicate)
+        public static WhereIterator<T> Where<T>(this T[] array, Predicate<T> predicate)
         {
-            return ArrayProvider<T>.Extract(source).Where(predicate);
+            return new WhereIterator<T>(array, array.Length, predicate);
         }
 
-        public static SelectIterator<TSource, TResult> Select<TSource, TResult>(
-            this TSource[] source, 
-            Func<TSource, TResult> selector)
+        public static SelectIterator<T, TResult> Select<T, TResult>(this T[] array, Func<T, TResult> selector)
         {
-            return ArrayProvider<TSource>.Extract(source).Select(selector);
+            return new SelectIterator<T, TResult>(array, array.Length, selector);
         }
 
-        public static bool Any<T>(this T[] source)
+        public static bool Any<T>(this T[] array)
         {
-            return ArrayProvider<T>.Extract(source).Any();
+            return array.Length > 0;
         }
 
-        public static bool Any<T>(this T[] source, Predicate<T> predicate)
+        public static bool Any<T>(this T[] array, Predicate<T> predicate)
         {
-            return ArrayProvider<T>.Extract(source).Any(predicate);
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (predicate(array[i]))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
-        public static bool All<T>(this T[] source, Predicate<T> predicate)
+        public static bool All<T>(this T[] array, Predicate<T> predicate)
         {
-            return ArrayProvider<T>.Extract(source).All(predicate);
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (!predicate(array[i]))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
-        public static int Count<T>(this T[] source)
+        public static int Count<T>(this T[] array)
         {
-            return ArrayProvider<T>.Extract(source).Count();
+            return array.Length;
         }
 
-        public static int Count<T>(this T[] source, Predicate<T> predicate)
+        public static int Count<T>(this T[] array, Predicate<T> predicate)
         {
-            return ArrayProvider<T>.Extract(source).Count(predicate);
+            var count = 0;
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (predicate(array[i]))
+                {
+                    checked
+                    {
+                        ++count;
+                    }
+                }
+            }
+
+            return count;
         }
 
-        public static bool Contains<T>(this T[] source, T item)
+        public static bool Contains<T>(this T[] array, T item)
         {
-            return ArrayProvider<T>.Extract(source).Contains(item);
+            // can not use Array.Contains because it could give false-positive 
+            // if i.e. this was array taken from List and somebody would query for 0 (default(int))
+            // and at the end there would be some values that match but they are not in the List for real
+            return Contains(array, item, EqualityComparer<T>.Default);
         }
 
-        public static bool Contains<T>(this T[] source, T item, IEqualityComparer<T> equalityComparer)
+        public static bool Contains<T>(this T[] array, T item, IEqualityComparer<T> equalityComparer)
         {
-            return ArrayProvider<T>.Extract(source).Contains(item, equalityComparer);
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (equalityComparer.Equals(array[i], item))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
-        public static T Aggregate<T>(this T[] source, Func<T, T, T> aggregator)
+        public static T Aggregate<T>(this T[] array, Func<T, T, T> aggregator)
         {
-            return ArrayProvider<T>.Extract(source).Aggregate(aggregator);
+            if (array.Length == 0)
+            {
+                throw Error.NoElements();
+            }
+
+            var aggregate = array[0];
+            for (int i = 1; i < array.Length; i++)
+            {
+                aggregate = aggregator(aggregate, array[i]);
+            }
+
+            return aggregate;
         }
 
-        public static TAccumulate Aggregate<TSource, TAccumulate>(
-            this List<TSource> source,
+        public static TAccumulate Aggregate<T, TAccumulate>(
+            this T[] array, 
             TAccumulate seed,
-            Func<TAccumulate, TSource, TAccumulate> aggregator)
+            Func<TAccumulate, T, TAccumulate> aggregator)
         {
-            return ArrayProvider<TSource>.Extract(source).Aggregate(seed, aggregator);
+            var aggregate = seed;
+            for (int i = 1; i < array.Length; i++)
+            {
+                aggregate = aggregator(aggregate, array[i]);
+            }
+
+            return aggregate;
         }
 
-        public static TResult Aggregate<TSource, TAccumulate, TResult>(
-            this List<TSource> source,
+        public static TResult Aggregate<T, TAccumulate, TResult>(
+            this T[] array, 
             TAccumulate seed,
-            Func<TAccumulate, TSource, TAccumulate> aggregator,
+            Func<TAccumulate, T, TAccumulate> aggregator,
             Func<TAccumulate, TResult> resultSelector)
         {
-            return ArrayProvider<TSource>.Extract(source).Aggregate(seed, aggregator, resultSelector);
+            return resultSelector(Aggregate(array, seed, aggregator));
         }
 
-        public static T First<T>(this T[] source)
+        public static T First<T>(this T[] array)
         {
-            return ArrayProvider<T>.Extract(source).First();
+            if (array.Length > 0)
+            {
+                return array[0];
+            }
+
+            throw Error.NoElements();
         }
 
-        public static T First<T>(this T[] source, Predicate<T> predicate)
+        public static T First<T>(this T[] array, Predicate<T> predicate)
         {
-            return ArrayProvider<T>.Extract(source).First(predicate);
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (predicate(array[i]))
+                {
+                    return array[i];
+                }
+            }
+
+            throw Error.NoElements();
         }
 
-        public static T FirstOrDefault<T>(this T[] source)
+        public static T FirstOrDefault<T>(this T[] array)
         {
-            return ArrayProvider<T>.Extract(source).FirstOrDefault();
+            if (array.Length > 0)
+            {
+                return array[0];
+            }
+
+            return default(T);
         }
 
-        public static T FirstOrDefault<T>(this T[] source, Predicate<T> predicate)
+        public static T FirstOrDefault<T>(this T[] array, Predicate<T> predicate)
         {
-            return ArrayProvider<T>.Extract(source).FirstOrDefault(predicate);
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (predicate(array[i]))
+                {
+                    return array[i];
+                }
+            }
+
+            return default(T);
         }
 
-        public static T Last<T>(this T[] source)
+        public static T Last<T>(this T[] array)
         {
-            return ArrayProvider<T>.Extract(source).Last();
+            if (array.Length > 0)
+            {
+                return array[array.Length - 1];
+            }
+
+            throw Error.NoElements();
         }
 
-        public static T Last<T>(this T[] source, Predicate<T> predicate)
+        public static T Last<T>(this T[] array, Predicate<T> predicate)
         {
-            return ArrayProvider<T>.Extract(source).Last(predicate);
+            for (int i = array.Length - 1; i >= 0; i--)
+            {
+                if (predicate(array[i]))
+                {
+                    return array[i];
+                }
+            }
+
+            throw Error.NoElements();
         }
 
-        public static T LastOrDefault<T>(this T[] source)
+        public static T LastOrDefault<T>(this T[] array)
         {
-            return ArrayProvider<T>.Extract(source).LastOrDefault();
+            if (array.Length > 0)
+            {
+                return array[array.Length - 1];
+            }
+
+            return default(T);
         }
 
-        public static T LastOrDefault<T>(this T[] source, Predicate<T> predicate)
+        public static T LastOrDefault<T>(this T[] array, Predicate<T> predicate)
         {
-            return ArrayProvider<T>.Extract(source).LastOrDefault(predicate);
+            for (int i = array.Length - 1; i >= 0; i--)
+            {
+                if (predicate(array[i]))
+                {
+                    return array[i];
+                }
+            }
+
+            return default(T);
         }
 
-        public static T ElementAt<T>(this T[] source, int index)
+        public static T ElementAt<T>(this T[] array, int index)
         {
-            return ArrayProvider<T>.Extract(source).ElementAt(index);
+            Contract.RequiresInRange(index, array.Length);
+
+            return array[index];
         }
 
-        public static T ElementAtOrDefault<T>(this T[] source, int index)
+        public static T ElementAtOrDefault<T>(this T[] array, int index)
         {
-            return ArrayProvider<T>.Extract(source).ElementAtOrDefault(index);
+            if (Contract.IsInRange(index, array.Length))
+            {
+                return array[index];
+            }
+
+            return default(T);
         }
+// ReSharper restore UnusedMember.Global, ClassTooBig, MethodNamesNotMeaningful, TooManyArguments
     }
 }

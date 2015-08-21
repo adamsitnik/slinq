@@ -1,0 +1,286 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#+ 
+	public void GenerateArrayExtensionsMethodsSet()
+	{
+		GenerateArrayMethodSet(
+			accessModifiers: "public static",
+			firstArgument: "this T[] array, ",
+			sourceName: "array",
+			lengthName: "array.Length",
+			genericConstraint: "<T>",
+			selectGenericConstraint: "<T, TResult>",
+			aggregateWithSeedGenericConstraint: "<T, TAccumulate>",
+			aggregateWithSeedGenericConstraintAndResultSelector: "<T, TAccumulate, TResult>",
+			passAsParameterToOtherMethod: "array, "
+		);
+	}
+
+	public void GenerateExtractedArrayMethodsSet()
+	{
+		GenerateArrayMethodSet(
+			accessModifiers: "internal",
+			firstArgument: string.Empty,
+			sourceName: "_array",
+			lengthName: "_actualLength",
+			genericConstraint: string.Empty,
+			selectGenericConstraint: "<TResult>",
+			aggregateWithSeedGenericConstraint: "<TAccumulate>",
+			aggregateWithSeedGenericConstraintAndResultSelector: "<TAccumulate, TResult>",
+			passAsParameterToOtherMethod: string.Empty
+		);
+	}
+
+	private string ToSingleArgument(string argumentEndedWithComma)
+    {
+        if (string.IsNullOrEmpty(argumentEndedWithComma))
+        {
+            return argumentEndedWithComma;
+        }
+
+        return argumentEndedWithComma.Remove(argumentEndedWithComma.Length - 2);
+    }
+
+	private void GenerateArrayMethodSet(string accessModifiers, string firstArgument, string sourceName, 
+		string lengthName, string genericConstraint, string selectGenericConstraint,
+		string aggregateWithSeedGenericConstraint, string aggregateWithSeedGenericConstraintAndResultSelector,
+		string passAsParameterToOtherMethod)
+    {
+#>
+        <#=accessModifiers#> WhereIterator<T> Where<#=genericConstraint#>(<#=firstArgument#>Predicate<T> predicate)
+        {
+            return new WhereIterator<T>(<#=sourceName#>, <#=lengthName#>, predicate);
+        }
+
+        <#=accessModifiers#> SelectIterator<T, TResult> Select<#=selectGenericConstraint#>(<#=firstArgument#>Func<T, TResult> selector)
+        {
+            return new SelectIterator<T, TResult>(<#=sourceName#>, <#=lengthName#>, selector);
+        }
+
+        <#=accessModifiers#> bool Any<#=genericConstraint#>(<#=ToSingleArgument(firstArgument)#>)
+        {
+            return <#=lengthName#> > 0;
+        }
+
+        <#=accessModifiers#> bool Any<#=genericConstraint#>(<#=firstArgument#>Predicate<T> predicate)
+        {
+            for (int i = 0; i < <#=lengthName#>; i++)
+            {
+                if (predicate(<#=sourceName#>[i]))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        <#=accessModifiers#> bool All<#=genericConstraint#>(<#=firstArgument#>Predicate<T> predicate)
+        {
+            for (int i = 0; i < <#=lengthName#>; i++)
+            {
+                if (!predicate(<#=sourceName#>[i]))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        <#=accessModifiers#> int Count<#=genericConstraint#>(<#=ToSingleArgument(firstArgument)#>)
+        {
+            return <#=lengthName#>;
+        }
+
+        <#=accessModifiers#> int Count<#=genericConstraint#>(<#=firstArgument#>Predicate<T> predicate)
+        {
+            var count = 0;
+            for (int i = 0; i < <#=lengthName#>; i++)
+            {
+                if (predicate(<#=sourceName#>[i]))
+                {
+                    checked
+                    {
+                        ++count;
+                    }
+                }
+            }
+
+            return count;
+        }
+
+        <#=accessModifiers#> bool Contains<#=genericConstraint#>(<#=firstArgument#>T item)
+        {
+            // can not use Array.Contains because it could give false-positive 
+            // if i.e. this was array taken from List and somebody would query for 0 (default(int))
+            // and at the end there would be some values that match but they are not in the List for real
+            return Contains(<#=passAsParameterToOtherMethod#>item, EqualityComparer<T>.Default);
+        }
+
+        <#=accessModifiers#> bool Contains<#=genericConstraint#>(<#=firstArgument#>T item, IEqualityComparer<T> equalityComparer)
+        {
+            for (int i = 0; i < <#=lengthName#>; i++)
+            {
+                if (equalityComparer.Equals(<#=sourceName#>[i], item))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        <#=accessModifiers#> T Aggregate<#=genericConstraint#>(<#=firstArgument#>Func<T, T, T> aggregator)
+        {
+            if (<#=lengthName#> == 0)
+            {
+                throw Error.NoElements();
+            }
+
+            var aggregate = <#=sourceName#>[0];
+            for (int i = 1; i < <#=lengthName#>; i++)
+            {
+                aggregate = aggregator(aggregate, <#=sourceName#>[i]);
+            }
+
+            return aggregate;
+        }
+
+        <#=accessModifiers#> TAccumulate Aggregate<#=aggregateWithSeedGenericConstraint#>(
+            <#=firstArgument#>
+            TAccumulate seed,
+            Func<TAccumulate, T, TAccumulate> aggregator)
+        {
+            var aggregate = seed;
+            for (int i = 1; i < <#=lengthName#>; i++)
+            {
+                aggregate = aggregator(aggregate, <#=sourceName#>[i]);
+            }
+
+            return aggregate;
+        }
+
+        <#=accessModifiers#> TResult Aggregate<#=aggregateWithSeedGenericConstraintAndResultSelector#>(
+            <#=firstArgument#>
+            TAccumulate seed,
+            Func<TAccumulate, T, TAccumulate> aggregator,
+            Func<TAccumulate, TResult> resultSelector)
+        {
+            return resultSelector(Aggregate(<#=passAsParameterToOtherMethod#>seed, aggregator));
+        }
+
+        <#=accessModifiers#> T First<#=genericConstraint#>(<#=ToSingleArgument(firstArgument)#>)
+        {
+            if (<#=lengthName#> > 0)
+            {
+                return <#=sourceName#>[0];
+            }
+
+            throw Error.NoElements();
+        }
+
+        <#=accessModifiers#> T First<#=genericConstraint#>(<#=firstArgument#>Predicate<T> predicate)
+        {
+            for (int i = 0; i < <#=lengthName#>; i++)
+            {
+                if (predicate(<#=sourceName#>[i]))
+                {
+                    return <#=sourceName#>[i];
+                }
+            }
+
+            throw Error.NoElements();
+        }
+
+        <#=accessModifiers#> T FirstOrDefault<#=genericConstraint#>(<#=ToSingleArgument(firstArgument)#>)
+        {
+            if (<#=lengthName#> > 0)
+            {
+                return <#=sourceName#>[0];
+            }
+
+            return default(T);
+        }
+
+        <#=accessModifiers#> T FirstOrDefault<#=genericConstraint#>(<#=firstArgument#>Predicate<T> predicate)
+        {
+            for (int i = 0; i < <#=lengthName#>; i++)
+            {
+                if (predicate(<#=sourceName#>[i]))
+                {
+                    return <#=sourceName#>[i];
+                }
+            }
+
+            return default(T);
+        }
+
+        <#=accessModifiers#> T Last<#=genericConstraint#>(<#=ToSingleArgument(firstArgument)#>)
+        {
+            if (<#=lengthName#> > 0)
+            {
+                return <#=sourceName#>[<#=lengthName#> - 1];
+            }
+
+            throw Error.NoElements();
+        }
+
+        <#=accessModifiers#> T Last<#=genericConstraint#>(<#=firstArgument#>Predicate<T> predicate)
+        {
+            for (int i = <#=lengthName#> - 1; i >= 0; i--)
+            {
+                if (predicate(<#=sourceName#>[i]))
+                {
+                    return <#=sourceName#>[i];
+                }
+            }
+
+            throw Error.NoElements();
+        }
+
+        <#=accessModifiers#> T LastOrDefault<#=genericConstraint#>(<#=ToSingleArgument(firstArgument)#>)
+        {
+            if (<#=lengthName#> > 0)
+            {
+                return <#=sourceName#>[<#=lengthName#> - 1];
+            }
+
+            return default(T);
+        }
+
+        <#=accessModifiers#> T LastOrDefault<#=genericConstraint#>(<#=firstArgument#>Predicate<T> predicate)
+        {
+            for (int i = <#=lengthName#> - 1; i >= 0; i--)
+            {
+                if (predicate(<#=sourceName#>[i]))
+                {
+                    return <#=sourceName#>[i];
+                }
+            }
+
+            return default(T);
+        }
+
+        <#=accessModifiers#> T ElementAt<#=genericConstraint#>(<#=firstArgument#>int index)
+        {
+            Contract.RequiresInRange(index, <#=lengthName#>);
+
+            return <#=sourceName#>[index];
+        }
+
+        <#=accessModifiers#> T ElementAtOrDefault<#=genericConstraint#>(<#=firstArgument#>int index)
+        {
+            if (Contract.IsInRange(index, <#=lengthName#>))
+            {
+                return <#=sourceName#>[index];
+            }
+
+            return default(T);
+        }
+<#+
+    }
+#>

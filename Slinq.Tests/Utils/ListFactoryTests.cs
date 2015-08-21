@@ -10,8 +10,7 @@ namespace Slinq.Tests.Utils
         [Test]
         public void CreateFromArrayShouldNotAllocateAnyMemory()
         {
-            const int Size = 10;
-            var array = StrongEnumerable.Range(0, Size).Select(_ => _).ToArray();
+            var array = StrongEnumerable.Range(0, 10).Select(_ => _).ToArray();
 
             var list = ListFactory<int>.Create(array);
 

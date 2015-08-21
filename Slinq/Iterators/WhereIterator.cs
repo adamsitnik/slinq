@@ -14,11 +14,11 @@ namespace Slinq.Iterators
         internal readonly int ActualLength;
         private int _index;
 
-        internal WhereIterator(ExtractedArray<T> extractedArray, Predicate<T> predicate)
+        internal WhereIterator(T[] array, int actualLength, Predicate<T> predicate)
         {
-            Source = extractedArray.Array;
+            Source = array;
             Predicate = predicate;
-            ActualLength = extractedArray.ActualLength;
+            ActualLength = actualLength;
             _index = -1;
         }
 

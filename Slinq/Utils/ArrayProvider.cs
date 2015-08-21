@@ -21,23 +21,6 @@ namespace Slinq.Utils
         private static readonly Func<ReadOnlyCollection<T>, IList<T>> IListFromReadOnlyCollectionGetter
             = CilGenerator.GenerateGetter<ReadOnlyCollection<T>, IList<T>>(ReverseEngineering<T>.ReadonlyCollectionIListField);
 
-        [Obsolete("Don't use, 33 TIMES slower that GetWrappedArray that uses dynamic Cil generation")]
-        internal static T[] GetWrappedArrayWithReflection(List<T> source)
-        {
-            return (T[])ReverseEngineering<T>.ListsArrayField.GetValue(source);
-        }
-
-        internal static T[] GetWrappedArray(List<T> source)
-        {
-            return ArrayFromListGetter.Invoke(source);
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static ExtractedArray<T> Extract(T[] source)
-        {
-            return new ExtractedArray<T>(source, source.Length);
-        }
-
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static ExtractedArray<T> Extract(List<T> source)
         {
@@ -48,6 +31,17 @@ namespace Slinq.Utils
         internal static ExtractedArray<T> Extract(ReadOnlyCollection<T> source)
         {
             return new ExtractedArray<T>(GetWrappedArray(source), source.Count);
+        }
+
+        [Obsolete("Don't use, 33 TIMES slower that GetWrappedArray that uses dynamic Cil generation")]
+        internal static T[] GetWrappedArrayWithReflection(List<T> source)
+        {
+            return (T[])ReverseEngineering<T>.ListsArrayField.GetValue(source);
+        }
+
+        internal static T[] GetWrappedArray(List<T> source)
+        {
+            return ArrayFromListGetter.Invoke(source);
         }
 
         internal static T[] GetWrappedArray(ReadOnlyCollection<T> source)
