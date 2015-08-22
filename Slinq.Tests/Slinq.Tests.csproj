@@ -50,6 +50,7 @@
     <Compile Include="Iterators\RangeSelectIteratorTests.cs" />
     <Compile Include="Iterators\WhereIteratorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\SandboxPermissionsTests.cs" />
     <Compile Include="Utils\ArrayProviderTests.cs" />
     <Compile Include="Utils\ListFactoryTests.cs" />
   </ItemGroup>

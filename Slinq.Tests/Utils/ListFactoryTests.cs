@@ -13,7 +13,9 @@ namespace Slinq.Tests.Utils
             var array = StrongEnumerable.Range(0, 10).Select(_ => _).ToArray();
 
             var list = ListFactory<int>.Create(array);
+            var extractedArray = ArrayProvider<int>.GetWrappedArray(list);
 
+            Assert.AreSame(array, extractedArray);
             CollectionAssert.AreEqual(array, list);
         }
     }

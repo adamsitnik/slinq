@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security;
+using System.Security.Permissions;
 using Slinq.Models;
 
 namespace Slinq.Utils
@@ -15,11 +18,32 @@ namespace Slinq.Utils
     /// </summary>
     internal static class ArrayProvider<T>
     {
-        private static readonly Func<List<T>, T[]> ArrayFromListGetter
-            = CilGenerator.GenerateGetter<List<T>, T[]>(ReverseEngineering<T>.ListsArrayField);
+        private static readonly Func<List<T>, T[]> ArrayFromListGetter;
 
-        private static readonly Func<ReadOnlyCollection<T>, IList<T>> IListFromReadOnlyCollectionGetter
-            = CilGenerator.GenerateGetter<ReadOnlyCollection<T>, IList<T>>(ReverseEngineering<T>.ReadonlyCollectionIListField);
+        private static readonly Func<ReadOnlyCollection<T>, IList<T>> IListFromReadOnlyCollectionGetter;
+
+        static ArrayProvider()
+        {
+            try
+            {
+                ArrayFromListGetter = CilGenerator.GenerateGetter<List<T>, T[]>(
+                    ReverseEngineering<T>.ListsArrayField);
+
+                IListFromReadOnlyCollectionGetter = CilGenerator.GenerateGetter<ReadOnlyCollection<T>, IList<T>>(
+                    ReverseEngineering<T>.ReadonlyCollectionIListField);
+            }
+            catch (SecurityException ex)
+            {
+                if (ex.PermissionType != typeof(ReflectionPermission))
+                {
+                    throw;
+                }
+
+                // TODO: need to find another hack for this or just refuse support!
+                ArrayFromListGetter = list => list.ToArray();
+                IListFromReadOnlyCollectionGetter = collection => collection.ToArray();
+            }
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static ExtractedArray<T> Extract(List<T> source)
