@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 namespace Slinq.Utils
@@ -47,6 +48,24 @@ namespace Slinq.Utils
             if (!condition)
             {
                 throw new ArgumentException();
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void RequiresNotDefault<T>(T parameterValue, string parameterName)
+        {
+            if (EqualityComparer<T>.Default.Equals(parameterValue, default(T)))
+            {
+                throw new ArgumentNullException(parameterName);
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void RequiresNonEmptyCollection(int collectionElementsCount)
+        {
+            if (collectionElementsCount <= 0)
+            {
+                throw Error.NoElements();
             }
         }
     }

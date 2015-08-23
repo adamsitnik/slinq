@@ -52,6 +52,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ArrayExtensionsGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="Extensions\ExtractedArrayExtensions.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExtractedArrayExtensionsGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\ListExtensions.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -111,11 +116,17 @@
       <LastGenOutput>ExtractedArray.cs</LastGenOutput>
       <!-- this little bastard is controlling the output file name -->
     </Content>
+    <Content Include="Extensions\ExtractedArrayExtensionsGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ExtractedArrayExtensions.cs</LastGenOutput>
+      <!-- this little bastard is controlling the output file name -->
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="CodeGeneration\CollectionExtensionsGenerator.tt" />
     <Content Include="CodeGeneration\ArrayMethodsGenerator.tt" />
+    <Content Include="CodeGeneration\ArrayMathMethodsGenerator.tt" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

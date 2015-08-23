@@ -8,7 +8,6 @@
     <Rule Id="CA1003" Action="Error" />
     <Rule Id="CA1004" Action="Warning" />
     <Rule Id="CA1005" Action="Warning" />
-    <Rule Id="CA1006" Action="Warning" />
     <Rule Id="CA1007" Action="Warning" />
     <Rule Id="CA1008" Action="Warning" />
     <Rule Id="CA1010" Action="Warning" />

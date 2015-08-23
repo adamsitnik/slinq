@@ -126,6 +126,206 @@ namespace Slinq.Extensions
         {
             return ArrayProvider<T>.Extract(source).ElementAtOrDefault(index);
         }
+
+        public static short Sum(this List<short> source)
+        {
+            return ArrayProvider<short>.Extract(source).Sum();
+        }
+
+        public static short? Sum(this List<short?> source)
+        {
+            return ArrayProvider<short?>.Extract(source).Sum();
+        }
+
+        public static short Min(this List<short> source)
+        {
+            return ArrayProvider<short>.Extract(source).Min();
+        }
+
+        public static short? Min(this List<short?> source)
+        {
+            return ArrayProvider<short?>.Extract(source).Min();
+        }
+
+        public static short Max(this List<short> source)
+        {
+            return ArrayProvider<short>.Extract(source).Max();
+        }
+
+        public static short? Max(this List<short?> source)
+        {
+            return ArrayProvider<short?>.Extract(source).Max();
+        }
+
+        public static double Average(this List<short> source)
+        {
+            return ArrayProvider<short>.Extract(source).Average();
+        }
+
+        public static double? Average(this List<short?> source)
+        {
+            return ArrayProvider<short?>.Extract(source).Average();
+        }
+
+        public static int Sum(this List<int> source)
+        {
+            return ArrayProvider<int>.Extract(source).Sum();
+        }
+
+        public static int? Sum(this List<int?> source)
+        {
+            return ArrayProvider<int?>.Extract(source).Sum();
+        }
+
+        public static int Min(this List<int> source)
+        {
+            return ArrayProvider<int>.Extract(source).Min();
+        }
+
+        public static int? Min(this List<int?> source)
+        {
+            return ArrayProvider<int?>.Extract(source).Min();
+        }
+
+        public static int Max(this List<int> source)
+        {
+            return ArrayProvider<int>.Extract(source).Max();
+        }
+
+        public static int? Max(this List<int?> source)
+        {
+            return ArrayProvider<int?>.Extract(source).Max();
+        }
+
+        public static double Average(this List<int> source)
+        {
+            return ArrayProvider<int>.Extract(source).Average();
+        }
+
+        public static double? Average(this List<int?> source)
+        {
+            return ArrayProvider<int?>.Extract(source).Average();
+        }
+
+        public static long Sum(this List<long> source)
+        {
+            return ArrayProvider<long>.Extract(source).Sum();
+        }
+
+        public static long? Sum(this List<long?> source)
+        {
+            return ArrayProvider<long?>.Extract(source).Sum();
+        }
+
+        public static long Min(this List<long> source)
+        {
+            return ArrayProvider<long>.Extract(source).Min();
+        }
+
+        public static long? Min(this List<long?> source)
+        {
+            return ArrayProvider<long?>.Extract(source).Min();
+        }
+
+        public static long Max(this List<long> source)
+        {
+            return ArrayProvider<long>.Extract(source).Max();
+        }
+
+        public static long? Max(this List<long?> source)
+        {
+            return ArrayProvider<long?>.Extract(source).Max();
+        }
+
+        public static double Average(this List<long> source)
+        {
+            return ArrayProvider<long>.Extract(source).Average();
+        }
+
+        public static double? Average(this List<long?> source)
+        {
+            return ArrayProvider<long?>.Extract(source).Average();
+        }
+
+        public static float Sum(this List<float> source)
+        {
+            return ArrayProvider<float>.Extract(source).Sum();
+        }
+
+        public static float? Sum(this List<float?> source)
+        {
+            return ArrayProvider<float?>.Extract(source).Sum();
+        }
+
+        public static float Min(this List<float> source)
+        {
+            return ArrayProvider<float>.Extract(source).Min();
+        }
+
+        public static float? Min(this List<float?> source)
+        {
+            return ArrayProvider<float?>.Extract(source).Min();
+        }
+
+        public static float Max(this List<float> source)
+        {
+            return ArrayProvider<float>.Extract(source).Max();
+        }
+
+        public static float? Max(this List<float?> source)
+        {
+            return ArrayProvider<float?>.Extract(source).Max();
+        }
+
+        public static double Average(this List<float> source)
+        {
+            return ArrayProvider<float>.Extract(source).Average();
+        }
+
+        public static double? Average(this List<float?> source)
+        {
+            return ArrayProvider<float?>.Extract(source).Average();
+        }
+
+        public static double Sum(this List<double> source)
+        {
+            return ArrayProvider<double>.Extract(source).Sum();
+        }
+
+        public static double? Sum(this List<double?> source)
+        {
+            return ArrayProvider<double?>.Extract(source).Sum();
+        }
+
+        public static double Min(this List<double> source)
+        {
+            return ArrayProvider<double>.Extract(source).Min();
+        }
+
+        public static double? Min(this List<double?> source)
+        {
+            return ArrayProvider<double?>.Extract(source).Min();
+        }
+
+        public static double Max(this List<double> source)
+        {
+            return ArrayProvider<double>.Extract(source).Max();
+        }
+
+        public static double? Max(this List<double?> source)
+        {
+            return ArrayProvider<double?>.Extract(source).Max();
+        }
+
+        public static double Average(this List<double> source)
+        {
+            return ArrayProvider<double>.Extract(source).Average();
+        }
+
+        public static double? Average(this List<double?> source)
+        {
+            return ArrayProvider<double?>.Extract(source).Average();
+        }
     }
 // ReSharper restore UnusedMember.Global, ClassTooBig, MethodNamesNotMeaningful, TooManyArguments, MaximumChainedReferences
 }

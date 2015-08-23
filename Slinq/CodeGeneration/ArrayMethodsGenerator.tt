@@ -24,8 +24,8 @@
 		GenerateArrayMethodSet(
 			accessModifiers: "internal",
 			firstArgument: string.Empty,
-			sourceName: "_array",
-			lengthName: "_actualLength",
+			sourceName: "Array",
+			lengthName: "ActualLength",
 			genericConstraint: string.Empty,
 			selectGenericConstraint: "<TResult>",
 			aggregateWithSeedGenericConstraint: "<TAccumulate>",

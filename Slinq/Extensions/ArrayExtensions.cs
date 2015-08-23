@@ -239,6 +239,757 @@ namespace Slinq.Extensions
 
             return default(T);
         }
+
+        public static short Sum(this short[] source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+
+            short sum = 0;
+            checked
+            {
+                for (int i = 0; i < source.Length; i++)
+                {
+                    sum += source[i];
+                }
+            }
+
+            return sum;
+        }
+
+        public static short? Sum(this short?[] source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+
+            short sum = 0;
+            short? current;
+            checked
+            {
+                for (int i = 0; i < source.Length; i++)
+                {
+                    current = source[i];
+                    if (current != null)
+                    {
+                        sum += current.GetValueOrDefault();
+                    }
+                }
+            }
+
+            return sum;
+        }
+
+        public static short Min(this short[] source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+            Contract.RequiresNonEmptyCollection(source.Length);
+
+            var min = source[0];
+            for (int i = 1; i < source.Length; i++)
+            {
+                if (min > source[i])
+                {
+                    min = source[i];
+                }
+            }
+
+            return min;
+        }
+
+        public static short? Min(this short?[] source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+            Contract.RequiresNonEmptyCollection(source.Length);
+
+            short? min = null;
+            short? current;
+            int i = 0;
+            for (; i < source.Length; i++)
+            {
+                current = source[i];
+                if (current != null)
+                {
+                    min = current;
+                }
+            }
+            for (; i < source.Length; i++)
+            {
+                current = source[i];
+                if (current != null
+                    && min.Value > current.Value)
+                {
+                    min = current;
+                }
+            }
+
+            return min;
+        }
+
+        public static short Max(this short[] source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+            Contract.RequiresNonEmptyCollection(source.Length);
+
+            var max = source[0];
+            for (int i = 1; i < source.Length; i++)
+            {
+                if (max < source[i])
+                {
+                    max = source[i];
+                }
+            }
+
+            return max;
+        }
+
+        public static short? Max(this short?[] source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+            Contract.RequiresNonEmptyCollection(source.Length);
+
+            short? max = null;
+            short? current;
+            int i = 0;
+            for (; i < source.Length; i++)
+            {
+                current = source[i];
+                if (current != null)
+                {
+                    max = current;
+                }
+            }
+            for (; i < source.Length; i++)
+            {
+                current = source[i];
+                if (current != null 
+                    && max.Value < current.Value)
+                {
+                    max = current;
+                }
+            }
+
+            return max;
+        }
+
+        public static double Average(this short[] source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+            Contract.RequiresNonEmptyCollection(source.Length);
+
+            return (double)Sum(source) / source.Length;
+        }
+
+        public static double? Average(this short?[] source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+            Contract.RequiresNonEmptyCollection(source.Length);
+
+            var sum = Sum(source);
+            if(sum == null)
+            {
+                return null;
+            }
+
+            return sum.Value / source.Length;
+        }
+        public static int Sum(this int[] source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+
+            int sum = 0;
+            checked
+            {
+                for (int i = 0; i < source.Length; i++)
+                {
+                    sum += source[i];
+                }
+            }
+
+            return sum;
+        }
+
+        public static int? Sum(this int?[] source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+
+            int sum = 0;
+            int? current;
+            checked
+            {
+                for (int i = 0; i < source.Length; i++)
+                {
+                    current = source[i];
+                    if (current != null)
+                    {
+                        sum += current.GetValueOrDefault();
+                    }
+                }
+            }
+
+            return sum;
+        }
+
+        public static int Min(this int[] source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+            Contract.RequiresNonEmptyCollection(source.Length);
+
+            var min = source[0];
+            for (int i = 1; i < source.Length; i++)
+            {
+                if (min > source[i])
+                {
+                    min = source[i];
+                }
+            }
+
+            return min;
+        }
+
+        public static int? Min(this int?[] source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+            Contract.RequiresNonEmptyCollection(source.Length);
+
+            int? min = null;
+            int? current;
+            int i = 0;
+            for (; i < source.Length; i++)
+            {
+                current = source[i];
+                if (current != null)
+                {
+                    min = current;
+                }
+            }
+            for (; i < source.Length; i++)
+            {
+                current = source[i];
+                if (current != null
+                    && min.Value > current.Value)
+                {
+                    min = current;
+                }
+            }
+
+            return min;
+        }
+
+        public static int Max(this int[] source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+            Contract.RequiresNonEmptyCollection(source.Length);
+
+            var max = source[0];
+            for (int i = 1; i < source.Length; i++)
+            {
+                if (max < source[i])
+                {
+                    max = source[i];
+                }
+            }
+
+            return max;
+        }
+
+        public static int? Max(this int?[] source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+            Contract.RequiresNonEmptyCollection(source.Length);
+
+            int? max = null;
+            int? current;
+            int i = 0;
+            for (; i < source.Length; i++)
+            {
+                current = source[i];
+                if (current != null)
+                {
+                    max = current;
+                }
+            }
+            for (; i < source.Length; i++)
+            {
+                current = source[i];
+                if (current != null 
+                    && max.Value < current.Value)
+                {
+                    max = current;
+                }
+            }
+
+            return max;
+        }
+
+        public static double Average(this int[] source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+            Contract.RequiresNonEmptyCollection(source.Length);
+
+            return (double)Sum(source) / source.Length;
+        }
+
+        public static double? Average(this int?[] source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+            Contract.RequiresNonEmptyCollection(source.Length);
+
+            var sum = Sum(source);
+            if(sum == null)
+            {
+                return null;
+            }
+
+            return sum.Value / source.Length;
+        }
+        public static long Sum(this long[] source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+
+            long sum = 0;
+            checked
+            {
+                for (int i = 0; i < source.Length; i++)
+                {
+                    sum += source[i];
+                }
+            }
+
+            return sum;
+        }
+
+        public static long? Sum(this long?[] source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+
+            long sum = 0;
+            long? current;
+            checked
+            {
+                for (int i = 0; i < source.Length; i++)
+                {
+                    current = source[i];
+                    if (current != null)
+                    {
+                        sum += current.GetValueOrDefault();
+                    }
+                }
+            }
+
+            return sum;
+        }
+
+        public static long Min(this long[] source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+            Contract.RequiresNonEmptyCollection(source.Length);
+
+            var min = source[0];
+            for (int i = 1; i < source.Length; i++)
+            {
+                if (min > source[i])
+                {
+                    min = source[i];
+                }
+            }
+
+            return min;
+        }
+
+        public static long? Min(this long?[] source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+            Contract.RequiresNonEmptyCollection(source.Length);
+
+            long? min = null;
+            long? current;
+            int i = 0;
+            for (; i < source.Length; i++)
+            {
+                current = source[i];
+                if (current != null)
+                {
+                    min = current;
+                }
+            }
+            for (; i < source.Length; i++)
+            {
+                current = source[i];
+                if (current != null
+                    && min.Value > current.Value)
+                {
+                    min = current;
+                }
+            }
+
+            return min;
+        }
+
+        public static long Max(this long[] source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+            Contract.RequiresNonEmptyCollection(source.Length);
+
+            var max = source[0];
+            for (int i = 1; i < source.Length; i++)
+            {
+                if (max < source[i])
+                {
+                    max = source[i];
+                }
+            }
+
+            return max;
+        }
+
+        public static long? Max(this long?[] source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+            Contract.RequiresNonEmptyCollection(source.Length);
+
+            long? max = null;
+            long? current;
+            int i = 0;
+            for (; i < source.Length; i++)
+            {
+                current = source[i];
+                if (current != null)
+                {
+                    max = current;
+                }
+            }
+            for (; i < source.Length; i++)
+            {
+                current = source[i];
+                if (current != null 
+                    && max.Value < current.Value)
+                {
+                    max = current;
+                }
+            }
+
+            return max;
+        }
+
+        public static double Average(this long[] source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+            Contract.RequiresNonEmptyCollection(source.Length);
+
+            return (double)Sum(source) / source.Length;
+        }
+
+        public static double? Average(this long?[] source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+            Contract.RequiresNonEmptyCollection(source.Length);
+
+            var sum = Sum(source);
+            if(sum == null)
+            {
+                return null;
+            }
+
+            return sum.Value / source.Length;
+        }
+        public static float Sum(this float[] source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+
+            float sum = 0;
+            checked
+            {
+                for (int i = 0; i < source.Length; i++)
+                {
+                    sum += source[i];
+                }
+            }
+
+            return sum;
+        }
+
+        public static float? Sum(this float?[] source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+
+            float sum = 0;
+            float? current;
+            checked
+            {
+                for (int i = 0; i < source.Length; i++)
+                {
+                    current = source[i];
+                    if (current != null)
+                    {
+                        sum += current.GetValueOrDefault();
+                    }
+                }
+            }
+
+            return sum;
+        }
+
+        public static float Min(this float[] source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+            Contract.RequiresNonEmptyCollection(source.Length);
+
+            var min = source[0];
+            for (int i = 1; i < source.Length; i++)
+            {
+                if (min > source[i])
+                {
+                    min = source[i];
+                }
+            }
+
+            return min;
+        }
+
+        public static float? Min(this float?[] source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+            Contract.RequiresNonEmptyCollection(source.Length);
+
+            float? min = null;
+            float? current;
+            int i = 0;
+            for (; i < source.Length; i++)
+            {
+                current = source[i];
+                if (current != null)
+                {
+                    min = current;
+                }
+            }
+            for (; i < source.Length; i++)
+            {
+                current = source[i];
+                if (current != null
+                    && min.Value > current.Value)
+                {
+                    min = current;
+                }
+            }
+
+            return min;
+        }
+
+        public static float Max(this float[] source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+            Contract.RequiresNonEmptyCollection(source.Length);
+
+            var max = source[0];
+            for (int i = 1; i < source.Length; i++)
+            {
+                if (max < source[i])
+                {
+                    max = source[i];
+                }
+            }
+
+            return max;
+        }
+
+        public static float? Max(this float?[] source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+            Contract.RequiresNonEmptyCollection(source.Length);
+
+            float? max = null;
+            float? current;
+            int i = 0;
+            for (; i < source.Length; i++)
+            {
+                current = source[i];
+                if (current != null)
+                {
+                    max = current;
+                }
+            }
+            for (; i < source.Length; i++)
+            {
+                current = source[i];
+                if (current != null 
+                    && max.Value < current.Value)
+                {
+                    max = current;
+                }
+            }
+
+            return max;
+        }
+
+        public static double Average(this float[] source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+            Contract.RequiresNonEmptyCollection(source.Length);
+
+            return (double)Sum(source) / source.Length;
+        }
+
+        public static double? Average(this float?[] source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+            Contract.RequiresNonEmptyCollection(source.Length);
+
+            var sum = Sum(source);
+            if(sum == null)
+            {
+                return null;
+            }
+
+            return sum.Value / source.Length;
+        }
+        public static double Sum(this double[] source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+
+            double sum = 0;
+            checked
+            {
+                for (int i = 0; i < source.Length; i++)
+                {
+                    sum += source[i];
+                }
+            }
+
+            return sum;
+        }
+
+        public static double? Sum(this double?[] source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+
+            double sum = 0;
+            double? current;
+            checked
+            {
+                for (int i = 0; i < source.Length; i++)
+                {
+                    current = source[i];
+                    if (current != null)
+                    {
+                        sum += current.GetValueOrDefault();
+                    }
+                }
+            }
+
+            return sum;
+        }
+
+        public static double Min(this double[] source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+            Contract.RequiresNonEmptyCollection(source.Length);
+
+            var min = source[0];
+            for (int i = 1; i < source.Length; i++)
+            {
+                if (min > source[i])
+                {
+                    min = source[i];
+                }
+            }
+
+            return min;
+        }
+
+        public static double? Min(this double?[] source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+            Contract.RequiresNonEmptyCollection(source.Length);
+
+            double? min = null;
+            double? current;
+            int i = 0;
+            for (; i < source.Length; i++)
+            {
+                current = source[i];
+                if (current != null)
+                {
+                    min = current;
+                }
+            }
+            for (; i < source.Length; i++)
+            {
+                current = source[i];
+                if (current != null
+                    && min.Value > current.Value)
+                {
+                    min = current;
+                }
+            }
+
+            return min;
+        }
+
+        public static double Max(this double[] source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+            Contract.RequiresNonEmptyCollection(source.Length);
+
+            var max = source[0];
+            for (int i = 1; i < source.Length; i++)
+            {
+                if (max < source[i])
+                {
+                    max = source[i];
+                }
+            }
+
+            return max;
+        }
+
+        public static double? Max(this double?[] source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+            Contract.RequiresNonEmptyCollection(source.Length);
+
+            double? max = null;
+            double? current;
+            int i = 0;
+            for (; i < source.Length; i++)
+            {
+                current = source[i];
+                if (current != null)
+                {
+                    max = current;
+                }
+            }
+            for (; i < source.Length; i++)
+            {
+                current = source[i];
+                if (current != null 
+                    && max.Value < current.Value)
+                {
+                    max = current;
+                }
+            }
+
+            return max;
+        }
+
+        public static double Average(this double[] source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+            Contract.RequiresNonEmptyCollection(source.Length);
+
+            return (double)Sum(source) / source.Length;
+        }
+
+        public static double? Average(this double?[] source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+            Contract.RequiresNonEmptyCollection(source.Length);
+
+            var sum = Sum(source);
+            if(sum == null)
+            {
+                return null;
+            }
+
+            return sum.Value / source.Length;
+        }
 // ReSharper restore UnusedMember.Global, ClassTooBig, MethodNamesNotMeaningful, TooManyArguments
     }
 }

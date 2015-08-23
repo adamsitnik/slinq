@@ -12,19 +12,19 @@ namespace Slinq.Models
 {
     internal struct ExtractedArray<T>
     {
-        private readonly T[] _array;
+        internal readonly T[] Array;
 
         /// <summary>
         /// the wrapped array is not used in 100%, i.e. list of 10 sequentially added elements has 16 long array
         /// </summary>
-        private readonly int _actualLength;
+        internal readonly int ActualLength;
 
         internal ExtractedArray(T[] array, int actualLength)
         {
             Contract.RequiresInInclusiveRange(actualLength, array.Length);
 
-            _array = array;
-            _actualLength = actualLength;
+            Array = array;
+            ActualLength = actualLength;
         }
 
 // ReSharper disable MethodNamesNotMeaningful we just follow the existing convention

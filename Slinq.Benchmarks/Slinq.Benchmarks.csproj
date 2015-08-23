@@ -54,6 +54,7 @@
     <Compile Include="Iterators\ArrayWhereSelectIteratorBenchmarks.cs" />
     <Compile Include="Iterators\ListWhereIteratorBenchmarks.cs" />
     <Compile Include="Iterators\ListWhereSelectIteratorBenchmarks.cs" />
+    <Compile Include="Iterators\MathExtensionsBenchmarks.cs" />
     <Compile Include="Iterators\RangeSelectIteratorBenchmarks.cs" />
     <Compile Include="Iterators\ReadOnlyCollectionWhereIteratorBenchmark.cs" />
     <Compile Include="Iterators\ReadOnlyCollectionWhereSelectIteratorBenchmark.cs" />

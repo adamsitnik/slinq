@@ -128,8 +128,58 @@
         {
             return ArrayProvider<T>.Extract(source).ElementAtOrDefault(index);
         }
+<#+
+    GenerateMathMethods(type);
+#>
     }
 // ReSharper restore UnusedMember.Global, ClassTooBig, MethodNamesNotMeaningful, TooManyArguments, MaximumChainedReferences
+<#+
+    }
+
+    private void GenerateMathMethods(string type)
+    {
+        GenerateMathMethods(type, "short");
+        GenerateMathMethods(type, "int");
+        GenerateMathMethods(type, "long");
+        GenerateMathMethods(type, "float");
+        GenerateMathMethods(type, "double");
+    }
+
+    private void GenerateMathMethods(string type, string numericType)
+    {
+        GenerateMathMethod(type, numericType, "Sum");
+        GenerateMathMethod(type, numericType + "?", "Sum");
+        GenerateMathMethod(type, numericType, "Min");
+        GenerateMathMethod(type, numericType + "?", "Min");
+        GenerateMathMethod(type, numericType, "Max");
+        GenerateMathMethod(type, numericType + "?", "Max");
+        GenerateAverageMethod(type, numericType);
+    }
+
+    private void GenerateMathMethod(string type, string numericType, string methodName)
+    {
+#>
+
+        public static <#=numericType#> <#=methodName#>(this <#=type#><<#=numericType#>> source)
+        {
+            return ArrayProvider<<#=numericType#>>.Extract(source).<#=methodName#>();
+        }
+<#+
+    }
+
+    private void GenerateAverageMethod(string type, string numericType)
+    {
+#>
+
+        public static double Average(this <#=type#><<#=numericType#>> source)
+        {
+            return ArrayProvider<<#=numericType#>>.Extract(source).Average();
+        }
+
+        public static double? Average(this <#=type#><<#=numericType#>?> source)
+        {
+            return ArrayProvider<<#=numericType#>?>.Extract(source).Average();
+        }
 <#+
     }
 #>

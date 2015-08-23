@@ -3,19 +3,15 @@
 <#@ import namespace="System" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Collections.Generic" #>
-<#@ include file="..\CodeGeneration\ArrayMethodsGenerator.tt" #><#@ include file="..\CodeGeneration\ArrayMathMethodsGenerator.tt" #>using System;
-using System.Collections.Generic;
-using Slinq.Iterators;
+<#@ include file="..\CodeGeneration\ArrayMethodsGenerator.tt" #><#@ include file="..\CodeGeneration\ArrayMathMethodsGenerator.tt" #>using Slinq.Models;
 using Slinq.Utils;
 
 namespace Slinq.Extensions
 {
 // ReSharper disable UnusedMember.Global, ClassTooBig, MethodNamesNotMeaningful, TooManyArguments this is an API && we just follow the existing convention
-    public static class ArrayExtensions
+    public static class ExtractedArrayExtensions
     {
-<# GenerateArrayExtensionsMethodsSet(); #>
-
-<# GenerateArrayMathExtensionsMethodsSet(); #>
+<# GenerateExtractedArrayMathExtensionsMethodsSet(); #>
 // ReSharper restore UnusedMember.Global, ClassTooBig, MethodNamesNotMeaningful, TooManyArguments
     }
 }

@@ -1,0 +1,205 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#+ 
+    public void GenerateArrayMathExtensionsMethodsSet()
+    {
+        GenerateArrayMathExtensionsMethodsSet("short");
+        GenerateArrayMathExtensionsMethodsSet("int");
+        GenerateArrayMathExtensionsMethodsSet("long");
+        GenerateArrayMathExtensionsMethodsSet("float");
+        GenerateArrayMathExtensionsMethodsSet("double");
+    }
+
+    public void GenerateExtractedArrayMathExtensionsMethodsSet()
+    {
+        GenerateExtractedArrayMathExtensionsMethodsSet("short");
+        GenerateExtractedArrayMathExtensionsMethodsSet("int");
+        GenerateExtractedArrayMathExtensionsMethodsSet("long");
+        GenerateExtractedArrayMathExtensionsMethodsSet("float");
+        GenerateExtractedArrayMathExtensionsMethodsSet("double");
+    }
+
+    private void GenerateArrayMathExtensionsMethodsSet(string numericType)
+    {
+        GenerateArrayMathMethodSet(
+            accessModifiers: "public static",
+            inputType: string.Format("{0}[]", numericType),
+            nullableInputType: string.Format("{0}?[]", numericType),
+            sourceName: "source",
+            lengthName: "source.Length",
+            numericType: numericType
+        );
+    }
+
+    private void GenerateExtractedArrayMathExtensionsMethodsSet(string numericType)
+    {
+        GenerateArrayMathMethodSet(
+            accessModifiers: "internal static",
+            inputType: string.Format("ExtractedArray<{0}>", numericType),
+            nullableInputType: string.Format("ExtractedArray<{0}?>", numericType),
+            sourceName: "source.Array",
+            lengthName: "source.ActualLength",
+            numericType: numericType
+        );
+    }
+
+    private void GenerateArrayMathMethodSet(string accessModifiers, string inputType, string nullableInputType, 
+        string sourceName, string lengthName, string numericType)
+    {
+#>
+        <#=accessModifiers#> <#=numericType#> Sum(this <#=inputType#> source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+
+            <#=numericType#> sum = 0;
+            checked
+            {
+                for (int i = 0; i < <#=lengthName#>; i++)
+                {
+                    sum += <#=sourceName#>[i];
+                }
+            }
+
+            return sum;
+        }
+
+        <#=accessModifiers#> <#=numericType#>? Sum(this <#=nullableInputType#> source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+
+            <#=numericType#> sum = 0;
+            <#=numericType#>? current;
+            checked
+            {
+                for (int i = 0; i < <#=lengthName#>; i++)
+                {
+                    current = <#=sourceName#>[i];
+                    if (current != null)
+                    {
+                        sum += current.GetValueOrDefault();
+                    }
+                }
+            }
+
+            return sum;
+        }
+
+        <#=accessModifiers#> <#=numericType#> Min(this <#=inputType#> source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+            Contract.RequiresNonEmptyCollection(<#=lengthName#>);
+
+            var min = <#=sourceName#>[0];
+            for (int i = 1; i < <#=lengthName#>; i++)
+            {
+                if (min > <#=sourceName#>[i])
+                {
+                    min = <#=sourceName#>[i];
+                }
+            }
+
+            return min;
+        }
+
+        <#=accessModifiers#> <#=numericType#>? Min(this <#=nullableInputType#> source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+            Contract.RequiresNonEmptyCollection(<#=lengthName#>);
+
+            <#=numericType#>? min = null;
+            <#=numericType#>? current;
+            int i = 0;
+            for (; i < <#=lengthName#>; i++)
+            {
+                current = <#=sourceName#>[i];
+                if (current != null)
+                {
+                    min = current;
+                }
+            }
+            for (; i < <#=lengthName#>; i++)
+            {
+                current = <#=sourceName#>[i];
+                if (current != null
+                    && min.Value > current.Value)
+                {
+                    min = current;
+                }
+            }
+
+            return min;
+        }
+
+        <#=accessModifiers#> <#=numericType#> Max(this <#=inputType#> source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+            Contract.RequiresNonEmptyCollection(<#=lengthName#>);
+
+            var max = <#=sourceName#>[0];
+            for (int i = 1; i < <#=lengthName#>; i++)
+            {
+                if (max < <#=sourceName#>[i])
+                {
+                    max = <#=sourceName#>[i];
+                }
+            }
+
+            return max;
+        }
+
+        <#=accessModifiers#> <#=numericType#>? Max(this <#=nullableInputType#> source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+            Contract.RequiresNonEmptyCollection(<#=lengthName#>);
+
+            <#=numericType#>? max = null;
+            <#=numericType#>? current;
+            int i = 0;
+            for (; i < <#=lengthName#>; i++)
+            {
+                current = <#=sourceName#>[i];
+                if (current != null)
+                {
+                    max = current;
+                }
+            }
+            for (; i < <#=lengthName#>; i++)
+            {
+                current = <#=sourceName#>[i];
+                if (current != null 
+                    && max.Value < current.Value)
+                {
+                    max = current;
+                }
+            }
+
+            return max;
+        }
+
+        <#=accessModifiers#> double Average(this <#=inputType#> source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+            Contract.RequiresNonEmptyCollection(<#=lengthName#>);
+
+            return (double)Sum(source) / <#=lengthName#>;
+        }
+
+        <#=accessModifiers#> double? Average(this <#=nullableInputType#> source)
+        {
+            Contract.RequiresNotDefault(source, "source");
+            Contract.RequiresNonEmptyCollection(<#=lengthName#>);
+
+            var sum = Sum(source);
+            if(sum == null)
+            {
+                return null;
+            }
+
+            return sum.Value / <#=lengthName#>;
+        }
+<#+
+    }
+#>

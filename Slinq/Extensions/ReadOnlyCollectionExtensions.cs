@@ -130,6 +130,206 @@ namespace Slinq.Extensions
         {
             return ArrayProvider<T>.Extract(source).ElementAtOrDefault(index);
         }
+
+        public static short Sum(this ReadOnlyCollection<short> source)
+        {
+            return ArrayProvider<short>.Extract(source).Sum();
+        }
+
+        public static short? Sum(this ReadOnlyCollection<short?> source)
+        {
+            return ArrayProvider<short?>.Extract(source).Sum();
+        }
+
+        public static short Min(this ReadOnlyCollection<short> source)
+        {
+            return ArrayProvider<short>.Extract(source).Min();
+        }
+
+        public static short? Min(this ReadOnlyCollection<short?> source)
+        {
+            return ArrayProvider<short?>.Extract(source).Min();
+        }
+
+        public static short Max(this ReadOnlyCollection<short> source)
+        {
+            return ArrayProvider<short>.Extract(source).Max();
+        }
+
+        public static short? Max(this ReadOnlyCollection<short?> source)
+        {
+            return ArrayProvider<short?>.Extract(source).Max();
+        }
+
+        public static double Average(this ReadOnlyCollection<short> source)
+        {
+            return ArrayProvider<short>.Extract(source).Average();
+        }
+
+        public static double? Average(this ReadOnlyCollection<short?> source)
+        {
+            return ArrayProvider<short?>.Extract(source).Average();
+        }
+
+        public static int Sum(this ReadOnlyCollection<int> source)
+        {
+            return ArrayProvider<int>.Extract(source).Sum();
+        }
+
+        public static int? Sum(this ReadOnlyCollection<int?> source)
+        {
+            return ArrayProvider<int?>.Extract(source).Sum();
+        }
+
+        public static int Min(this ReadOnlyCollection<int> source)
+        {
+            return ArrayProvider<int>.Extract(source).Min();
+        }
+
+        public static int? Min(this ReadOnlyCollection<int?> source)
+        {
+            return ArrayProvider<int?>.Extract(source).Min();
+        }
+
+        public static int Max(this ReadOnlyCollection<int> source)
+        {
+            return ArrayProvider<int>.Extract(source).Max();
+        }
+
+        public static int? Max(this ReadOnlyCollection<int?> source)
+        {
+            return ArrayProvider<int?>.Extract(source).Max();
+        }
+
+        public static double Average(this ReadOnlyCollection<int> source)
+        {
+            return ArrayProvider<int>.Extract(source).Average();
+        }
+
+        public static double? Average(this ReadOnlyCollection<int?> source)
+        {
+            return ArrayProvider<int?>.Extract(source).Average();
+        }
+
+        public static long Sum(this ReadOnlyCollection<long> source)
+        {
+            return ArrayProvider<long>.Extract(source).Sum();
+        }
+
+        public static long? Sum(this ReadOnlyCollection<long?> source)
+        {
+            return ArrayProvider<long?>.Extract(source).Sum();
+        }
+
+        public static long Min(this ReadOnlyCollection<long> source)
+        {
+            return ArrayProvider<long>.Extract(source).Min();
+        }
+
+        public static long? Min(this ReadOnlyCollection<long?> source)
+        {
+            return ArrayProvider<long?>.Extract(source).Min();
+        }
+
+        public static long Max(this ReadOnlyCollection<long> source)
+        {
+            return ArrayProvider<long>.Extract(source).Max();
+        }
+
+        public static long? Max(this ReadOnlyCollection<long?> source)
+        {
+            return ArrayProvider<long?>.Extract(source).Max();
+        }
+
+        public static double Average(this ReadOnlyCollection<long> source)
+        {
+            return ArrayProvider<long>.Extract(source).Average();
+        }
+
+        public static double? Average(this ReadOnlyCollection<long?> source)
+        {
+            return ArrayProvider<long?>.Extract(source).Average();
+        }
+
+        public static float Sum(this ReadOnlyCollection<float> source)
+        {
+            return ArrayProvider<float>.Extract(source).Sum();
+        }
+
+        public static float? Sum(this ReadOnlyCollection<float?> source)
+        {
+            return ArrayProvider<float?>.Extract(source).Sum();
+        }
+
+        public static float Min(this ReadOnlyCollection<float> source)
+        {
+            return ArrayProvider<float>.Extract(source).Min();
+        }
+
+        public static float? Min(this ReadOnlyCollection<float?> source)
+        {
+            return ArrayProvider<float?>.Extract(source).Min();
+        }
+
+        public static float Max(this ReadOnlyCollection<float> source)
+        {
+            return ArrayProvider<float>.Extract(source).Max();
+        }
+
+        public static float? Max(this ReadOnlyCollection<float?> source)
+        {
+            return ArrayProvider<float?>.Extract(source).Max();
+        }
+
+        public static double Average(this ReadOnlyCollection<float> source)
+        {
+            return ArrayProvider<float>.Extract(source).Average();
+        }
+
+        public static double? Average(this ReadOnlyCollection<float?> source)
+        {
+            return ArrayProvider<float?>.Extract(source).Average();
+        }
+
+        public static double Sum(this ReadOnlyCollection<double> source)
+        {
+            return ArrayProvider<double>.Extract(source).Sum();
+        }
+
+        public static double? Sum(this ReadOnlyCollection<double?> source)
+        {
+            return ArrayProvider<double?>.Extract(source).Sum();
+        }
+
+        public static double Min(this ReadOnlyCollection<double> source)
+        {
+            return ArrayProvider<double>.Extract(source).Min();
+        }
+
+        public static double? Min(this ReadOnlyCollection<double?> source)
+        {
+            return ArrayProvider<double?>.Extract(source).Min();
+        }
+
+        public static double Max(this ReadOnlyCollection<double> source)
+        {
+            return ArrayProvider<double>.Extract(source).Max();
+        }
+
+        public static double? Max(this ReadOnlyCollection<double?> source)
+        {
+            return ArrayProvider<double?>.Extract(source).Max();
+        }
+
+        public static double Average(this ReadOnlyCollection<double> source)
+        {
+            return ArrayProvider<double>.Extract(source).Average();
+        }
+
+        public static double? Average(this ReadOnlyCollection<double?> source)
+        {
+            return ArrayProvider<double?>.Extract(source).Average();
+        }
     }
 // ReSharper restore UnusedMember.Global, ClassTooBig, MethodNamesNotMeaningful, TooManyArguments, MaximumChainedReferences
 }
