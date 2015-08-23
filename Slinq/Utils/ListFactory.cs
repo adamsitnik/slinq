@@ -7,10 +7,6 @@ namespace Slinq.Utils
     /// this class allows to create List from Array without copying the data! 
     /// (List created via standard ctor from IEnumerable copies old array into new)
     /// the array MUST be created by us, it CAN NOT come from the outside world!
-    /// 
-    /// possible enhancement: 
-    ///     1) save the generated CIL to .il file, create module out of it and reference it
-    ///     gains: bigger reusability (.NET native does not support reflection) + performance
     /// </summary>
     internal static class ListFactory<T>
     {

@@ -11,10 +11,6 @@ namespace Slinq.Utils
 {
     /// <summary>
     /// this class allows to get encapsulated array from wrapping collection
-    /// 
-    /// possible enhancement: 
-    ///     1) save the generated CIL to .il file, create module out of it and reference it
-    ///     gains: bigger reusability (.NET native does not support reflection) + performance
     /// </summary>
     internal static class ArrayProvider<T>
     {

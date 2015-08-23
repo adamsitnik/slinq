@@ -12,12 +12,11 @@ namespace Slinq.Tests.Security
     [TestFixture]
     public class SandboxPermissionsTests
     {
-        [SuppressMessage("Microsoft.Security", "CA2103:ReviewImperativeSecurity" , 
+        [SuppressMessage("Microsoft.Security", "CA2103:ReviewImperativeSecurity", 
             Justification = "I really need that"), Test]
         public void ShouldWorkEvenWithLowestPossiblePermissions()
         {
             // based on: https://msdn.microsoft.com/en-us/library/bb384237(v=vs.110).aspx
-
             Evidence evidence = new Evidence();
             evidence.AddHostEvidence(new Zone(SecurityZone.Internet));
             PermissionSet permissionSet = new NamedPermissionSet("Internet", SecurityManager.GetStandardSandbox(evidence));
