@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Slinq")]
+[assembly: AssemblyTitle("Slinq.ImmutableCollections")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Slinq")]
+[assembly: AssemblyProduct("Slinq.ImmutableCollections")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,11 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("77f6c5f3-539d-42d9-aca8-3bc9f98dbc31")]
-
-[assembly: InternalsVisibleTo("Slinq.ImmutableCollections")]
-[assembly: InternalsVisibleTo("Slinq.Tests")]
-[assembly: InternalsVisibleTo("Slinq.Benchmarks")]
+[assembly: Guid("720c9fbd-6ad8-49a9-b2b8-98924285f384")]
 
 // Version information for an assembly consists of the following four values:
 //

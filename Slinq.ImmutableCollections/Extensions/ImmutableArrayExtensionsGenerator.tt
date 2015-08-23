@@ -1,0 +1,15 @@
+﻿<#@ assembly name="System.Core" #>
+<#@ output extension=".cs" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ include file="..\..\Slinq\CodeGeneration\CollectionExtensionsGenerator.tt" #>using System;
+using System.Collections.Generic;
+using System.Collections.Immutable;
+using Slinq.ImmutableCollections.Utils;
+using Slinq.Iterators;
+
+namespace Slinq.Extensions
+{
+<# GenerateCollectionExtension("ImmutableArray"); #>
+}
