@@ -22,6 +22,14 @@ namespace Slinq.Models
             ActualLength = actualLength;
         }
 
+        /// <summary>
+        /// the optimistic case when we can use array.Length to get array boundaries check elimination
+        /// </summary>
+        internal bool IsAsLongAsSourceArray
+        {
+            get { return Array.Length == ActualLength; }
+        }
+
 // ReSharper disable MethodNamesNotMeaningful we just follow the existing convention
         internal WhereIterator<T> Where(Predicate<T> predicate)
         {

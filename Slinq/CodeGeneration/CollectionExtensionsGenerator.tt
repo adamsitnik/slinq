@@ -162,7 +162,13 @@
 
         public static <#=numericType#> <#=methodName#>(this <#=type#><<#=numericType#>> source)
         {
-            return ArrayProvider<<#=numericType#>>.Extract(source).<#=methodName#>();
+            var extractedArray = ArrayProvider<<#=numericType#>>.Extract(source);
+            if (!extractedArray.IsAsLongAsSourceArray)
+            {
+                return extractedArray.<#=methodName#>();
+            }
+
+            return ArrayExtensions.<#=methodName#>(extractedArray.Array);
         }
 <#+
     }
@@ -173,12 +179,24 @@
 
         public static double Average(this <#=type#><<#=numericType#>> source)
         {
-            return ArrayProvider<<#=numericType#>>.Extract(source).Average();
+            var extractedArray = ArrayProvider<<#=numericType#>>.Extract(source);
+            if (!extractedArray.IsAsLongAsSourceArray)
+            {
+                return extractedArray.Average();
+            }
+
+            return ArrayExtensions.Average(extractedArray.Array);
         }
 
         public static double? Average(this <#=type#><<#=numericType#>?> source)
         {
-            return ArrayProvider<<#=numericType#>?>.Extract(source).Average();
+            var extractedArray = ArrayProvider<<#=numericType#>?>.Extract(source);
+            if (!extractedArray.IsAsLongAsSourceArray)
+            {
+                return extractedArray.Average();
+            }
+
+            return ArrayExtensions.Average(extractedArray.Array);
         }
 <#+
     }
