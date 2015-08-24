@@ -1,6 +1,7 @@
 ﻿using System;
 using BenchmarkDotNet;
 using Slinq.Benchmarks.Iterators;
+using Slinq.Benchmarks.ProofsOfConcept;
 using Slinq.Benchmarks.Utils;
 
 namespace Slinq.Benchmarks
@@ -20,7 +21,9 @@ namespace Slinq.Benchmarks
                 typeof(RangeSelectIteratorBenchmarks),
                 typeof(ArraySelectWhereIteratorBenchmarks),
                 typeof(ArrayProviderBenchmarks),
-                typeof(MathExtensionsBenchmarks)
+                typeof(MathExtensionsBenchmarks),
+                typeof(ReferencingToFieldVsReferencingToLocalVariableAndReadOnlyVsMutable),
+                typeof(BoundariesCheckEliminationBenchmarks)
             });
             competitionSwitch.Run(args);
         }
