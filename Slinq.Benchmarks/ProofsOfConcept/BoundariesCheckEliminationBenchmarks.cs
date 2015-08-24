@@ -20,7 +20,7 @@ namespace Slinq.Benchmarks.ProofsOfConcept
         [Benchmark]
         public int Without()
         {
-            return SumWithOUTCheckElimination(Numbers, 100);
+            return SumWithOUTCheckElimination(Numbers, 1000);
         }
 
         private static int SumWithCheckElimination(int[] numbers)

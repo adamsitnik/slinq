@@ -14,7 +14,6 @@ namespace Slinq.Extensions
     public static class ArrayExtensions
     {
 <# GenerateArrayExtensionsMethodsSet(); #>
-
 <# GenerateArrayMathExtensionsMethodsSet(); #>
 // ReSharper restore UnusedMember.Global, ClassTooBig, MethodNamesNotMeaningful, TooManyArguments
     }

@@ -10,8 +10,7 @@ namespace Slinq.Extensions
 {
 // ReSharper disable UnusedMember.Global, ClassTooBig, MethodNamesNotMeaningful, TooManyArguments this is an API && we just follow the existing convention
     public static class ExtractedArrayExtensions
-    {
-<# GenerateExtractedArrayMathExtensionsMethodsSet(); #>
+    {<# GenerateExtractedArrayMathExtensionsMethodsSet(); #>
 // ReSharper restore UnusedMember.Global, ClassTooBig, MethodNamesNotMeaningful, TooManyArguments
     }
 }

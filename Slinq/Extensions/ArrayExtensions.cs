@@ -390,6 +390,7 @@ namespace Slinq.Extensions
 
             return sum.Value / source.Length;
         }
+
         public static int Sum(this int[] source)
         {
             Contract.RequiresNotDefault(source, "source");
@@ -540,6 +541,7 @@ namespace Slinq.Extensions
 
             return sum.Value / source.Length;
         }
+
         public static long Sum(this long[] source)
         {
             Contract.RequiresNotDefault(source, "source");
@@ -690,6 +692,7 @@ namespace Slinq.Extensions
 
             return sum.Value / source.Length;
         }
+
         public static float Sum(this float[] source)
         {
             Contract.RequiresNotDefault(source, "source");
@@ -840,6 +843,7 @@ namespace Slinq.Extensions
 
             return sum.Value / source.Length;
         }
+
         public static double Sum(this double[] source)
         {
             Contract.RequiresNotDefault(source, "source");

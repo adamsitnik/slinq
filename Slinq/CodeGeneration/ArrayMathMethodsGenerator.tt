@@ -50,6 +50,7 @@
         string sourceName, string lengthName, string numericType)
     {
 #>
+
         <#=accessModifiers#> <#=numericType#> Sum(this <#=inputType#> source)
         {
             Contract.RequiresNotDefault(source, "source");

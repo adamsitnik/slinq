@@ -156,6 +156,7 @@ namespace Slinq.Extensions
 
             return sum.Value / source.ActualLength;
         }
+
         internal static int Sum(this ExtractedArray<int> source)
         {
             Contract.RequiresNotDefault(source, "source");
@@ -306,6 +307,7 @@ namespace Slinq.Extensions
 
             return sum.Value / source.ActualLength;
         }
+
         internal static long Sum(this ExtractedArray<long> source)
         {
             Contract.RequiresNotDefault(source, "source");
@@ -456,6 +458,7 @@ namespace Slinq.Extensions
 
             return sum.Value / source.ActualLength;
         }
+
         internal static float Sum(this ExtractedArray<float> source)
         {
             Contract.RequiresNotDefault(source, "source");
@@ -606,6 +609,7 @@ namespace Slinq.Extensions
 
             return sum.Value / source.ActualLength;
         }
+
         internal static double Sum(this ExtractedArray<double> source)
         {
             Contract.RequiresNotDefault(source, "source");
