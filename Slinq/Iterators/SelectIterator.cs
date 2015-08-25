@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using Slinq.Abstract;
-using Slinq.Models;
 
 namespace Slinq.Iterators
 {

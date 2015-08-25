@@ -11,9 +11,31 @@ namespace Slinq.Extensions
             Contract.RequiresNotDefault(source, "source");
 
             short sum = 0;
-            checked
+            for (int i = 0; i < source.ActualLength / 16; i += 16)
             {
-                for (int i = 0; i < source.ActualLength; i++)
+                checked
+                {
+                    sum += source.Array[i];
+                    sum += source.Array[unchecked(i + 1)];
+                    sum += source.Array[unchecked(i + 2)];
+                    sum += source.Array[unchecked(i + 3)];
+                    sum += source.Array[unchecked(i + 4)];
+                    sum += source.Array[unchecked(i + 5)];
+                    sum += source.Array[unchecked(i + 6)];
+                    sum += source.Array[unchecked(i + 7)];
+                    sum += source.Array[unchecked(i + 8)];
+                    sum += source.Array[unchecked(i + 9)];
+                    sum += source.Array[unchecked(i + 10)];
+                    sum += source.Array[unchecked(i + 11)];
+                    sum += source.Array[unchecked(i + 12)];
+                    sum += source.Array[unchecked(i + 13)];
+                    sum += source.Array[unchecked(i + 14)];
+                    sum += source.Array[unchecked(i + 15)];
+                }
+            }
+            for (int i = (source.ActualLength / 16) * 16; i < source.ActualLength; i++)
+            {
+                checked
                 {
                     sum += source.Array[i];
                 }
@@ -28,12 +50,12 @@ namespace Slinq.Extensions
 
             short sum = 0;
             short? current;
-            checked
+            for (int i = 0; i < source.ActualLength; i++)
             {
-                for (int i = 0; i < source.ActualLength; i++)
+                current = source.Array[i];
+                if (current != null)
                 {
-                    current = source.Array[i];
-                    if (current != null)
+                    checked
                     {
                         sum += current.GetValueOrDefault();
                     }
@@ -162,9 +184,31 @@ namespace Slinq.Extensions
             Contract.RequiresNotDefault(source, "source");
 
             int sum = 0;
-            checked
+            for (int i = 0; i < source.ActualLength / 16; i += 16)
             {
-                for (int i = 0; i < source.ActualLength; i++)
+                checked
+                {
+                    sum += source.Array[i];
+                    sum += source.Array[unchecked(i + 1)];
+                    sum += source.Array[unchecked(i + 2)];
+                    sum += source.Array[unchecked(i + 3)];
+                    sum += source.Array[unchecked(i + 4)];
+                    sum += source.Array[unchecked(i + 5)];
+                    sum += source.Array[unchecked(i + 6)];
+                    sum += source.Array[unchecked(i + 7)];
+                    sum += source.Array[unchecked(i + 8)];
+                    sum += source.Array[unchecked(i + 9)];
+                    sum += source.Array[unchecked(i + 10)];
+                    sum += source.Array[unchecked(i + 11)];
+                    sum += source.Array[unchecked(i + 12)];
+                    sum += source.Array[unchecked(i + 13)];
+                    sum += source.Array[unchecked(i + 14)];
+                    sum += source.Array[unchecked(i + 15)];
+                }
+            }
+            for (int i = (source.ActualLength / 16) * 16; i < source.ActualLength; i++)
+            {
+                checked
                 {
                     sum += source.Array[i];
                 }
@@ -179,12 +223,12 @@ namespace Slinq.Extensions
 
             int sum = 0;
             int? current;
-            checked
+            for (int i = 0; i < source.ActualLength; i++)
             {
-                for (int i = 0; i < source.ActualLength; i++)
+                current = source.Array[i];
+                if (current != null)
                 {
-                    current = source.Array[i];
-                    if (current != null)
+                    checked
                     {
                         sum += current.GetValueOrDefault();
                     }
@@ -313,9 +357,31 @@ namespace Slinq.Extensions
             Contract.RequiresNotDefault(source, "source");
 
             long sum = 0;
-            checked
+            for (int i = 0; i < source.ActualLength / 16; i += 16)
             {
-                for (int i = 0; i < source.ActualLength; i++)
+                checked
+                {
+                    sum += source.Array[i];
+                    sum += source.Array[unchecked(i + 1)];
+                    sum += source.Array[unchecked(i + 2)];
+                    sum += source.Array[unchecked(i + 3)];
+                    sum += source.Array[unchecked(i + 4)];
+                    sum += source.Array[unchecked(i + 5)];
+                    sum += source.Array[unchecked(i + 6)];
+                    sum += source.Array[unchecked(i + 7)];
+                    sum += source.Array[unchecked(i + 8)];
+                    sum += source.Array[unchecked(i + 9)];
+                    sum += source.Array[unchecked(i + 10)];
+                    sum += source.Array[unchecked(i + 11)];
+                    sum += source.Array[unchecked(i + 12)];
+                    sum += source.Array[unchecked(i + 13)];
+                    sum += source.Array[unchecked(i + 14)];
+                    sum += source.Array[unchecked(i + 15)];
+                }
+            }
+            for (int i = (source.ActualLength / 16) * 16; i < source.ActualLength; i++)
+            {
+                checked
                 {
                     sum += source.Array[i];
                 }
@@ -330,12 +396,12 @@ namespace Slinq.Extensions
 
             long sum = 0;
             long? current;
-            checked
+            for (int i = 0; i < source.ActualLength; i++)
             {
-                for (int i = 0; i < source.ActualLength; i++)
+                current = source.Array[i];
+                if (current != null)
                 {
-                    current = source.Array[i];
-                    if (current != null)
+                    checked
                     {
                         sum += current.GetValueOrDefault();
                     }
@@ -464,9 +530,31 @@ namespace Slinq.Extensions
             Contract.RequiresNotDefault(source, "source");
 
             float sum = 0;
-            checked
+            for (int i = 0; i < source.ActualLength / 16; i += 16)
             {
-                for (int i = 0; i < source.ActualLength; i++)
+                checked
+                {
+                    sum += source.Array[i];
+                    sum += source.Array[unchecked(i + 1)];
+                    sum += source.Array[unchecked(i + 2)];
+                    sum += source.Array[unchecked(i + 3)];
+                    sum += source.Array[unchecked(i + 4)];
+                    sum += source.Array[unchecked(i + 5)];
+                    sum += source.Array[unchecked(i + 6)];
+                    sum += source.Array[unchecked(i + 7)];
+                    sum += source.Array[unchecked(i + 8)];
+                    sum += source.Array[unchecked(i + 9)];
+                    sum += source.Array[unchecked(i + 10)];
+                    sum += source.Array[unchecked(i + 11)];
+                    sum += source.Array[unchecked(i + 12)];
+                    sum += source.Array[unchecked(i + 13)];
+                    sum += source.Array[unchecked(i + 14)];
+                    sum += source.Array[unchecked(i + 15)];
+                }
+            }
+            for (int i = (source.ActualLength / 16) * 16; i < source.ActualLength; i++)
+            {
+                checked
                 {
                     sum += source.Array[i];
                 }
@@ -481,12 +569,12 @@ namespace Slinq.Extensions
 
             float sum = 0;
             float? current;
-            checked
+            for (int i = 0; i < source.ActualLength; i++)
             {
-                for (int i = 0; i < source.ActualLength; i++)
+                current = source.Array[i];
+                if (current != null)
                 {
-                    current = source.Array[i];
-                    if (current != null)
+                    checked
                     {
                         sum += current.GetValueOrDefault();
                     }
@@ -615,9 +703,31 @@ namespace Slinq.Extensions
             Contract.RequiresNotDefault(source, "source");
 
             double sum = 0;
-            checked
+            for (int i = 0; i < source.ActualLength / 16; i += 16)
             {
-                for (int i = 0; i < source.ActualLength; i++)
+                checked
+                {
+                    sum += source.Array[i];
+                    sum += source.Array[unchecked(i + 1)];
+                    sum += source.Array[unchecked(i + 2)];
+                    sum += source.Array[unchecked(i + 3)];
+                    sum += source.Array[unchecked(i + 4)];
+                    sum += source.Array[unchecked(i + 5)];
+                    sum += source.Array[unchecked(i + 6)];
+                    sum += source.Array[unchecked(i + 7)];
+                    sum += source.Array[unchecked(i + 8)];
+                    sum += source.Array[unchecked(i + 9)];
+                    sum += source.Array[unchecked(i + 10)];
+                    sum += source.Array[unchecked(i + 11)];
+                    sum += source.Array[unchecked(i + 12)];
+                    sum += source.Array[unchecked(i + 13)];
+                    sum += source.Array[unchecked(i + 14)];
+                    sum += source.Array[unchecked(i + 15)];
+                }
+            }
+            for (int i = (source.ActualLength / 16) * 16; i < source.ActualLength; i++)
+            {
+                checked
                 {
                     sum += source.Array[i];
                 }
@@ -632,12 +742,12 @@ namespace Slinq.Extensions
 
             double sum = 0;
             double? current;
-            checked
+            for (int i = 0; i < source.ActualLength; i++)
             {
-                for (int i = 0; i < source.ActualLength; i++)
+                current = source.Array[i];
+                if (current != null)
                 {
-                    current = source.Array[i];
-                    if (current != null)
+                    checked
                     {
                         sum += current.GetValueOrDefault();
                     }

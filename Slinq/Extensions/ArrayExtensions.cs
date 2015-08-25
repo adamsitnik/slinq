@@ -245,9 +245,31 @@ namespace Slinq.Extensions
             Contract.RequiresNotDefault(source, "source");
 
             short sum = 0;
-            checked
+            for (int i = 0; i < source.Length / 16; i += 16)
             {
-                for (int i = 0; i < source.Length; i++)
+                checked
+                {
+                    sum += source[i];
+                    sum += source[unchecked(i + 1)];
+                    sum += source[unchecked(i + 2)];
+                    sum += source[unchecked(i + 3)];
+                    sum += source[unchecked(i + 4)];
+                    sum += source[unchecked(i + 5)];
+                    sum += source[unchecked(i + 6)];
+                    sum += source[unchecked(i + 7)];
+                    sum += source[unchecked(i + 8)];
+                    sum += source[unchecked(i + 9)];
+                    sum += source[unchecked(i + 10)];
+                    sum += source[unchecked(i + 11)];
+                    sum += source[unchecked(i + 12)];
+                    sum += source[unchecked(i + 13)];
+                    sum += source[unchecked(i + 14)];
+                    sum += source[unchecked(i + 15)];
+                }
+            }
+            for (int i = (source.Length / 16) * 16; i < source.Length; i++)
+            {
+                checked
                 {
                     sum += source[i];
                 }
@@ -262,12 +284,12 @@ namespace Slinq.Extensions
 
             short sum = 0;
             short? current;
-            checked
+            for (int i = 0; i < source.Length; i++)
             {
-                for (int i = 0; i < source.Length; i++)
+                current = source[i];
+                if (current != null)
                 {
-                    current = source[i];
-                    if (current != null)
+                    checked
                     {
                         sum += current.GetValueOrDefault();
                     }
@@ -396,9 +418,31 @@ namespace Slinq.Extensions
             Contract.RequiresNotDefault(source, "source");
 
             int sum = 0;
-            checked
+            for (int i = 0; i < source.Length / 16; i += 16)
             {
-                for (int i = 0; i < source.Length; i++)
+                checked
+                {
+                    sum += source[i];
+                    sum += source[unchecked(i + 1)];
+                    sum += source[unchecked(i + 2)];
+                    sum += source[unchecked(i + 3)];
+                    sum += source[unchecked(i + 4)];
+                    sum += source[unchecked(i + 5)];
+                    sum += source[unchecked(i + 6)];
+                    sum += source[unchecked(i + 7)];
+                    sum += source[unchecked(i + 8)];
+                    sum += source[unchecked(i + 9)];
+                    sum += source[unchecked(i + 10)];
+                    sum += source[unchecked(i + 11)];
+                    sum += source[unchecked(i + 12)];
+                    sum += source[unchecked(i + 13)];
+                    sum += source[unchecked(i + 14)];
+                    sum += source[unchecked(i + 15)];
+                }
+            }
+            for (int i = (source.Length / 16) * 16; i < source.Length; i++)
+            {
+                checked
                 {
                     sum += source[i];
                 }
@@ -413,12 +457,12 @@ namespace Slinq.Extensions
 
             int sum = 0;
             int? current;
-            checked
+            for (int i = 0; i < source.Length; i++)
             {
-                for (int i = 0; i < source.Length; i++)
+                current = source[i];
+                if (current != null)
                 {
-                    current = source[i];
-                    if (current != null)
+                    checked
                     {
                         sum += current.GetValueOrDefault();
                     }
@@ -547,9 +591,31 @@ namespace Slinq.Extensions
             Contract.RequiresNotDefault(source, "source");
 
             long sum = 0;
-            checked
+            for (int i = 0; i < source.Length / 16; i += 16)
             {
-                for (int i = 0; i < source.Length; i++)
+                checked
+                {
+                    sum += source[i];
+                    sum += source[unchecked(i + 1)];
+                    sum += source[unchecked(i + 2)];
+                    sum += source[unchecked(i + 3)];
+                    sum += source[unchecked(i + 4)];
+                    sum += source[unchecked(i + 5)];
+                    sum += source[unchecked(i + 6)];
+                    sum += source[unchecked(i + 7)];
+                    sum += source[unchecked(i + 8)];
+                    sum += source[unchecked(i + 9)];
+                    sum += source[unchecked(i + 10)];
+                    sum += source[unchecked(i + 11)];
+                    sum += source[unchecked(i + 12)];
+                    sum += source[unchecked(i + 13)];
+                    sum += source[unchecked(i + 14)];
+                    sum += source[unchecked(i + 15)];
+                }
+            }
+            for (int i = (source.Length / 16) * 16; i < source.Length; i++)
+            {
+                checked
                 {
                     sum += source[i];
                 }
@@ -564,12 +630,12 @@ namespace Slinq.Extensions
 
             long sum = 0;
             long? current;
-            checked
+            for (int i = 0; i < source.Length; i++)
             {
-                for (int i = 0; i < source.Length; i++)
+                current = source[i];
+                if (current != null)
                 {
-                    current = source[i];
-                    if (current != null)
+                    checked
                     {
                         sum += current.GetValueOrDefault();
                     }
@@ -698,9 +764,31 @@ namespace Slinq.Extensions
             Contract.RequiresNotDefault(source, "source");
 
             float sum = 0;
-            checked
+            for (int i = 0; i < source.Length / 16; i += 16)
             {
-                for (int i = 0; i < source.Length; i++)
+                checked
+                {
+                    sum += source[i];
+                    sum += source[unchecked(i + 1)];
+                    sum += source[unchecked(i + 2)];
+                    sum += source[unchecked(i + 3)];
+                    sum += source[unchecked(i + 4)];
+                    sum += source[unchecked(i + 5)];
+                    sum += source[unchecked(i + 6)];
+                    sum += source[unchecked(i + 7)];
+                    sum += source[unchecked(i + 8)];
+                    sum += source[unchecked(i + 9)];
+                    sum += source[unchecked(i + 10)];
+                    sum += source[unchecked(i + 11)];
+                    sum += source[unchecked(i + 12)];
+                    sum += source[unchecked(i + 13)];
+                    sum += source[unchecked(i + 14)];
+                    sum += source[unchecked(i + 15)];
+                }
+            }
+            for (int i = (source.Length / 16) * 16; i < source.Length; i++)
+            {
+                checked
                 {
                     sum += source[i];
                 }
@@ -715,12 +803,12 @@ namespace Slinq.Extensions
 
             float sum = 0;
             float? current;
-            checked
+            for (int i = 0; i < source.Length; i++)
             {
-                for (int i = 0; i < source.Length; i++)
+                current = source[i];
+                if (current != null)
                 {
-                    current = source[i];
-                    if (current != null)
+                    checked
                     {
                         sum += current.GetValueOrDefault();
                     }
@@ -849,9 +937,31 @@ namespace Slinq.Extensions
             Contract.RequiresNotDefault(source, "source");
 
             double sum = 0;
-            checked
+            for (int i = 0; i < source.Length / 16; i += 16)
             {
-                for (int i = 0; i < source.Length; i++)
+                checked
+                {
+                    sum += source[i];
+                    sum += source[unchecked(i + 1)];
+                    sum += source[unchecked(i + 2)];
+                    sum += source[unchecked(i + 3)];
+                    sum += source[unchecked(i + 4)];
+                    sum += source[unchecked(i + 5)];
+                    sum += source[unchecked(i + 6)];
+                    sum += source[unchecked(i + 7)];
+                    sum += source[unchecked(i + 8)];
+                    sum += source[unchecked(i + 9)];
+                    sum += source[unchecked(i + 10)];
+                    sum += source[unchecked(i + 11)];
+                    sum += source[unchecked(i + 12)];
+                    sum += source[unchecked(i + 13)];
+                    sum += source[unchecked(i + 14)];
+                    sum += source[unchecked(i + 15)];
+                }
+            }
+            for (int i = (source.Length / 16) * 16; i < source.Length; i++)
+            {
+                checked
                 {
                     sum += source[i];
                 }
@@ -866,12 +976,12 @@ namespace Slinq.Extensions
 
             double sum = 0;
             double? current;
-            checked
+            for (int i = 0; i < source.Length; i++)
             {
-                for (int i = 0; i < source.Length; i++)
+                current = source[i];
+                if (current != null)
                 {
-                    current = source[i];
-                    if (current != null)
+                    checked
                     {
                         sum += current.GetValueOrDefault();
                     }

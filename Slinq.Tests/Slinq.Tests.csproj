@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\MathExtensionsTests.cs" />
     <Compile Include="Iterators\RangeSelectIteratorTests.cs" />
     <Compile Include="Iterators\WhereIteratorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
