@@ -62,7 +62,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ListExtensionsGenerator.tt</DependentUpon>
     </Compile>
-    <Compile Include="Extensions\MathExtensions.cs" />
     <Compile Include="Extensions\ReadOnlyCollectionExtensions.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

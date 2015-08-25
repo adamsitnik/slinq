@@ -49,17 +49,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\ExtractedArrayMathExtensionsBenchmarks.cs" />
+    <Compile Include="Extensions\MathExtensionsBenchmarks.cs" />
     <Compile Include="Iterators\ArraySelectWhereIteratorBenchmarks.cs" />
     <Compile Include="Iterators\ArrayWhereIteratorBenchmarks.cs" />
     <Compile Include="Iterators\ArrayWhereSelectIteratorBenchmarks.cs" />
     <Compile Include="Iterators\ListWhereIteratorBenchmarks.cs" />
     <Compile Include="Iterators\ListWhereSelectIteratorBenchmarks.cs" />
-    <Compile Include="Iterators\MathExtensionsBenchmarks.cs" />
     <Compile Include="Iterators\RangeSelectIteratorBenchmarks.cs" />
     <Compile Include="Iterators\ReadOnlyCollectionWhereIteratorBenchmark.cs" />
     <Compile Include="Iterators\ReadOnlyCollectionWhereSelectIteratorBenchmark.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProofsOfConcept\BoundariesCheckEliminationBenchmarks.cs" />
+    <Compile Include="ProofsOfConcept\ManualLoopUnrollingBenchmarks.cs" />
     <Compile Include="ProofsOfConcept\ReferencingToFieldVsReferencingToLocalVariable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\ArrayProviderBenchmarks.cs" />

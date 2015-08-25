@@ -5,7 +5,7 @@ using BenchmarkDotNet;
 using BenchmarkDotNet.Tasks;
 using Slinq.Extensions;
 
-namespace Slinq.Benchmarks.Iterators
+namespace Slinq.Benchmarks.Extensions
 {
     [BenchmarkTask(platform: BenchmarkPlatform.X86, warmupIterationCount: 2, targetIterationCount: 5)]
     [BenchmarkTask(platform: BenchmarkPlatform.X64, jitVersion: BenchmarkJitVersion.LegacyJit, warmupIterationCount: 2, targetIterationCount: 5)]
