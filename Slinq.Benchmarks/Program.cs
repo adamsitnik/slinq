@@ -26,7 +26,8 @@ namespace Slinq.Benchmarks
                 typeof(ReferencingToFieldVsReferencingToLocalVariableAndReadOnlyVsMutable),
                 typeof(BoundariesCheckEliminationBenchmarks),
                 typeof(ExtractedArrayMathExtensionsBenchmarks),
-                typeof(ManualLoopUnrollingBenchmarks)
+                typeof(ManualLoopUnrollingBenchmarks),
+                typeof(MinManualLoopingBenchmarks)
             });
             competitionSwitch.Run(args);
         }

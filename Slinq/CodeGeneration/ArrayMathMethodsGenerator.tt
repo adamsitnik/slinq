@@ -56,29 +56,7 @@
             Contract.RequiresNotDefault(source, "source");
 
             <#=numericType#> sum = 0;
-            for (int i = 0; i < <#=lengthName#> / 16; i += 16)
-            {
-                checked
-                {
-                    sum += <#=sourceName#>[i];
-                    sum += <#=sourceName#>[unchecked(i + 1)];
-                    sum += <#=sourceName#>[unchecked(i + 2)];
-                    sum += <#=sourceName#>[unchecked(i + 3)];
-                    sum += <#=sourceName#>[unchecked(i + 4)];
-                    sum += <#=sourceName#>[unchecked(i + 5)];
-                    sum += <#=sourceName#>[unchecked(i + 6)];
-                    sum += <#=sourceName#>[unchecked(i + 7)];
-                    sum += <#=sourceName#>[unchecked(i + 8)];
-                    sum += <#=sourceName#>[unchecked(i + 9)];
-                    sum += <#=sourceName#>[unchecked(i + 10)];
-                    sum += <#=sourceName#>[unchecked(i + 11)];
-                    sum += <#=sourceName#>[unchecked(i + 12)];
-                    sum += <#=sourceName#>[unchecked(i + 13)];
-                    sum += <#=sourceName#>[unchecked(i + 14)];
-                    sum += <#=sourceName#>[unchecked(i + 15)];
-                }
-            }
-            for (int i = (<#=lengthName#> / 16) * 16; i < <#=lengthName#>; i++)
+            for (int i = 0; i < <#=lengthName#>; i++)
             {
                 checked
                 {

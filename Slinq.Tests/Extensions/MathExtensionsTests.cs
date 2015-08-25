@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using NUnit.Framework;
@@ -12,34 +13,71 @@ namespace Slinq.Tests.Extensions
         [Test]
         public void SumArrayShouldReturnSumOfAllElements()
         {
-            var array = Enumerable.Range(1, 20).ToArray();
-            var expected = Enumerable.Sum(array);
-
-            var sum = ArrayExtensions.Sum(array);
-
-            Assert.AreEqual(expected, sum);
+            CompareResults(GenerateRandomNumbers().ToArray(), Enumerable.Sum, ArrayExtensions.Sum);
         }
 
         [Test]
         public void SumListShouldReturnSumOfAllElements()
         {
-            var list = Enumerable.Range(1, 20).ToList();
-            var expected = Enumerable.Sum(list);
-
-            var sum = ListExtensions.Sum(list);
-
-            Assert.AreEqual(expected, sum);
+            CompareResults(GenerateRandomNumbers().ToList(), Enumerable.Sum, ListExtensions.Sum);
         }
 
         [Test]
         public void SumReadOnlyCollectionShouldReturnSumOfAllElements()
         {
-            var readOnlyCollection = new ReadOnlyCollection<int>(Enumerable.Range(1, 20).ToArray());
-            var expected = Enumerable.Sum(readOnlyCollection);
+            CompareResults(new ReadOnlyCollection<int>(GenerateRandomNumbers().ToArray()), Enumerable.Sum, ReadOnlyCollectionExtensions.Sum);
+        }
 
-            var sum = ReadOnlyCollectionExtensions.Sum(readOnlyCollection);
+        [Test]
+        public void MinArrayShouldReturnTheLowestValue()
+        {
+            CompareResults(GenerateRandomNumbers().ToArray(), Enumerable.Min, ArrayExtensions.Min);
+        }
 
-            Assert.AreEqual(expected, sum);
+        [Test]
+        public void MinListShouldReturnTheLowestValue()
+        {
+            CompareResults(GenerateRandomNumbers().ToList(), Enumerable.Min, ListExtensions.Min);
+        }
+
+        [Test]
+        public void MinReadOnlyCollectionShouldReturnTheLowestValue()
+        {
+            CompareResults(new ReadOnlyCollection<int>(GenerateRandomNumbers().ToList()), Enumerable.Min, ReadOnlyCollectionExtensions.Min);
+        }
+
+        [Test]
+        public void MaxArrayShouldReturnTheBiggestValue()
+        {
+            CompareResults(GenerateRandomNumbers().ToArray(), Enumerable.Max, ArrayExtensions.Max);
+        }
+
+        [Test]
+        public void MaxListShouldReturnTheBiggestValue()
+        {
+            CompareResults(GenerateRandomNumbers().ToList(), Enumerable.Max, ListExtensions.Max);
+        }
+
+        [Test]
+        public void MaxReadOnlyCollectionShouldReturnTheBiggestValue()
+        {
+            CompareResults(new ReadOnlyCollection<int>(GenerateRandomNumbers().ToList()), Enumerable.Max, ReadOnlyCollectionExtensions.Max);
+        }
+
+        private static void CompareResults<TSource, TResult>(
+            TSource source,
+            Func<TSource, TResult> expected,
+            Func<TSource, TResult> sut)
+        {
+            Assert.AreEqual(expected(source), sut(source));
+        }
+
+        private static IEnumerable<int> GenerateRandomNumbers()
+        {
+            var random = new Random();
+            int elementsCount = 110;
+
+            return Enumerable.Range(1, elementsCount).Select(i => random.Next(int.MaxValue / elementsCount));
         }
     }
 }
