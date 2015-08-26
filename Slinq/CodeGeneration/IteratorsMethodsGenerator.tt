@@ -157,6 +157,72 @@
 
             return default(<#=resultType#>);
         }
+
+        public <#=resultType#> Single()
+        {
+            <#=resultType#> single = default(<#=resultType#>);
+            bool hasFound = false;
+            int index = <#=loopFrom#>;
+            while (index < <#=loopTo#>)
+            {
+<#+if(!string.IsNullOrEmpty(canMoveNext)){#>
+                if(<#=canMoveNext#>)
+                {
+                    if(hasFound)
+                    {
+                        throw Error.MoreThanOneElement();
+                    }
+                    single = <#=current#>;
+                    hasFound = true;
+                }
+<#+}else{#>
+                if(hasFound)
+                {
+                    throw Error.MoreThanOneElement();
+                }
+                single = <#=current#>;
+                hasFound = true;
+<#+}#>
+                ++index;
+            }
+
+            if(hasFound)
+            {
+                return single;
+            }
+            throw Error.NoElements();
+        }
+
+        public <#=resultType#> SingleOrDefault()
+        {
+            <#=resultType#> single = default(<#=resultType#>);
+            bool hasFound = false;
+            int index = <#=loopFrom#>;
+            while (index < <#=loopTo#>)
+            {
+<#+if(!string.IsNullOrEmpty(canMoveNext)){#>
+                if(<#=canMoveNext#>)
+                {
+                    if(hasFound)
+                    {
+                        throw Error.MoreThanOneElement();
+                    }
+                    single = <#=current#>;
+                    hasFound = true;
+                }
+<#+}else{#>
+                if(hasFound)
+                {
+                    throw Error.MoreThanOneElement();
+                }
+                single = <#=current#>;
+                hasFound = true;
+<#+}#>
+                ++index;
+            }
+
+            return single;
+        }
 <#+
     }
 #>

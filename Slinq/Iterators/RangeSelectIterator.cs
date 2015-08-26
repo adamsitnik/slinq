@@ -155,5 +155,47 @@ namespace Slinq.Iterators
 
             return default(T);
         }
+
+        public T Single()
+        {
+            T single = default(T);
+            bool hasFound = false;
+            int index = _start;
+            while (index < _end)
+            {
+                if(hasFound)
+                {
+                    throw Error.MoreThanOneElement();
+                }
+                single = _selector(index);
+                hasFound = true;
+                ++index;
+            }
+
+            if(hasFound)
+            {
+                return single;
+            }
+            throw Error.NoElements();
+        }
+
+        public T SingleOrDefault()
+        {
+            T single = default(T);
+            bool hasFound = false;
+            int index = _start;
+            while (index < _end)
+            {
+                if(hasFound)
+                {
+                    throw Error.MoreThanOneElement();
+                }
+                single = _selector(index);
+                hasFound = true;
+                ++index;
+            }
+
+            return single;
+        }
     }
 }
