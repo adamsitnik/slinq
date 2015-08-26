@@ -1,5 +1,4 @@
-﻿using System;
-using BenchmarkDotNet;
+﻿using BenchmarkDotNet;
 using Slinq.Benchmarks.Extensions;
 using Slinq.Benchmarks.Iterators;
 using Slinq.Benchmarks.ProofsOfConcept;
@@ -27,7 +26,8 @@ namespace Slinq.Benchmarks
                 typeof(BoundariesCheckEliminationBenchmarks),
                 typeof(ExtractedArrayMathExtensionsBenchmarks),
                 typeof(ManualLoopUnrollingBenchmarks),
-                typeof(MinManualLoopingBenchmarks)
+                typeof(MinManualLoopingBenchmarks),
+                typeof(ForLoopVsWhileBenchmarks)
             });
             competitionSwitch.Run(args);
         }

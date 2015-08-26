@@ -64,6 +64,24 @@ namespace Slinq.Tests.Extensions
             CompareResults(new ReadOnlyCollection<int>(GenerateRandomNumbers().ToList()), Enumerable.Max, ReadOnlyCollectionExtensions.Max);
         }
 
+        [Test]
+        public void AverageArrayShouldReturnTheBiggestValue()
+        {
+            CompareResults(GenerateRandomNumbers().ToArray(), Enumerable.Average, ArrayExtensions.Average);
+        }
+
+        [Test]
+        public void AverageListShouldReturnTheBiggestValue()
+        {
+            CompareResults(GenerateRandomNumbers().ToList(), Enumerable.Average, ListExtensions.Average);
+        }
+
+        [Test]
+        public void AverageReadOnlyCollectionShouldReturnTheBiggestValue()
+        {
+            CompareResults(new ReadOnlyCollection<int>(GenerateRandomNumbers().ToList()), Enumerable.Average, ReadOnlyCollectionExtensions.Average);
+        }
+
         private static void CompareResults<TSource, TResult>(
             TSource source,
             Func<TSource, TResult> expected,

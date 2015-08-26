@@ -70,12 +70,37 @@
     <Compile Include="Extensions\SortingExtensions.cs" />
     <Compile Include="Extensions\StrongEnumerable.cs" />
     <Compile Include="Extensions\StrongEnumeratorExtensions.cs" />
-    <Compile Include="Iterators\RangeIterator.cs" />
-    <Compile Include="Iterators\RangeSelectIterator.cs" />
-    <Compile Include="Iterators\SelectIterator.cs" />
-    <Compile Include="Iterators\SelectWhereIterator.cs" />
-    <Compile Include="Iterators\WhereIterator.cs" />
-    <Compile Include="Iterators\WhereSelectIterator.cs" />
+    <Compile Include="Iterators\RangeIterator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RangeIteratorGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Iterators\RangeSelectIterator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RangeSelectIteratorGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Iterators\SelectIterator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SelectIteratorGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Iterators\SelectManyIterator.cs" />
+    <Compile Include="Iterators\SelectWhereIterator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SelectWhereIteratorGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Iterators\WhereIterator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WhereIteratorGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Iterators\WhereSelectIterator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WhereSelectIteratorGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ExtractedArray.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -103,22 +128,42 @@
     <Content Include="Extensions\ArrayExtensionsGenerator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ArrayExtensions.cs</LastGenOutput>
-      <!-- this little bastard is controlling the output file name -->
     </Content>
     <Content Include="Extensions\ReadOnlyCollectionExtensionsGenerator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ReadOnlyCollectionExtensions.cs</LastGenOutput>
-      <!-- this little bastard is controlling the output file name -->
     </Content>
     <Content Include="Models\ExtractedArrayGenerator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ExtractedArray.cs</LastGenOutput>
-      <!-- this little bastard is controlling the output file name -->
     </Content>
     <Content Include="Extensions\ExtractedArrayExtensionsGenerator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ExtractedArrayExtensions.cs</LastGenOutput>
-      <!-- this little bastard is controlling the output file name -->
+    </Content>
+    <Content Include="Iterators\RangeIteratorGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>RangeIterator.cs</LastGenOutput>
+    </Content>
+    <Content Include="Iterators\RangeSelectIteratorGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>RangeSelectIterator.cs</LastGenOutput>
+    </Content>
+    <Content Include="Iterators\WhereIteratorGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>WhereIterator.cs</LastGenOutput>
+    </Content>
+    <Content Include="Iterators\SelectIteratorGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>SelectIterator.cs</LastGenOutput>
+    </Content>
+    <Content Include="Iterators\WhereSelectIteratorGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>WhereSelectIterator.cs</LastGenOutput>
+    </Content>
+    <Content Include="Iterators\SelectWhereIteratorGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>SelectWhereIterator.cs</LastGenOutput>
     </Content>
     <None Include="packages.config" />
   </ItemGroup>
@@ -126,6 +171,7 @@
     <Content Include="CodeGeneration\CollectionExtensionsGenerator.tt" />
     <Content Include="CodeGeneration\ArrayMethodsGenerator.tt" />
     <Content Include="CodeGeneration\ArrayMathMethodsGenerator.tt" />
+    <Content Include="CodeGeneration\IteratorsMethodsGenerator.tt" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

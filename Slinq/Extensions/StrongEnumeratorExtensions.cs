@@ -5,12 +5,6 @@ namespace Slinq.Extensions
 {
     public static class StrongEnumeratorExtensions
     {
-        public static bool Any<T, TEnumerator>(this IStrongEnumerable<T, TEnumerator> source)
-            where TEnumerator : struct, IStrongEnumerator<T>
-        {
-            return source.GetEnumerator().MoveNext();
-        }
-
         public static bool Any<T, TEnumerator>(this IStrongEnumerable<T, TEnumerator> source, Predicate<T> predicate)
             where TEnumerator : struct, IStrongEnumerator<T>
         {

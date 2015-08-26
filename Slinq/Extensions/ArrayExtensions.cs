@@ -8,7 +8,6 @@ using Slinq.Utils;
 
 namespace Slinq.Extensions
 {
-// ReSharper disable UnusedMember.Global, ClassTooBig, MethodNamesNotMeaningful, TooManyArguments this is an API && we just follow the existing convention
     public static class ArrayExtensions
     {
         public static WhereIterator<T> Where<T>(this T[] array, Predicate<T> predicate)
@@ -997,6 +996,5 @@ namespace Slinq.Extensions
 
             return sum.Value / source.Length;
         }
-// ReSharper restore UnusedMember.Global, ClassTooBig, MethodNamesNotMeaningful, TooManyArguments
     }
 }
