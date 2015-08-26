@@ -128,5 +128,35 @@ namespace Slinq.Iterators
 
             return default(T);
         }
+
+        public T Last()
+        {
+            int index = _actualLength - 1;
+            while (index >= 0)
+            {
+                if(_predicate(_source[index]))
+                {
+                    return _source[index];
+                }
+                --index;
+            }
+
+            throw Error.NoElements();
+        }
+
+        public T LastOrDefault()
+        {
+            int index = _actualLength - 1;
+            while (index >= 0)
+            {
+                if(_predicate(_source[index]))
+                {
+                    return _source[index];
+                }
+                --index;
+            }
+
+            return default(T);
+        }
     }
 }

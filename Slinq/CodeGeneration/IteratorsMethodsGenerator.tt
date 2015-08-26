@@ -89,6 +89,44 @@
 
             return default(<#=resultType#>);
         }
+
+        public <#=resultType#> Last()
+        {
+            int index = <#=loopTo#> - 1;
+            while (index >= <#=loopFrom#>)
+            {
+<#+if(!string.IsNullOrEmpty(canMoveNext)){#>
+                if(<#=canMoveNext#>)
+                {
+                    return <#=current#>;
+                }
+                --index;
+<#+}else{#>
+                return <#=current#>;
+<#+}#>
+            }
+
+            throw Error.NoElements();
+        }
+
+        public <#=resultType#> LastOrDefault()
+        {
+            int index = <#=loopTo#> - 1;
+            while (index >= <#=loopFrom#>)
+            {
+<#+if(!string.IsNullOrEmpty(canMoveNext)){#>
+                if(<#=canMoveNext#>)
+                {
+                    return <#=current#>;
+                }
+                --index;
+<#+}else{#>
+                return <#=current#>;
+<#+}#>
+            }
+
+            return default(<#=resultType#>);
+        }
 <#+
     }
 #>
