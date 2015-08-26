@@ -87,6 +87,26 @@ namespace Slinq.Iterators
             return false;
         }
 
+        public bool Contains(T item)
+        {
+            return Contains(item, EqualityComparer<T>.Default);
+        }
+
+        public bool Contains(T item, IEqualityComparer<T> equalityComparer)
+        {
+            int index = _start;
+            while (index < _end)
+            {
+                if (equalityComparer.Equals(_selector(index), item))
+                {
+                    return true;
+                }
+                ++index;
+            }
+
+            return false;
+        }
+
         public int Count()
         {
             return FixedCount;

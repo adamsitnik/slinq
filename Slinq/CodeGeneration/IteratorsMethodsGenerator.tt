@@ -27,6 +27,36 @@
             return false;
         }
 
+        public bool Contains(<#=resultType#> item)
+        {
+            return Contains(item, EqualityComparer<<#=resultType#>>.Default);
+        }
+
+        public bool Contains(<#=resultType#> item, IEqualityComparer<<#=resultType#>> equalityComparer)
+        {
+            int index = <#=loopFrom#>;
+            while (index < <#=loopTo#>)
+            {
+<#+if(!string.IsNullOrEmpty(canMoveNext)){#>
+                if(<#=canMoveNext#>)
+                {
+                    if (equalityComparer.Equals(<#=current#>, item))
+                    {
+                        return true;
+                    }
+                }
+<#+}else{#>
+                if (equalityComparer.Equals(<#=current#>, item))
+                {
+                    return true;
+                }
+<#+}#>
+                ++index;
+            }
+
+            return false;
+        }
+
         public int Count()
         {
 <#+if(isFixedCount){#>
