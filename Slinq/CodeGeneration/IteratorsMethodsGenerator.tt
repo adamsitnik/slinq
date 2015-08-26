@@ -4,7 +4,8 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#+ 
-    public void GenerateIteratorMethodSet(string loopFrom, string loopTo, string canMoveNext, bool isFixedCount)
+    public void GenerateIteratorMethodSet(string loopFrom, string loopTo, string canMoveNext, 
+        bool isFixedCount, string resultType, string current)
     {
 #>
         public bool Any()
@@ -49,6 +50,44 @@
 
             return count;
 <#+}#>
+        }
+
+        public <#=resultType#> First()
+        {
+            int index = <#=loopFrom#>;
+            while (index < <#=loopTo#>)
+            {
+<#+if(!string.IsNullOrEmpty(canMoveNext)){#>
+                if(<#=canMoveNext#>)
+                {
+                    return <#=current#>;
+                }
+                ++index;
+<#+}else{#>
+                return <#=current#>;
+<#+}#>
+            }
+
+            throw Error.NoElements();
+        }
+
+        public <#=resultType#> FirstOrDefault()
+        {
+            int index = <#=loopFrom#>;
+            while (index < <#=loopTo#>)
+            {
+<#+if(!string.IsNullOrEmpty(canMoveNext)){#>
+                if(<#=canMoveNext#>)
+                {
+                    return <#=current#>;
+                }
+                ++index;
+<#+}else{#>
+                return <#=current#>;
+<#+}#>
+            }
+
+            return default(<#=resultType#>);
         }
 <#+
     }

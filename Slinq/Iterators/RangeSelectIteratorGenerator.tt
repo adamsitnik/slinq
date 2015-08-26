@@ -86,7 +86,10 @@ namespace Slinq.Iterators
             loopFrom: "_start", 
             loopTo: "_end", 
             canMoveNext: string.Empty,
-            isFixedCount: true); 
+            isFixedCount: true,
+            resultType: "T",
+            current: "_selector(index)"
+        ); 
 #>
     }
 }

@@ -77,7 +77,9 @@ namespace Slinq.Iterators
             loopFrom: "0", 
             loopTo: "_actualLength", 
             canMoveNext: "_predicate(_source[index])",
-            isFixedCount: false); 
+            isFixedCount: false,
+            resultType: "TResult",
+            current: "_selector(_source[index])"); 
 #>
     }
 }

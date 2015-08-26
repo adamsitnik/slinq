@@ -97,5 +97,35 @@ namespace Slinq.Iterators
 
             return count;
         }
+
+        public TResult First()
+        {
+            int index = 0;
+            while (index < _actualLength)
+            {
+                if(_predicate(_source[index]))
+                {
+                    return _selector(_source[index]);
+                }
+                ++index;
+            }
+
+            throw Error.NoElements();
+        }
+
+        public TResult FirstOrDefault()
+        {
+            int index = 0;
+            while (index < _actualLength)
+            {
+                if(_predicate(_source[index]))
+                {
+                    return _selector(_source[index]);
+                }
+                ++index;
+            }
+
+            return default(TResult);
+        }
     }
 }

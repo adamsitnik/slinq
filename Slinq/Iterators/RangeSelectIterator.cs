@@ -91,5 +91,27 @@ namespace Slinq.Iterators
         {
             return FixedCount;
         }
+
+        public T First()
+        {
+            int index = _start;
+            while (index < _end)
+            {
+                return _selector(index);
+            }
+
+            throw Error.NoElements();
+        }
+
+        public T FirstOrDefault()
+        {
+            int index = _start;
+            while (index < _end)
+            {
+                return _selector(index);
+            }
+
+            return default(T);
+        }
     }
 }
