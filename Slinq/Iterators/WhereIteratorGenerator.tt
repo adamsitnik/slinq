@@ -73,6 +73,12 @@ namespace Slinq.Iterators
             return new WhereSelectIterator<T, TResult>(_source, _actualLength, _predicate, selector);
         }
 
-<# GenerateIteratorMethodSet("0", "_actualLength", "_predicate(_source[index])"); #>
+<# 
+        GenerateIteratorMethodSet(
+            loopFrom: "0", 
+            loopTo: "_actualLength", 
+            canMoveNext: "_predicate(_source[index])",
+            isFixedCount: false); 
+#>
     }
 }

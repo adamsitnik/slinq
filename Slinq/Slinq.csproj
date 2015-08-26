@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IFixedCount.cs" />
     <Compile Include="Abstract\IStrongEnumerable.cs" />
     <Compile Include="Abstract\IStrongEnumerator.cs" />
     <Compile Include="Error.cs" />

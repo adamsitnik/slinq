@@ -42,7 +42,7 @@ namespace Slinq.Iterators
     }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1815:OverrideEqualsAndOperatorEqualsOnValueTypes", Justification = "Design")]
-    public struct SelectIterator<TSource, TResult> : IStrongEnumerable<TResult, SelectEnumerator<TSource, TResult>>
+    public struct SelectIterator<TSource, TResult> : IStrongEnumerable<TResult, SelectEnumerator<TSource, TResult>>, IFixedCount
     {
         private readonly TSource[] _source;
         private readonly int _actualLength;
@@ -55,6 +55,11 @@ namespace Slinq.Iterators
             _actualLength = actualLength;
         }
 
+        public int FixedCount
+        {
+            get { return _actualLength; }
+        }
+
         public SelectEnumerator<TSource, TResult> GetEnumerator()
         {
             return new SelectEnumerator<TSource, TResult>(_source, _actualLength, _selector);
@@ -65,6 +70,12 @@ namespace Slinq.Iterators
             return new SelectWhereIterator<TSource, TResult>(_source, _actualLength, _selector, predicate);
         }
 
-<# GenerateIteratorMethodSet("0", "_actualLength", string.Empty); #>
+<# 
+        GenerateIteratorMethodSet(
+            loopFrom: "0", 
+            loopTo: "_actualLength", 
+            canMoveNext: string.Empty,
+            isFixedCount: true); 
+#>
     }
 }

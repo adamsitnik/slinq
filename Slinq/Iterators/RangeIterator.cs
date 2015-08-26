@@ -34,17 +34,20 @@ namespace Slinq.Iterators
     }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1815:OverrideEqualsAndOperatorEqualsOnValueTypes", Justification = "Design")]
-    public struct RangeIterator : IStrongEnumerable<int, RangeEnumerator>
+    public struct RangeIterator : IStrongEnumerable<int, RangeEnumerator>, IFixedCount
     {
         private readonly int _start;
         private readonly int _end;
 
         public RangeIterator(int start, int count)
         {
-            Contract.Requires(count > 0); // todo: add negative ranges
-
             _start = start;
             _end = start + count;
+        }
+
+        public int FixedCount
+        {
+            get { return _end - _start; }
         }
 
         public RangeEnumerator GetEnumerator()
@@ -83,6 +86,11 @@ namespace Slinq.Iterators
             }
 
             return false;
+        }
+
+        public int Count()
+        {
+            return FixedCount;
         }
     }
 }

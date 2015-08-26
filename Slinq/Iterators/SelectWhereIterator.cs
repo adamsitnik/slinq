@@ -86,5 +86,21 @@ namespace Slinq.Iterators
 
             return false;
         }
+
+        public int Count()
+        {
+            int index = 0;
+            int count = 0;
+            while (index < _actualLength)
+            {
+                if(_predicate(_selector(_source[index])))
+                {
+                    ++count;
+                }
+                ++index;
+            }
+
+            return count;
+        }
     }
 }

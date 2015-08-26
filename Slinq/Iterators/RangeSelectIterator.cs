@@ -37,7 +37,7 @@ namespace Slinq.Iterators
     }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1815:OverrideEqualsAndOperatorEqualsOnValueTypes", Justification = "Design")]
-    public struct RangeSelectIterator<T> : IStrongEnumerable<T, RangeSelectEnumerator<T>>
+    public struct RangeSelectIterator<T> : IStrongEnumerable<T, RangeSelectEnumerator<T>>, IFixedCount
     {
         private readonly int _start;
         private readonly int _end;
@@ -50,9 +50,8 @@ namespace Slinq.Iterators
             _selector = selector;
         }
 
-        private int Count
+        public int FixedCount
         {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get { return _end - _start; }
         }
 
@@ -63,7 +62,7 @@ namespace Slinq.Iterators
 
         public T[] ToArray()
         {
-            var result = new T[Count];
+            var result = new T[FixedCount];
             for (int rangeIndex = _start, resultIndex = 0; rangeIndex < _end; rangeIndex++, resultIndex++)
             {
                 result[resultIndex] = _selector(rangeIndex);
@@ -86,6 +85,11 @@ namespace Slinq.Iterators
             }
 
             return false;
+        }
+
+        public int Count()
+        {
+            return FixedCount;
         }
     }
 }
