@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Extensions\ExtractedArrayMathExtensionsBenchmarks.cs" />
     <Compile Include="Extensions\MathExtensionsBenchmarks.cs" />
+    <Compile Include="Extensions\SortingExtensionsBenchmarks.cs" />
     <Compile Include="Iterators\ArraySelectWhereIteratorBenchmarks.cs" />
     <Compile Include="Iterators\ArrayWhereIteratorBenchmarks.cs" />
     <Compile Include="Iterators\ArrayWhereSelectIteratorBenchmarks.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="Iterators\RangeSelectIteratorBenchmarks.cs" />
     <Compile Include="Iterators\ReadOnlyCollectionWhereIteratorBenchmark.cs" />
     <Compile Include="Iterators\ReadOnlyCollectionWhereSelectIteratorBenchmark.cs" />
+    <Compile Include="Iterators\WhereLastBenchmark.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProofsOfConcept\BoundariesCheckEliminationBenchmarks.cs" />
     <Compile Include="ProofsOfConcept\ForLoopVsWhileBenchmarks.cs" />

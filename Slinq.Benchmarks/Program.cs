@@ -27,7 +27,9 @@ namespace Slinq.Benchmarks
                 typeof(ExtractedArrayMathExtensionsBenchmarks),
                 typeof(ManualLoopUnrollingBenchmarks),
                 typeof(MinManualLoopingBenchmarks),
-                typeof(ForLoopVsWhileBenchmarks)
+                typeof(ForLoopVsWhileBenchmarks),
+                typeof(WhereLastBenchmark),
+                typeof(SortingExtensionsBenchmarks)
             });
             competitionSwitch.Run(args);
         }
