@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using BenchmarkDotNet;
 using BenchmarkDotNet.Tasks;
 using Slinq.Utils;
 
-namespace Slinq.Benchmarks.Utils
+namespace Slinq.Benchmarks.ProofsOfConcept
 {
     [BenchmarkTask(platform: BenchmarkPlatform.X86, warmupIterationCount: 2, targetIterationCount: 5)]
     [BenchmarkTask(platform: BenchmarkPlatform.X64, jitVersion: BenchmarkJitVersion.LegacyJit, warmupIterationCount: 2, targetIterationCount: 5)]

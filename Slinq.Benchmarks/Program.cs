@@ -2,7 +2,6 @@
 using Slinq.Benchmarks.Extensions;
 using Slinq.Benchmarks.Iterators;
 using Slinq.Benchmarks.ProofsOfConcept;
-using Slinq.Benchmarks.Utils;
 
 namespace Slinq.Benchmarks
 {
@@ -12,6 +11,7 @@ namespace Slinq.Benchmarks
         {
             var competitionSwitch = new BenchmarkCompetitionSwitch(new[] 
             {
+                /*
                 typeof(ArrayWhereIteratorBenchmarks),
                 typeof(ListWhereIteratorBenchmarks),
                 typeof(ReadOnlyCollectionWhereIteratorBenchmark),
@@ -29,7 +29,11 @@ namespace Slinq.Benchmarks
                 typeof(MinManualLoopingBenchmarks),
                 typeof(ForLoopVsWhileBenchmarks),
                 typeof(WhereLastBenchmark),
-                typeof(SortingExtensionsBenchmarks)
+                 */
+                typeof(SortingExtensionsBenchmarks),
+                typeof(ValueTypesSortingBenchmarks),
+                typeof(SendingHugeValueTypesAsParametersBenchmarks),
+                typeof(ReferenceTypesSortingBenchmarks)
             });
             competitionSwitch.Run(args);
         }

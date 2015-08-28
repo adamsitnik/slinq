@@ -18,8 +18,14 @@ namespace Slinq.Extensions
             return new SortingIterator<TSource>(source).OrderByDescending(keySelector);
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1815:OverrideEqualsAndOperatorEqualsOnValueTypes"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
-        public struct SortingIterator<TSource>
+        public static TSource[] Sort<TSource>(this TSource[] source, IComparer<TSource> comparer)
+        {
+            Array.Sort(source, comparer);
+
+            return source;
+        }
+
+        public class SortingIterator<TSource>
         {
             private readonly TSource[] _source;
             private readonly List<Func<TSource, TSource, int>> _rules; 
@@ -41,6 +47,13 @@ namespace Slinq.Extensions
                 where TKey : IComparable<TKey>
             {
                 AddAscendingRule(keySelector);
+
+                return this;
+            }
+
+            public SortingIterator<TSource> ThenBy(Func<TSource, int> keySelector)
+            {
+                _rules.Add((left, right) => keySelector(left).CompareTo(keySelector(right)));
 
                 return this;
             }
