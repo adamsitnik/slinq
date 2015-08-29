@@ -48,6 +48,7 @@ namespace Slinq.Benchmarks.ProofsOfConcept
                              .ToArray();
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible", Justification = "It is visible because Benchmark must return public types")]
         public class MyDateTime
         {
             public MyDateTime(int year, int month, int day)

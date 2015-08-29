@@ -33,7 +33,8 @@ namespace Slinq.Benchmarks
                 typeof(SortingExtensionsBenchmarks),
                 typeof(ValueTypesSortingBenchmarks),
                 typeof(SendingHugeValueTypesAsParametersBenchmarks),
-                typeof(ReferenceTypesSortingBenchmarks)
+                typeof(ReferenceTypesSortingBenchmarks),
+                typeof(ArraySortersBenchmarks)
             });
             competitionSwitch.Run(args);
         }

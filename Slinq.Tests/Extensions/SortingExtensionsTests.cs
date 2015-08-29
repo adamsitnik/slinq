@@ -2,12 +2,26 @@
 using System.Linq;
 using NUnit.Framework;
 using Slinq.Extensions;
+using Slinq.Utils;
 
 namespace Slinq.Tests.Extensions
 {
     [TestFixture]
     public class SortingExtensionsTests
     {
+        [Test]
+        public void WhenNoRulesAreSpecifiedTheDefaultComparerShouldBeUsed()
+        {
+            var randomNumbers = GenerateRandomNumbers();
+            var sortedByArraySort = randomNumbers.ToArray();
+            Array.Sort(sortedByArraySort);
+
+            var sortedByOptimizedArraySort = randomNumbers.ToArray();
+            ArraySorter.IntrospectiveSort(sortedByOptimizedArraySort, 0, randomNumbers.Length - 1);
+
+            CollectionAssert.AreEqual(sortedByArraySort, sortedByOptimizedArraySort);
+        }
+
         [Test]
         public void SingleSortingRulesShouldBeRespected()
         {
@@ -16,7 +30,7 @@ namespace Slinq.Tests.Extensions
 
             var result = SortingExtensions.OrderBy(randomNumbers, number => number).ToArray();
 
-            CollectionAssert.AreEqual(sortedByLinq, result);
+            CollectionAssert.AreEqual(sortedByLinq, randomNumbers);
         }
 
         [Test]

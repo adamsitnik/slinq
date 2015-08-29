@@ -63,6 +63,7 @@
     <Compile Include="Iterators\WhereLastBenchmark.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProofsOfConcept\ArrayProviderBenchmarks.cs" />
+    <Compile Include="ProofsOfConcept\ArraySortersBenchmarks.cs" />
     <Compile Include="ProofsOfConcept\BoundariesCheckEliminationBenchmarks.cs" />
     <Compile Include="ProofsOfConcept\ForLoopVsWhileBenchmarks.cs" />
     <Compile Include="ProofsOfConcept\ManualLoopUnrollingBenchmarks.cs" />
