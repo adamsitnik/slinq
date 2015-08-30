@@ -78,6 +78,17 @@ namespace Slinq.Iterators
             }
         }
 
+        public int[] ToArray()
+        {
+            var result = new int[FixedCount];
+            for (int rangeIndex = _start, resultIndex = 0; rangeIndex < _end; rangeIndex++, resultIndex++)
+            {
+                result[resultIndex] = rangeIndex;
+            }
+
+            return result;
+        }
+
         public bool Any()
         {
             int index = _start;
