@@ -110,9 +110,10 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\ArrayProvider.cs" />
-    <Compile Include="Utils\ArraySorter.cs" />
+    <Compile Include="Utils\ArraySorterHelper.cs" />
     <Compile Include="Utils\CilGenerator.cs" />
     <Compile Include="Utils\Contract.cs" />
+    <Compile Include="Utils\IntsArraySorter.cs" />
     <Compile Include="Utils\ListFactory.cs" />
     <Compile Include="Utils\ReverseEngineering.cs" />
   </ItemGroup>

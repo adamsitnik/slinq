@@ -17,7 +17,7 @@ namespace Slinq.Tests.Extensions
             Array.Sort(sortedByArraySort);
 
             var sortedByOptimizedArraySort = randomNumbers.ToArray();
-            ArraySorter.IntrospectiveSort(sortedByOptimizedArraySort, 0, randomNumbers.Length - 1);
+            IntsArraySorter.IntrospectiveSort(sortedByOptimizedArraySort, 0, randomNumbers.Length - 1);
 
             CollectionAssert.AreEqual(sortedByArraySort, sortedByOptimizedArraySort);
         }
@@ -30,7 +30,7 @@ namespace Slinq.Tests.Extensions
 
             var result = SortingExtensions.OrderBy(randomNumbers, number => number).ToArray();
 
-            CollectionAssert.AreEqual(sortedByLinq, randomNumbers);
+            CollectionAssert.AreEqual(sortedByLinq, result);
         }
 
         [Test]

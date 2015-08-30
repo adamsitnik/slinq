@@ -5,10 +5,8 @@ namespace Slinq.Utils
     /// <summary>
     /// the code is an micro optimized version of C++ IntroSort that is invoked from Array.Sort via extern mechanism
     /// </summary>
-    public static class ArraySorter
+    public static class IntsArraySorter
     {
-        private const int IntrosortSizeThreshold = 16;
-
         internal static void IntrospectiveSort(int[] keys, int indexFrom, int indexTo)
         {
             int length = indexTo - indexFrom + 1;
@@ -18,7 +16,7 @@ namespace Slinq.Utils
                 return;
             }
 
-            IntroSort(keys, indexFrom, indexTo, 2 * FloorLog2(length));
+            IntroSort(keys, indexFrom, indexTo, 2 * ArraySorterHelper.FloorLog2(length));
         }
 
         private static void IntroSort(int[] keys, int lo, int hi, int depthLimit)
@@ -26,7 +24,7 @@ namespace Slinq.Utils
             while (hi > lo)
             {
                 int partitionSize = hi - lo + 1;
-                if (partitionSize <= IntrosortSizeThreshold)
+                if (partitionSize <= ArraySorterHelper.IntrosortSizeThreshold)
                 {
                     if (partitionSize == 1)
                     {
@@ -37,7 +35,7 @@ namespace Slinq.Utils
                     {
                         if (lo != hi)
                         {
-                            SwapIfGreaterWithItems(ref keys[lo], ref keys[hi]);
+                            SwapIfGreaterWithItems(keys, lo, hi);
                         }
 
                         return;
@@ -45,14 +43,14 @@ namespace Slinq.Utils
 
                     if (partitionSize == 3)
                     {
-                        SwapIfGreaterWithItems(ref keys[lo], ref keys[hi - 1]);
+                        SwapIfGreaterWithItems(keys, lo, hi - 1);
 
                         if (lo != hi)
                         {
-                            SwapIfGreaterWithItems(ref keys[lo], ref keys[hi]);
+                            SwapIfGreaterWithItems(keys, lo, hi);
                         }
 
-                        SwapIfGreaterWithItems(ref keys[hi - 1], ref keys[hi]);
+                        SwapIfGreaterWithItems(keys, hi - 1, hi);
                         return;
                     }
 
@@ -74,31 +72,30 @@ namespace Slinq.Utils
             }
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static int PickPivotAndPartition(int[] keys, int lo, int hi)
         {
             // Compute median-of-three.  But also partition them, since we've done the comparison.
-            int median = lo + (hi - lo) / 2;
+            int median = lo + ((hi - lo) / 2);
 
-            // Sort lo, mid and hi appropriately, then pick mid as the pivot.
+            //// Sort lo, mid and hi appropriately, then pick mid as the pivot.
 
             if (lo != median)
             {
-                SwapIfGreaterWithItems(ref keys[lo], ref keys[median]);
+                SwapIfGreaterWithItems(keys, lo, median);
             }
 
             if (lo != hi)
             {
-                SwapIfGreaterWithItems(ref keys[lo], ref keys[hi]);
+                SwapIfGreaterWithItems(keys, lo, hi);
             }
 
             if (median != hi)
             {
-                SwapIfGreaterWithItems(ref keys[median], ref keys[hi]);
+                SwapIfGreaterWithItems(keys, median, hi);
             }
 
             int pivot = keys[median];
-            Swap(ref keys[median], ref keys[hi - 1]);
+            ArraySorterHelper.Swap(keys, median, hi - 1);
 
             int left = lo, right = hi - 1;
 
@@ -118,15 +115,14 @@ namespace Slinq.Utils
                     break;
                 }
 
-                Swap(ref keys[left], ref keys[right]);
+                ArraySorterHelper.Swap(keys, left, right);
             }
 
             // Put pivot in the right location.
-            Swap(ref keys[left], ref keys[hi - 1]);
+            ArraySorterHelper.Swap(keys, left, hi - 1);
             return left;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void Heapsort(int[] keys, int lo, int hi)
         {
             int n = hi - lo + 1;
@@ -137,12 +133,11 @@ namespace Slinq.Utils
 
             for (int i = n; i > 1; i = i - 1)
             {
-                Swap(ref keys[lo], ref keys[lo + i - 1]);
+                ArraySorterHelper.Swap(keys, lo, lo + i - 1);
                 DownHeap(keys, 1, i - 1, lo);
             }
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void DownHeap(int[] keys, int i, int n, int lo)
         {
             int d = keys[lo + i - 1];
@@ -169,7 +164,6 @@ namespace Slinq.Utils
             keys[lo + i - 1] = d;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void InsertionSort(int[] keys, int lo, int hi)
         {
             int i, j, t;
@@ -188,34 +182,15 @@ namespace Slinq.Utils
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static void SwapIfGreaterWithItems(ref int keyA, ref int keyB)
+        private static void SwapIfGreaterWithItems(int[] keys, int leftIndex, int rightIndex)
         {
-            if (keyA > keyB)
+            var leftKeyValue = keys[leftIndex];
+            var rightKeyValue = keys[rightIndex];
+            if (leftKeyValue > rightKeyValue)
             {
-                int key = keyA;
-                keyA = keyB;
-                keyB = key;
+                keys[leftIndex] = rightKeyValue;
+                keys[rightIndex] = leftKeyValue;
             }
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static void Swap(ref int keyI, ref int keyJ)
-        {
-            int copy = keyI;
-            keyI = keyJ;
-            keyJ = copy;
-        }
-
-        private static int FloorLog2(int n)
-        {
-            int result = 0;
-            while (n >= 1)
-            {
-                ++result;
-                n = n / 2;
-            }
-
-            return result;
         }
     }
 }

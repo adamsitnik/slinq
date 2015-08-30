@@ -21,6 +21,7 @@ namespace Slinq.Benchmarks.ProofsOfConcept
             {
                 sum += SendParametersAsReference(ref Dates[0], ref Dates[1]);
             }
+
             return sum;
         }
 
@@ -32,6 +33,7 @@ namespace Slinq.Benchmarks.ProofsOfConcept
             {
                 sum += SendParametersAsCopy(Dates[0], Dates[1]);
             }
+
             return sum;
         }
 

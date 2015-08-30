@@ -1,6 +1,5 @@
 ﻿using BenchmarkDotNet;
 using Slinq.Benchmarks.Extensions;
-using Slinq.Benchmarks.Iterators;
 using Slinq.Benchmarks.ProofsOfConcept;
 
 namespace Slinq.Benchmarks
@@ -34,7 +33,10 @@ namespace Slinq.Benchmarks
                 typeof(ValueTypesSortingBenchmarks),
                 typeof(SendingHugeValueTypesAsParametersBenchmarks),
                 typeof(ReferenceTypesSortingBenchmarks),
-                typeof(ArraySortersBenchmarks)
+                typeof(ArraySortersBenchmarks),
+                typeof(SwappingRefVsMultipleArrayAccessBenchmarks),
+                typeof(SystemArraySort),
+                typeof(OptimizedSystemArraySort)
             });
             competitionSwitch.Run(args);
         }

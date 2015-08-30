@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using BenchmarkDotNet;
 using BenchmarkDotNet.Tasks;
@@ -11,6 +12,7 @@ namespace Slinq.Benchmarks.ProofsOfConcept
     [BenchmarkTask(platform: BenchmarkPlatform.X86, warmupIterationCount: 2, targetIterationCount: 5)]
     [BenchmarkTask(platform: BenchmarkPlatform.X64, jitVersion: BenchmarkJitVersion.LegacyJit, warmupIterationCount: 2, targetIterationCount: 5)]
     [BenchmarkTask(platform: BenchmarkPlatform.X64, jitVersion: BenchmarkJitVersion.RyuJit, warmupIterationCount: 2, targetIterationCount: 5)]
+    [SuppressMessage("StyleCop.CSharp.OrderingRules", "SA1201:ElementsMustAppearInTheCorrectOrder", Justification = "Readability")]
     public class ArraySortersBenchmarks
     {
         /// <summary>
@@ -62,7 +64,7 @@ namespace Slinq.Benchmarks.ProofsOfConcept
         {
             int[] randomNumbers = DataGenerator.GenerateRandomNumbers();
 
-            ArraySorter.IntrospectiveSort(randomNumbers, 0, randomNumbers.Length - 1);
+            IntsArraySorter.IntrospectiveSort(randomNumbers, 0, randomNumbers.Length - 1);
 
             return randomNumbers;
         }
@@ -83,7 +85,7 @@ namespace Slinq.Benchmarks.ProofsOfConcept
         {
             var random = new Random(1834607); // same seed for all ensures that the values are going to be the same
 
-            return StrongEnumerable.Range(1, 300).Select(_ =>  new IntWrapper(random.Next())).ToArray();
+            return StrongEnumerable.Range(1, 300).Select(_ => new IntWrapper(random.Next())).ToArray();
         }
     }
 
@@ -152,6 +154,7 @@ namespace Slinq.Benchmarks.ProofsOfConcept
         }
     }
 
+    [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Readability")]
     internal class NonDefaultComparer : IComparer<int>
     {
         public int Compare(int x, int y)

@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataGenerator.cs" />
     <Compile Include="Extensions\ExtractedArrayMathExtensionsBenchmarks.cs" />
     <Compile Include="Extensions\MathExtensionsBenchmarks.cs" />
     <Compile Include="Extensions\SortingExtensionsBenchmarks.cs" />
@@ -71,6 +72,8 @@
     <Compile Include="ProofsOfConcept\ReferenceTypesSortingBenchmarks.cs" />
     <Compile Include="ProofsOfConcept\ReferencingToFieldVsReferencingToLocalVariable.cs" />
     <Compile Include="ProofsOfConcept\SendingHugeValueTypesAsParametersBenchmarks.cs" />
+    <Compile Include="ProofsOfConcept\SwappingRefVsMultipleArrayAccessBenchmarks.cs" />
+    <Compile Include="ProofsOfConcept\SystemVsCustomArraySort.cs" />
     <Compile Include="ProofsOfConcept\ValueTypesSortingBenchmarks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
