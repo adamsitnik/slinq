@@ -11,7 +11,7 @@ namespace Slinq.Benchmarks.ProofsOfConcept
     [BenchmarkTask(platform: BenchmarkPlatform.X64, jitVersion: BenchmarkJitVersion.RyuJit, warmupIterationCount: 2, targetIterationCount: 5)]
     public class ArrayProviderBenchmarks
     {
-        private static readonly List<int> ListOfSmallValueTypes = Enumerable.Range(1, 5).ToList();
+        private static readonly List<int> ListOfSmallValueTypes = DataGenerator.GenerateRandomNumbers(5).ToList();
 
         [Benchmark]
         public int[] GetArrayFromListReflection()

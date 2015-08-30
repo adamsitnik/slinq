@@ -10,7 +10,7 @@ namespace Slinq.Benchmarks.Iterators
     [BenchmarkTask(platform: BenchmarkPlatform.X64, jitVersion: BenchmarkJitVersion.RyuJit, warmupIterationCount: 2, targetIterationCount: 5)]
     public class ArraySelectWhereIteratorBenchmarks
     {
-        private static readonly int[] Numbers = Enumerable.Range(1, 1000).ToArray();
+        private static readonly int[] Numbers = DataGenerator.GenerateRandomNumbers(1000);
 
         [Benchmark]
         public int IterateOverSelectWhereResult_Slinq()

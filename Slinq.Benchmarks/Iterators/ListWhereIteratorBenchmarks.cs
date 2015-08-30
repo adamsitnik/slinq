@@ -11,7 +11,7 @@ namespace Slinq.Benchmarks.Iterators
     [BenchmarkTask(platform: BenchmarkPlatform.X64, jitVersion: BenchmarkJitVersion.RyuJit, warmupIterationCount: 2, targetIterationCount: 5)]
     public class ListWhereIteratorBenchmarks
     {
-        private static readonly List<int> Numbers = Enumerable.Range(1, 1000).ToList();
+        private static readonly List<int> Numbers = DataGenerator.GenerateRandomNumbers(1000).ToList();
 
         [Benchmark]
         public int IterateOverWhereResult_Struct()

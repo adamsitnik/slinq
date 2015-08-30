@@ -15,28 +15,19 @@ namespace Slinq.Benchmarks.ProofsOfConcept
         [Benchmark]
         public DateTime[] SortDateTimes_SingleComparerThatUsesFewFields_Slinq()
         {
-            return SortingExtensions.Sort(GenerateRandomDates(), new DateTimeComparer());
+            return SortingExtensions.Sort(DataGenerator.GenerateRandomDates(), new DateTimeComparer());
         }
 
         [Benchmark]
         public DateTime[] SortDateTimes_FewLambdas_Slinq()
         {
-            return SortingExtensions.OrderBy(GenerateRandomDates(), date => date.Year).ThenBy(date => date.Month).ThenBy(date => date.Day).ToArray();
+            return SortingExtensions.OrderBy(DataGenerator.GenerateRandomDates(), date => date.Year).ThenBy(date => date.Month).ThenBy(date => date.Day).ToArray();
         }
 
         [Benchmark]
         public DateTime[] SortDateTimes_FewLambdas_Linq()
         {
-            return Enumerable.OrderBy(GenerateRandomDates(), date => date.Year).ThenBy(date => date.Month).ThenBy(date => date.Day).ToArray();
-        }
-
-        private static DateTime[] GenerateRandomDates()
-        {
-            var random = new Random();
-
-            return Enumerable.Range(1, 1000)
-                .Select(_ => new DateTime(random.Next(2000, 2015), random.Next(1, 12), random.Next(1, 28)))
-                .ToArray();
+            return Enumerable.OrderBy(DataGenerator.GenerateRandomDates(), date => date.Year).ThenBy(date => date.Month).ThenBy(date => date.Day).ToArray();
         }
 
         private class DateTimeComparer : IComparer<DateTime>

@@ -46,21 +46,5 @@ namespace Slinq.Benchmarks.ProofsOfConcept
         {
             return x.Integer + y.Integer;
         }
-
-        private struct HugeValueType
-        {
-            internal readonly int Integer;
-            internal readonly long HugeInteger;
-            internal readonly long AnotherHugeInteger;
-            internal readonly long LastHugeInteger;
-
-            public HugeValueType(int integer, long hugeInteger, long anotherHugeInteger, long lastHugeInteger)
-            {
-                Integer = integer;
-                HugeInteger = hugeInteger;
-                AnotherHugeInteger = anotherHugeInteger;
-                LastHugeInteger = lastHugeInteger;
-            }
-        }
     }
 }

@@ -20,7 +20,7 @@ namespace Slinq.Benchmarks.ProofsOfConcept
         [Benchmark]
         public int[] ArraySort_OnBCLPrimitiveTypeThatIsImplementedByCLRinCppAsExternMethod()
         {
-            int[] randomNumbers = GenerateRandomNumbers();
+            int[] randomNumbers = DataGenerator.GenerateRandomNumbers();
 
             Array.Sort(randomNumbers);
 
@@ -40,7 +40,7 @@ namespace Slinq.Benchmarks.ProofsOfConcept
         [Benchmark]
         public int[] ArraySort_Comparison()
         {
-            int[] randomNumbers = GenerateRandomNumbers();
+            int[] randomNumbers = DataGenerator.GenerateRandomNumbers();
 
             Array.Sort(randomNumbers, (left, right) => left.CompareTo(right));
 
@@ -50,7 +50,7 @@ namespace Slinq.Benchmarks.ProofsOfConcept
         [Benchmark]
         public int[] ArraySort_NonDefaultComparer()
         {
-            int[] randomNumbers = GenerateRandomNumbers();
+            int[] randomNumbers = DataGenerator.GenerateRandomNumbers();
 
             Array.Sort(randomNumbers, new NonDefaultComparer());
 
@@ -60,7 +60,7 @@ namespace Slinq.Benchmarks.ProofsOfConcept
         [Benchmark]
         public int[] OptimizedVersion()
         {
-            int[] randomNumbers = GenerateRandomNumbers();
+            int[] randomNumbers = DataGenerator.GenerateRandomNumbers();
 
             ArraySorter.IntrospectiveSort(randomNumbers, 0, randomNumbers.Length - 1);
 
@@ -70,27 +70,20 @@ namespace Slinq.Benchmarks.ProofsOfConcept
         [Benchmark]
         public int[] SlinqExtensions()
         {
-            return SortingExtensions.OrderBy(GenerateRandomNumbers(), number => number).ToArray();
+            return SortingExtensions.OrderBy(DataGenerator.GenerateRandomNumbers(), number => number).ToArray();
         }
 
         [Benchmark]
         public int[] EnumerableExtensions()
         {
-            return Enumerable.OrderBy(GenerateRandomNumbers(), number => number).ToArray();
-        }
-
-        private static int[] GenerateRandomNumbers()
-        {
-            var random = new Random(1834607); // same seed for all ensures that the values are going to be the same
-
-            return StrongEnumerable.Range(1, 30).Select(_ => random.Next()).ToArray();
+            return Enumerable.OrderBy(DataGenerator.GenerateRandomNumbers(), number => number).ToArray();
         }
 
         private static IntWrapper[] GenerateRandomWrappedNumbers()
         {
             var random = new Random(1834607); // same seed for all ensures that the values are going to be the same
 
-            return StrongEnumerable.Range(1, 30).Select(_ =>  new IntWrapper(random.Next())).ToArray();
+            return StrongEnumerable.Range(1, 300).Select(_ =>  new IntWrapper(random.Next())).ToArray();
         }
     }
 

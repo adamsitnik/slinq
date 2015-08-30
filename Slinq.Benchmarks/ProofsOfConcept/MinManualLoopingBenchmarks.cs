@@ -1,6 +1,4 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using BenchmarkDotNet;
 using BenchmarkDotNet.Tasks;
@@ -12,8 +10,7 @@ namespace Slinq.Benchmarks.ProofsOfConcept
     [BenchmarkTask(platform: BenchmarkPlatform.X64, jitVersion: BenchmarkJitVersion.RyuJit, warmupIterationCount: 2, targetIterationCount: 3)]
     public class MinManualLoopingBenchmarks
     {
-        private static readonly Random Random = new Random();
-        private static readonly int[] Numbers = Enumerable.Range(1, 8 * 100).Select(i => Random.Next()).ToArray();
+        private static readonly int[] Numbers = DataGenerator.GenerateRandomNumbers(8 * 100);
 
         [Benchmark]
         public int Without()

@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using BenchmarkDotNet;
+﻿using BenchmarkDotNet;
 using BenchmarkDotNet.Tasks;
 
 namespace Slinq.Benchmarks.ProofsOfConcept
@@ -9,7 +8,7 @@ namespace Slinq.Benchmarks.ProofsOfConcept
     [BenchmarkTask(platform: BenchmarkPlatform.X64, jitVersion: BenchmarkJitVersion.RyuJit, warmupIterationCount: 2, targetIterationCount: 3)]
     public class ReferencingToFieldVsReferencingToLocalVariableAndReadOnlyVsMutable
     {
-        private static readonly int[] Numbers = Enumerable.Range(1, 100).ToArray();
+        private static readonly int[] Numbers = DataGenerator.GenerateRandomNumbers(100);
 
         [Benchmark]
         public int AccessReadOnlyViaField()
