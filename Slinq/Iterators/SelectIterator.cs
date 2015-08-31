@@ -66,6 +66,17 @@ namespace Slinq.Iterators
             return new SelectWhereIterator<TSource, TResult>(_source, _actualLength, _selector, predicate);
         }
 
+        public TResult[] ToArray()
+        {
+            var result = new TResult[FixedCount];
+            for (int index = 0; index < FixedCount; index++)
+            {
+                result[index] = _selector(_source[index]);
+            }
+
+            return result;
+        }
+
         public bool Any()
         {
             int index = 0;
