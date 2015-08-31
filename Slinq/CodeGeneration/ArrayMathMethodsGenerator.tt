@@ -93,13 +93,10 @@
             Contract.RequiresNotDefault(source, "source");
             Contract.RequiresNonEmptyCollection(<#=lengthName#>);
 
-            var min = <#=sourceName#>[0];
-            for (int i = 1; i < <#=lengthName#>; i++)
+            var min = <#=numericType#>.MaxValue;
+            for (int i = 0; i < <#=lengthName#>; i++)
             {
-                if (min > <#=sourceName#>[i])
-                {
-                    min = <#=sourceName#>[i];
-                }
+                min = Math.Min(min, <#=sourceName#>[i]);
             }
 
             return min;
@@ -119,6 +116,7 @@
                 if (current != null)
                 {
                     min = current;
+                    break;
                 }
             }
             for (; i < <#=lengthName#>; i++)
@@ -139,13 +137,10 @@
             Contract.RequiresNotDefault(source, "source");
             Contract.RequiresNonEmptyCollection(<#=lengthName#>);
 
-            var max = <#=sourceName#>[0];
-            for (int i = 1; i < <#=lengthName#>; i++)
+            var max = <#=numericType#>.MinValue;
+            for (int i = 0; i < <#=lengthName#>; i++)
             {
-                if (max < <#=sourceName#>[i])
-                {
-                    max = <#=sourceName#>[i];
-                }
+                max = Math.Max(max, <#=sourceName#>[i]);
             }
 
             return max;
@@ -165,6 +160,7 @@
                 if (current != null)
                 {
                     max = current;
+                    break;
                 }
             }
             for (; i < <#=lengthName#>; i++)

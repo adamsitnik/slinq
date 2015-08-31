@@ -284,13 +284,10 @@ namespace Slinq.Extensions
             Contract.RequiresNotDefault(source, "source");
             Contract.RequiresNonEmptyCollection(source.Length);
 
-            var min = source[0];
-            for (int i = 1; i < source.Length; i++)
+            var min = short.MaxValue;
+            for (int i = 0; i < source.Length; i++)
             {
-                if (min > source[i])
-                {
-                    min = source[i];
-                }
+                min = Math.Min(min, source[i]);
             }
 
             return min;
@@ -310,6 +307,7 @@ namespace Slinq.Extensions
                 if (current != null)
                 {
                     min = current;
+                    break;
                 }
             }
             for (; i < source.Length; i++)
@@ -330,13 +328,10 @@ namespace Slinq.Extensions
             Contract.RequiresNotDefault(source, "source");
             Contract.RequiresNonEmptyCollection(source.Length);
 
-            var max = source[0];
-            for (int i = 1; i < source.Length; i++)
+            var max = short.MinValue;
+            for (int i = 0; i < source.Length; i++)
             {
-                if (max < source[i])
-                {
-                    max = source[i];
-                }
+                max = Math.Max(max, source[i]);
             }
 
             return max;
@@ -356,6 +351,7 @@ namespace Slinq.Extensions
                 if (current != null)
                 {
                     max = current;
+                    break;
                 }
             }
             for (; i < source.Length; i++)
@@ -435,13 +431,10 @@ namespace Slinq.Extensions
             Contract.RequiresNotDefault(source, "source");
             Contract.RequiresNonEmptyCollection(source.Length);
 
-            var min = source[0];
-            for (int i = 1; i < source.Length; i++)
+            var min = int.MaxValue;
+            for (int i = 0; i < source.Length; i++)
             {
-                if (min > source[i])
-                {
-                    min = source[i];
-                }
+                min = Math.Min(min, source[i]);
             }
 
             return min;
@@ -461,6 +454,7 @@ namespace Slinq.Extensions
                 if (current != null)
                 {
                     min = current;
+                    break;
                 }
             }
             for (; i < source.Length; i++)
@@ -481,13 +475,10 @@ namespace Slinq.Extensions
             Contract.RequiresNotDefault(source, "source");
             Contract.RequiresNonEmptyCollection(source.Length);
 
-            var max = source[0];
-            for (int i = 1; i < source.Length; i++)
+            var max = int.MinValue;
+            for (int i = 0; i < source.Length; i++)
             {
-                if (max < source[i])
-                {
-                    max = source[i];
-                }
+                max = Math.Max(max, source[i]);
             }
 
             return max;
@@ -507,6 +498,7 @@ namespace Slinq.Extensions
                 if (current != null)
                 {
                     max = current;
+                    break;
                 }
             }
             for (; i < source.Length; i++)
@@ -586,13 +578,10 @@ namespace Slinq.Extensions
             Contract.RequiresNotDefault(source, "source");
             Contract.RequiresNonEmptyCollection(source.Length);
 
-            var min = source[0];
-            for (int i = 1; i < source.Length; i++)
+            var min = long.MaxValue;
+            for (int i = 0; i < source.Length; i++)
             {
-                if (min > source[i])
-                {
-                    min = source[i];
-                }
+                min = Math.Min(min, source[i]);
             }
 
             return min;
@@ -612,6 +601,7 @@ namespace Slinq.Extensions
                 if (current != null)
                 {
                     min = current;
+                    break;
                 }
             }
             for (; i < source.Length; i++)
@@ -632,13 +622,10 @@ namespace Slinq.Extensions
             Contract.RequiresNotDefault(source, "source");
             Contract.RequiresNonEmptyCollection(source.Length);
 
-            var max = source[0];
-            for (int i = 1; i < source.Length; i++)
+            var max = long.MinValue;
+            for (int i = 0; i < source.Length; i++)
             {
-                if (max < source[i])
-                {
-                    max = source[i];
-                }
+                max = Math.Max(max, source[i]);
             }
 
             return max;
@@ -658,6 +645,7 @@ namespace Slinq.Extensions
                 if (current != null)
                 {
                     max = current;
+                    break;
                 }
             }
             for (; i < source.Length; i++)
@@ -737,13 +725,10 @@ namespace Slinq.Extensions
             Contract.RequiresNotDefault(source, "source");
             Contract.RequiresNonEmptyCollection(source.Length);
 
-            var min = source[0];
-            for (int i = 1; i < source.Length; i++)
+            var min = float.MaxValue;
+            for (int i = 0; i < source.Length; i++)
             {
-                if (min > source[i])
-                {
-                    min = source[i];
-                }
+                min = Math.Min(min, source[i]);
             }
 
             return min;
@@ -763,6 +748,7 @@ namespace Slinq.Extensions
                 if (current != null)
                 {
                     min = current;
+                    break;
                 }
             }
             for (; i < source.Length; i++)
@@ -783,13 +769,10 @@ namespace Slinq.Extensions
             Contract.RequiresNotDefault(source, "source");
             Contract.RequiresNonEmptyCollection(source.Length);
 
-            var max = source[0];
-            for (int i = 1; i < source.Length; i++)
+            var max = float.MinValue;
+            for (int i = 0; i < source.Length; i++)
             {
-                if (max < source[i])
-                {
-                    max = source[i];
-                }
+                max = Math.Max(max, source[i]);
             }
 
             return max;
@@ -809,6 +792,7 @@ namespace Slinq.Extensions
                 if (current != null)
                 {
                     max = current;
+                    break;
                 }
             }
             for (; i < source.Length; i++)
@@ -888,13 +872,10 @@ namespace Slinq.Extensions
             Contract.RequiresNotDefault(source, "source");
             Contract.RequiresNonEmptyCollection(source.Length);
 
-            var min = source[0];
-            for (int i = 1; i < source.Length; i++)
+            var min = double.MaxValue;
+            for (int i = 0; i < source.Length; i++)
             {
-                if (min > source[i])
-                {
-                    min = source[i];
-                }
+                min = Math.Min(min, source[i]);
             }
 
             return min;
@@ -914,6 +895,7 @@ namespace Slinq.Extensions
                 if (current != null)
                 {
                     min = current;
+                    break;
                 }
             }
             for (; i < source.Length; i++)
@@ -934,13 +916,10 @@ namespace Slinq.Extensions
             Contract.RequiresNotDefault(source, "source");
             Contract.RequiresNonEmptyCollection(source.Length);
 
-            var max = source[0];
-            for (int i = 1; i < source.Length; i++)
+            var max = double.MinValue;
+            for (int i = 0; i < source.Length; i++)
             {
-                if (max < source[i])
-                {
-                    max = source[i];
-                }
+                max = Math.Max(max, source[i]);
             }
 
             return max;
@@ -960,6 +939,7 @@ namespace Slinq.Extensions
                 if (current != null)
                 {
                     max = current;
+                    break;
                 }
             }
             for (; i < source.Length; i++)
