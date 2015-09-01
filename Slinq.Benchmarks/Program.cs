@@ -1,5 +1,6 @@
 ﻿using BenchmarkDotNet;
 using Slinq.Benchmarks.Extensions;
+using Slinq.Benchmarks.Iterators;
 using Slinq.Benchmarks.ProofsOfConcept;
 
 namespace Slinq.Benchmarks
@@ -10,7 +11,6 @@ namespace Slinq.Benchmarks
         {
             var competitionSwitch = new BenchmarkCompetitionSwitch(new[] 
             {
-                /*
                 typeof(ArrayWhereIteratorBenchmarks),
                 typeof(ListWhereIteratorBenchmarks),
                 typeof(ReadOnlyCollectionWhereIteratorBenchmark),
@@ -25,10 +25,9 @@ namespace Slinq.Benchmarks
                 typeof(BoundariesCheckEliminationBenchmarks),
                 typeof(ExtractedArrayMathExtensionsBenchmarks),
                 typeof(ManualLoopUnrollingBenchmarks),
-                typeof(MinManualLoopingBenchmarks),
+                typeof(FastestMin),
                 typeof(ForLoopVsWhileBenchmarks),
                 typeof(WhereLastBenchmark),
-                 */
                 typeof(SortingExtensionsBenchmarks),
                 typeof(ValueTypesSortingBenchmarks),
                 typeof(SendingHugeValueTypesAsParametersBenchmarks),
@@ -36,7 +35,8 @@ namespace Slinq.Benchmarks
                 typeof(ArraySortersBenchmarks),
                 typeof(SwappingRefVsMultipleArrayAccessBenchmarks),
                 typeof(SystemArraySort),
-                typeof(OptimizedSystemArraySort)
+                typeof(OptimizedSystemArraySort),
+                typeof(SystemArraySortUsingCustomComparer),
             });
             competitionSwitch.Run(args);
         }

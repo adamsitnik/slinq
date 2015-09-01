@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using NUnit.Framework;
+using Slinq.Abstract;
 using Slinq.Extensions;
 using Slinq.Utils;
 
@@ -17,7 +18,7 @@ namespace Slinq.Tests.Extensions
             Array.Sort(sortedByArraySort);
 
             var sortedByOptimizedArraySort = randomNumbers.ToArray();
-            IntsArraySorter.IntrospectiveSort(sortedByOptimizedArraySort, 0, randomNumbers.Length - 1);
+            GenericArraySorter.IntrospectiveSort(sortedByOptimizedArraySort, 0, randomNumbers.Length - 1, new ExperimentalComparer());
 
             CollectionAssert.AreEqual(sortedByArraySort, sortedByOptimizedArraySort);
         }
@@ -58,6 +59,24 @@ namespace Slinq.Tests.Extensions
             return Enumerable.Range(1, 1000)
                 .Select(_ => new DateTime(random.Next(2000, 2015), random.Next(1,  12), random.Next(1, 28)))
                 .ToArray();
+        }
+
+        private class ExperimentalComparer : ICopyFreeComparer<int>
+        {
+            public int Compare(ref int left, ref int right)
+            {
+                if (left > right)
+                {
+                    return 1;
+                }
+
+                if (left < right)
+                {
+                    return -1;
+                }
+
+                return 0;
+            }
         }
     }
 }

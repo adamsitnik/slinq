@@ -5,6 +5,9 @@ using BenchmarkDotNet.Tasks;
 
 namespace Slinq.Benchmarks.ProofsOfConcept
 {
+    /// <summary>
+    /// this benchmarks prove that only x64 JITers support loop unrolling but only for COST-size for loops which just sucks
+    /// </summary>
     [BenchmarkTask(platform: BenchmarkPlatform.X86, warmupIterationCount: 2, targetIterationCount: 5)]
     [BenchmarkTask(platform: BenchmarkPlatform.X64, jitVersion: BenchmarkJitVersion.LegacyJit, warmupIterationCount: 2, targetIterationCount: 5)]
     [BenchmarkTask(platform: BenchmarkPlatform.X64, jitVersion: BenchmarkJitVersion.RyuJit, warmupIterationCount: 2, targetIterationCount: 5)]
@@ -47,6 +50,12 @@ namespace Slinq.Benchmarks.ProofsOfConcept
         public int DataDependencyElimination_MathMin_NoBoundariesCheckElimination()
         {
             return DataDependencyElimination_MathMin_NoBoundariesCheckElimination(Numbers);
+        }
+
+        [Benchmark]
+        public int SimpleForLoop_MathMin_NoBoundariesCheckElimination_LocalVariable()
+        {
+            return SimpleForLoop_MathMin_NoBoundariesCheckElimination_LocalVariable(Numbers);
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
@@ -140,6 +149,19 @@ namespace Slinq.Benchmarks.ProofsOfConcept
             min1 = Math.Min(min1, numbers[ElementsCount - 1]);
 
             return Math.Min(min1, min2);
+        }
+
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        private int SimpleForLoop_MathMin_NoBoundariesCheckElimination_LocalVariable(int[] numbers)
+        {
+            int elementsCount = numbers.Length;
+            int min = int.MaxValue;
+            for (int i = 0; i < elementsCount; i++)
+            {
+                min = Math.Min(min, numbers[i]);
+            }
+
+            return min;
         }
     }
 }

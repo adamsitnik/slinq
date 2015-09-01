@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using BenchmarkDotNet;
 using BenchmarkDotNet.Tasks;
+using Slinq.Abstract;
 using Slinq.Extensions;
 using Slinq.Utils;
 
@@ -64,7 +65,7 @@ namespace Slinq.Benchmarks.ProofsOfConcept
         {
             int[] randomNumbers = DataGenerator.GenerateRandomNumbers();
 
-            IntsArraySorter.IntrospectiveSort(randomNumbers, 0, randomNumbers.Length - 1);
+            GenericArraySorter.IntrospectiveSort(randomNumbers, 0, randomNumbers.Length - 1, new ExperimentalComparer());
 
             return randomNumbers;
         }
@@ -87,11 +88,29 @@ namespace Slinq.Benchmarks.ProofsOfConcept
 
             return StrongEnumerable.Range(1, 300).Select(_ => new IntWrapper(random.Next())).ToArray();
         }
+
+        internal class ExperimentalComparer : ICopyFreeComparer<int>
+        {
+            public int Compare(ref int left, ref int right)
+            {
+                if (left > right)
+                {
+                    return 1;
+                }
+
+                if (left < right)
+                {
+                    return -1;
+                }
+
+                return 0;
+            }
+        }
     }
 
     public struct IntWrapper : IComparable<IntWrapper>, IEquatable<IntWrapper>
     {
-        private int _myValue;
+        private readonly int _myValue;
 
         public IntWrapper(int myValue)
         {

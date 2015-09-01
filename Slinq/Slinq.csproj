@@ -44,6 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IArraySorter.cs" />
+    <Compile Include="Abstract\ICopyFreeComparer.cs" />
     <Compile Include="Abstract\IFixedCount.cs" />
     <Compile Include="Abstract\IStrongEnumerable.cs" />
     <Compile Include="Abstract\IStrongEnumerator.cs" />
@@ -113,9 +115,11 @@
     <Compile Include="Utils\ArraySorterHelper.cs" />
     <Compile Include="Utils\CilGenerator.cs" />
     <Compile Include="Utils\Contract.cs" />
-    <Compile Include="Utils\IntsArraySorter.cs" />
+    <Compile Include="Utils\GenericArraySorter.cs" />
     <Compile Include="Utils\ListFactory.cs" />
     <Compile Include="Utils\ReverseEngineering.cs" />
+    <Compile Include="Utils\DedicatedSortersFactory.cs" />
+    <Compile Include="Utils\SourceArraySorter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\RuleSet.ruleset">
