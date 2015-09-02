@@ -281,6 +281,84 @@
 
             return default(T);
         }
+
+        <#=accessModifiers#> T Single<#=genericConstraint#>(<#=ToSingleArgument(firstArgument)#>)
+        {
+            if (<#=lengthName#> == 0)
+            {
+                throw Error.NoElements();
+            }
+            if (<#=lengthName#> > 1)
+            {
+                throw Error.MoreThanOneElement();
+            }
+
+            return <#=sourceName#>[0];
+        }
+
+        <#=accessModifiers#> T Single<#=genericConstraint#>(<#=firstArgument#>Predicate<T> predicate)
+        {
+            if (<#=lengthName#> == 0)
+            {
+                throw Error.NoElements();
+            }
+
+            T result = default(T);
+            bool found = false; 
+            for (int i = 0; i < <#=lengthName#>; i++)
+            {
+                if (predicate(<#=sourceName#>[i]))
+                {
+                    if(found)
+                    {
+                        throw Error.MoreThanOneElement();
+                    }
+                    result = <#=sourceName#>[i];
+                    found = true; 
+                }
+            }
+
+            if(found)
+            {
+                return result;
+            }
+
+            throw Error.NoElements();
+        }
+
+        <#=accessModifiers#> T SingleOrDefault<#=genericConstraint#>(<#=ToSingleArgument(firstArgument)#>)
+        {
+            if (<#=lengthName#> == 0)
+            {
+                return default(T);
+            }
+            if (<#=lengthName#> > 1)
+            {
+                throw Error.MoreThanOneElement();
+            }
+
+            return <#=sourceName#>[0];
+        }
+
+        <#=accessModifiers#> T SingleOrDefault<#=genericConstraint#>(<#=firstArgument#>Predicate<T> predicate)
+        {
+            T result = default(T);
+            bool found = false; 
+            for (int i = 0; i < <#=lengthName#>; i++)
+            {
+                if (predicate(<#=sourceName#>[i]))
+                {
+                    if(found)
+                    {
+                        throw Error.MoreThanOneElement();
+                    }
+                    result = <#=sourceName#>[i];
+                    found = true; 
+                }
+            }
+
+            return result;
+        }
 <#+
     }
 #>

@@ -265,6 +265,84 @@ namespace Slinq.Models
 
             return default(T);
         }
+
+        internal T Single()
+        {
+            if (ActualLength == 0)
+            {
+                throw Error.NoElements();
+            }
+            if (ActualLength > 1)
+            {
+                throw Error.MoreThanOneElement();
+            }
+
+            return Array[0];
+        }
+
+        internal T Single(Predicate<T> predicate)
+        {
+            if (ActualLength == 0)
+            {
+                throw Error.NoElements();
+            }
+
+            T result = default(T);
+            bool found = false; 
+            for (int i = 0; i < ActualLength; i++)
+            {
+                if (predicate(Array[i]))
+                {
+                    if(found)
+                    {
+                        throw Error.MoreThanOneElement();
+                    }
+                    result = Array[i];
+                    found = true; 
+                }
+            }
+
+            if(found)
+            {
+                return result;
+            }
+
+            throw Error.NoElements();
+        }
+
+        internal T SingleOrDefault()
+        {
+            if (ActualLength == 0)
+            {
+                return default(T);
+            }
+            if (ActualLength > 1)
+            {
+                throw Error.MoreThanOneElement();
+            }
+
+            return Array[0];
+        }
+
+        internal T SingleOrDefault(Predicate<T> predicate)
+        {
+            T result = default(T);
+            bool found = false; 
+            for (int i = 0; i < ActualLength; i++)
+            {
+                if (predicate(Array[i]))
+                {
+                    if(found)
+                    {
+                        throw Error.MoreThanOneElement();
+                    }
+                    result = Array[i];
+                    found = true; 
+                }
+            }
+
+            return result;
+        }
 // ReSharper restore MethodNamesNotMeaningful
     }
 }

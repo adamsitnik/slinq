@@ -4,10 +4,9 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#+ 
-	public void GenerateCollectionExtension(string type)
+    public void GenerateCollectionExtension(string type)
     {
 #>
-// ReSharper disable UnusedMember.Global, ClassTooBig, MethodNamesNotMeaningful, TooManyArguments, MaximumChainedReferences this is an API && we just follow the existing convention
     public static class <#=type#>Extensions
     {
         public static WhereIterator<T> Where<T>(this <#=type#><T> source, Predicate<T> predicate)
@@ -128,11 +127,42 @@
         {
             return ArrayProvider<T>.Extract(source).ElementAtOrDefault(index);
         }
+
+        public static T Single<T>(this <#=type#><T> source)
+        {
+            return ArrayProvider<T>.Extract(source).Single();
+        }
+
+        public static T Single<T>(this <#=type#><T> source, Predicate<T> predicate)
+        {
+            var extractedArray = ArrayProvider<T>.Extract(source);
+            if (!extractedArray.IsAsLongAsSourceArray)
+            {
+                return extractedArray.Single(predicate);
+            }
+
+            return ArrayExtensions.Single(extractedArray.Array, predicate);
+        }
+
+        public static T SingleOrDefault<T>(this <#=type#><T> source)
+        {
+            return ArrayProvider<T>.Extract(source).SingleOrDefault();
+        }
+
+        public static T SingleOrDefault<T>(this <#=type#><T> source, Predicate<T> predicate)
+        {
+            var extractedArray = ArrayProvider<T>.Extract(source);
+            if (!extractedArray.IsAsLongAsSourceArray)
+            {
+                return extractedArray.SingleOrDefault(predicate);
+            }
+
+            return ArrayExtensions.SingleOrDefault(extractedArray.Array, predicate);
+        }
 <#+
     GenerateMathMethods(type);
 #>
     }
-// ReSharper restore UnusedMember.Global, ClassTooBig, MethodNamesNotMeaningful, TooManyArguments, MaximumChainedReferences
 <#+
     }
 

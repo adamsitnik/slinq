@@ -242,6 +242,84 @@ namespace Slinq.Extensions
             return default(T);
         }
 
+        public static T Single<T>(this T[] array)
+        {
+            if (array.Length == 0)
+            {
+                throw Error.NoElements();
+            }
+            if (array.Length > 1)
+            {
+                throw Error.MoreThanOneElement();
+            }
+
+            return array[0];
+        }
+
+        public static T Single<T>(this T[] array, Predicate<T> predicate)
+        {
+            if (array.Length == 0)
+            {
+                throw Error.NoElements();
+            }
+
+            T result = default(T);
+            bool found = false; 
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (predicate(array[i]))
+                {
+                    if(found)
+                    {
+                        throw Error.MoreThanOneElement();
+                    }
+                    result = array[i];
+                    found = true; 
+                }
+            }
+
+            if(found)
+            {
+                return result;
+            }
+
+            throw Error.NoElements();
+        }
+
+        public static T SingleOrDefault<T>(this T[] array)
+        {
+            if (array.Length == 0)
+            {
+                return default(T);
+            }
+            if (array.Length > 1)
+            {
+                throw Error.MoreThanOneElement();
+            }
+
+            return array[0];
+        }
+
+        public static T SingleOrDefault<T>(this T[] array, Predicate<T> predicate)
+        {
+            T result = default(T);
+            bool found = false; 
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (predicate(array[i]))
+                {
+                    if(found)
+                    {
+                        throw Error.MoreThanOneElement();
+                    }
+                    result = array[i];
+                    found = true; 
+                }
+            }
+
+            return result;
+        }
+
         public static short Sum(this short[] source)
         {
             Contract.RequiresNotDefault(source, "source");
