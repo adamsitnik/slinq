@@ -113,7 +113,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\ArrayProvider.cs" />
     <Compile Include="Utils\ArraySorterHelper.cs" />
+    <Compile Include="Utils\CilRewriter.cs" />
     <Compile Include="Utils\CilGenerator.cs" />
+    <Compile Include="Utils\ComparerGenerator.cs" />
     <Compile Include="Utils\Contract.cs" />
     <Compile Include="Utils\GenericArraySorter.cs" />
     <Compile Include="Utils\ListFactory.cs" />

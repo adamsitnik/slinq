@@ -37,6 +37,8 @@ namespace Slinq.Benchmarks
                 typeof(SystemArraySort),
                 typeof(OptimizedSystemArraySort),
                 typeof(SystemArraySortUsingCustomComparer),
+                typeof(DynamicArraySorterBenchmarks),
+                typeof(CallingComparersOnValueTypesBenchmarks)
             });
             competitionSwitch.Run(args);
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Threading;
@@ -26,9 +27,29 @@ namespace Slinq.Utils
 
             DefineDefaultParameterlessConstructor(typeBuilder);
 
-            CopyAllMethods<T>(sourceType, typeBuilder);
+            var methodTranslations = new Dictionary<MethodBase, MethodToken>();
+
+            DefineCompareMethod<T>(sourceType, typeBuilder, methodTranslations, "IsGreaterThan", ComparerGenerator.GenerateIsGreaterThan<T>);
+            DefineCompareMethod<T>(sourceType, typeBuilder, methodTranslations, "IsLessThan", ComparerGenerator.GenerateIsLessThan<T>);
+
+            var methods = new[]
+            {
+                "FloorLog2", 
+                "Swap", 
+                "SwapIfGreaterWithItems", 
+                "DownHeap", 
+                "Heapsort", 
+                "InsertionSort", 
+                "PickPivotAndPartition", 
+                "IntroSort", 
+                "IntrospectiveSort", 
+                "Sort"
+            };
+
+            Rewrite<T>(sourceType, typeBuilder, moduleBuilder, methodTranslations, methods);
 
             var dedicatedSorterType = typeBuilder.CreateType();
+
             assemblyBuilder.Save(assemblyFileName); // todo: remove after PoC is done
 
             return (IArraySorter<T>)Activator.CreateInstance(dedicatedSorterType, new object[0]);
@@ -38,8 +59,8 @@ namespace Slinq.Utils
         {
             return moduleBuilder.DefineType(
                 GetSorterName<T>(), 
-                sourceType.Attributes,
-                typeof(object),
+                sourceType.Attributes, 
+                typeof(object), 
                 new[]
                 {
                     typeof(IArraySorter<T>)
@@ -52,8 +73,8 @@ namespace Slinq.Utils
         private static void DefineDefaultParameterlessConstructor(TypeBuilder typeBuilder)
         {
             var constructorBuilder = typeBuilder.DefineConstructor(
-                MethodAttributes.Public | MethodAttributes.SpecialName | MethodAttributes.RTSpecialName,
-                CallingConventions.Standard,
+                MethodAttributes.Public | MethodAttributes.SpecialName | MethodAttributes.RTSpecialName, 
+                CallingConventions.Standard, 
                 Type.EmptyTypes);
 
             var objectClassConstructor = typeof(object).GetConstructor(Type.EmptyTypes);
@@ -64,29 +85,76 @@ namespace Slinq.Utils
             cilGenerator.Emit(OpCodes.Ret);
         }
 
-        private static void CopyAllMethods<T>(Type sourceType, TypeBuilder typeBuilder)
+        private static void DefineCompareMethod<T>(
+            Type sourceType, 
+            TypeBuilder typeBuilder, 
+            Dictionary<MethodBase, MethodToken> methodTranslations, 
+            string methodName,
+            Action<MethodBuilder> generate)
         {
-            foreach (var sourceMethod in sourceType.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
-                .Where(method => method.DeclaringType != typeof(object)))
+            var sourceMethod = GetMethod(sourceType, methodName);
+            var methodBuilder = CreateMethodBuilder<T>(typeBuilder, sourceMethod);
+
+            generate(methodBuilder);
+
+            methodTranslations.Add(sourceMethod, methodBuilder.GetToken());
+        }
+
+        private static void Rewrite<T>(Type sourceType, TypeBuilder typeBuilder, ModuleBuilder moduleBuilder, Dictionary<MethodBase, MethodToken> methodsTranslations, string[] methods)
+        {
+            int genericTypeToken = moduleBuilder.GetTypeToken(typeof(T)).Token;
+            foreach (var methodName in methods)
             {
-                var parameters = sourceMethod.GetParameters().Select(parameter => parameter.ParameterType).ToArray();
-                var methodBuilder = typeBuilder.DefineMethod(
-                    sourceMethod.Name,
-                    sourceMethod.Attributes,
-                    sourceMethod.CallingConvention,
-                    sourceMethod.ReturnType,
-                    parameters);
+                var sourceMethod = GetMethod(sourceType, methodName);
+                var methodBuilder = CreateMethodBuilder<T>(typeBuilder, sourceMethod);
 
-                var sourceMethodBody = sourceMethod.GetMethodBody();
-                var sourceMethodCode = sourceMethodBody.GetILAsByteArray();
+                DeclareLocalVariables(methodBuilder, sourceMethod.GetMethodBody());
 
-                methodBuilder.CreateMethodBody(sourceMethodCode, sourceMethodCode.Length);
+                methodsTranslations.Add(sourceMethod, methodBuilder.GetToken()); // add the translation before rewrite for recursive methods
+                
+                byte[] rewrittenMethodBytes = sourceMethod.Rewrite(methodsTranslations, genericTypeToken);
+
+                methodBuilder.CreateMethodBody(rewrittenMethodBytes, rewrittenMethodBytes.Length);
 
                 if (IsArraySorterInterfaceMethod(sourceMethod))
                 {
                     ImplementInterface<T>(typeBuilder, methodBuilder);
                 }
             }
+        }
+
+        private static MethodInfo GetMethod(Type sourceType, string name)
+        {
+            return sourceType.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+                             .Single(method => method.Name == name);
+        }
+
+        private static MethodBuilder CreateMethodBuilder<T>(TypeBuilder typeBuilder, MethodInfo sourceMethod)
+        {
+            var parameters = sourceMethod.GetParameters().Select(parameter => parameter.ParameterType).ToArray();
+            return typeBuilder.DefineMethod(
+                sourceMethod.Name, 
+                sourceMethod.Attributes, 
+                sourceMethod.CallingConvention, 
+                sourceMethod.ReturnType, 
+                parameters);
+        }
+
+        private static void DeclareLocalVariables(MethodBuilder methodBuilder, MethodBody sourceMethodBody)
+        {
+            var cilGenerator = methodBuilder.GetILGenerator();
+            foreach (var localVariableInfo in sourceMethodBody.LocalVariables)
+            {
+                cilGenerator.DeclareLocal(localVariableInfo.LocalType, localVariableInfo.IsPinned);
+            }
+
+            cilGenerator.GetType().GetField("m_maxStackSize", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(cilGenerator, sourceMethodBody.MaxStackSize); // todo: find better way
+        }
+
+        private static void ImplementInterface<T>(TypeBuilder typeBuilder, MethodBuilder methodBuilder)
+        {
+            var interfaceMethod = typeof(IArraySorter<T>).GetMethods().Single();
+            typeBuilder.DefineMethodOverride(methodBuilder, interfaceMethod);
         }
 
         private static string GetSorterName<T>()
@@ -97,12 +165,6 @@ namespace Slinq.Utils
         private static bool IsArraySorterInterfaceMethod(MethodInfo sourceMethod)
         {
             return sourceMethod.Name == "Sort";
-        }
-
-        private static void ImplementInterface<T>(TypeBuilder typeBuilder, MethodBuilder methodBuilder)
-        {
-            var interfaceMethod = typeof(IArraySorter<T>).GetMethods().First();
-            typeBuilder.DefineMethodOverride(methodBuilder, interfaceMethod);
         }
     }
 }

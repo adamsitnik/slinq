@@ -66,6 +66,8 @@
     <Compile Include="ProofsOfConcept\ArrayProviderBenchmarks.cs" />
     <Compile Include="ProofsOfConcept\ArraySortersBenchmarks.cs" />
     <Compile Include="ProofsOfConcept\BoundariesCheckEliminationBenchmarks.cs" />
+    <Compile Include="ProofsOfConcept\CallingComparersOnValueTypesBenchmarks.cs" />
+    <Compile Include="ProofsOfConcept\DynamicArraySorterBenchmarks.cs" />
     <Compile Include="ProofsOfConcept\ForLoopVsWhileBenchmarks.cs" />
     <Compile Include="ProofsOfConcept\ManualLoopUnrollingBenchmarks.cs" />
     <Compile Include="ProofsOfConcept\FastestMin.cs" />

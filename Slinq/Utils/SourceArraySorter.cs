@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using Slinq.Abstract;
 
 namespace Slinq.Utils
@@ -13,7 +14,7 @@ namespace Slinq.Utils
         {
             IntrospectiveSort(array, 0, array.Length - 1);
         }
-        
+
         /// <summary>
         /// this method is going to be implemented during run time
         /// </summary>
@@ -30,6 +31,36 @@ namespace Slinq.Utils
             return false;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void SwapIfGreaterWithItems(T[] keys, int leftIndex, int rightIndex)
+        {
+            var leftKeyValue = keys[leftIndex];
+            var rightKeyValue = keys[rightIndex];
+            if (IsGreaterThan(ref leftKeyValue, ref rightKeyValue))
+            {
+                keys[leftIndex] = rightKeyValue;
+                keys[rightIndex] = leftKeyValue;
+            }
+        }
+
+        private void InsertionSort(T[] keys, int lo, int hi)
+        {
+            int i, j;
+            T t;
+            for (i = lo; i < hi; i++)
+            {
+                j = i;
+                t = keys[i + 1];
+                while (j >= lo && !IsGreaterThan(ref t, ref keys[j]))
+                {
+                    keys[j + 1] = keys[j];
+                    j--;
+                }
+
+                keys[j + 1] = t;
+            }
+        }
+
         private void IntrospectiveSort(T[] keys, int indexFrom, int indexTo)
         {
             int length = indexTo - indexFrom + 1;
@@ -39,7 +70,7 @@ namespace Slinq.Utils
                 return;
             }
 
-            IntroSort(keys, indexFrom, indexTo, 2 * ArraySorterHelper.FloorLog2(length));
+            IntroSort(keys, indexFrom, indexTo, 2 * FloorLog2(length));
         }
 
         private void IntroSort(T[] keys, int lo, int hi, int depthLimit)
@@ -47,7 +78,7 @@ namespace Slinq.Utils
             while (hi > lo)
             {
                 int partitionSize = hi - lo + 1;
-                if (partitionSize <= ArraySorterHelper.IntrosortSizeThreshold)
+                if (partitionSize <= 16)
                 {
                     if (partitionSize == 1)
                     {
@@ -118,7 +149,7 @@ namespace Slinq.Utils
             }
 
             T pivot = keys[median];
-            ArraySorterHelper.Swap(keys, median, hi - 1);
+            Swap(keys, median, hi - 1);
 
             int left = lo, right = hi - 1;
 
@@ -138,11 +169,11 @@ namespace Slinq.Utils
                     break;
                 }
 
-                ArraySorterHelper.Swap(keys, left, right);
+                Swap(keys, left, right);
             }
 
             // Put pivot in the right location.
-            ArraySorterHelper.Swap(keys, left, hi - 1);
+            Swap(keys, left, hi - 1);
             return left;
         }
 
@@ -156,7 +187,7 @@ namespace Slinq.Utils
 
             for (int i = n; i > 1; i = i - 1)
             {
-                ArraySorterHelper.Swap(keys, lo, lo + i - 1);
+                Swap(keys, lo, lo + i - 1);
                 DownHeap(keys, 1, i - 1, lo);
             }
         }
@@ -187,34 +218,25 @@ namespace Slinq.Utils
             keys[lo + i - 1] = d;
         }
 
-        private void InsertionSort(T[] keys, int lo, int hi)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private int FloorLog2(int n)
         {
-            int i, j;
-            T t;
-            for (i = lo; i < hi; i++)
+            int result = 0;
+            while (n >= 1)
             {
-                j = i;
-                t = keys[i + 1];
-                while (j >= lo && !IsGreaterThan(ref t, ref keys[j]))
-                {
-                    keys[j + 1] = keys[j];
-                    j--;
-                }
-
-                keys[j + 1] = t;
+                ++result;
+                n = n / 2;
             }
+
+            return result;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void SwapIfGreaterWithItems(T[] keys, int leftIndex, int rightIndex)
+        private void Swap(T[] keys, int leftIndex, int rightIndex)
         {
-            var leftKeyValue = keys[leftIndex];
-            var rightKeyValue = keys[rightIndex];
-            if (IsGreaterThan(ref leftKeyValue, ref rightKeyValue))
-            {
-                keys[leftIndex] = rightKeyValue;
-                keys[rightIndex] = leftKeyValue;
-            }
+            var copy = keys[leftIndex];
+            keys[leftIndex] = keys[rightIndex];
+            keys[rightIndex] = copy;
         }
     }
 }
