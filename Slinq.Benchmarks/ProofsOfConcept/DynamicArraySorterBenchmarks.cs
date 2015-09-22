@@ -6,9 +6,9 @@ using Slinq.Utils;
 
 namespace Slinq.Benchmarks.ProofsOfConcept
 {
-    [BenchmarkTask(platform: BenchmarkPlatform.X86, warmupIterationCount: 2, targetIterationCount: 3)]
-    [BenchmarkTask(platform: BenchmarkPlatform.X64, jitVersion: BenchmarkJitVersion.LegacyJit, warmupIterationCount: 2, targetIterationCount: 3)]
-    [BenchmarkTask(platform: BenchmarkPlatform.X64, jitVersion: BenchmarkJitVersion.RyuJit, warmupIterationCount: 2, targetIterationCount: 3)]
+    [BenchmarkTask(platform: BenchmarkPlatform.X86, warmupIterationCount: 2, targetIterationCount: 5)]
+    [BenchmarkTask(platform: BenchmarkPlatform.X64, jitVersion: BenchmarkJitVersion.LegacyJit, warmupIterationCount: 2, targetIterationCount: 5)]
+    [BenchmarkTask(platform: BenchmarkPlatform.X64, jitVersion: BenchmarkJitVersion.RyuJit, warmupIterationCount: 2, targetIterationCount: 5)]
     public class DynamicArraySorterBenchmarks
     {
         private static readonly IArraySorter<DateTime> DynamicDateTimeSorter = DedicatedSortersFactory.CreateDedicatedSorter<DateTime>();
@@ -20,11 +20,21 @@ namespace Slinq.Benchmarks.ProofsOfConcept
         /// </summary>
         /// <returns></returns>
         [Benchmark]
-        public DateTime[] DateTime_ArraySort_OnBCLPrimitiveTypeThatIsImplementedByCLRinCppAsExternMethod()
+        public DateTime[] DateTime_ArraySort()
         {
             var dates = DataGenerator.GenerateRandomDates();
 
             Array.Sort(dates);
+
+            return dates;
+        }
+
+        [Benchmark]
+        public DateTime[] DateTime_CopiedSort()
+        {
+            var dates = DataGenerator.GenerateRandomDates();
+
+            new SystemSorter<DateTime>().Sort(dates, 0, dates.Length - 1);
 
             return dates;
         }
@@ -40,11 +50,21 @@ namespace Slinq.Benchmarks.ProofsOfConcept
         }
 
         [Benchmark]
-        public int[] Int_ArraySort_OnBCLPrimitiveTypeThatIsImplementedByCLRinCppAsExternMethod()
+        public int[] Int_ArraySort()
         {
             var numbers = DataGenerator.GenerateRandomNumbers();
 
             Array.Sort(numbers);
+
+            return numbers;
+        }
+
+        [Benchmark]
+        public int[] Int_SystemSort()
+        {
+            var numbers = DataGenerator.GenerateRandomNumbers();
+
+            new SystemSorter<int>().Sort(numbers, 0, numbers.Length - 1);
 
             return numbers;
         }
@@ -65,6 +85,16 @@ namespace Slinq.Benchmarks.ProofsOfConcept
             var numbers = DataGenerator.GenerateHugeValueTypes();
 
             Array.Sort(numbers);
+
+            return numbers;
+        }
+
+        [Benchmark]
+        public HugeValueType[] HugeValueType_SystemSort()
+        {
+            var numbers = DataGenerator.GenerateHugeValueTypes();
+
+            new SystemSorter<HugeValueType>().Sort(numbers, 0, numbers.Length - 1);
 
             return numbers;
         }
