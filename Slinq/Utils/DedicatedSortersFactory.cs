@@ -95,6 +95,8 @@ namespace Slinq.Utils
             var sourceMethod = GetMethod(sourceType, methodName);
             var methodBuilder = CreateMethodBuilder<T>(typeBuilder, sourceMethod);
 
+            SetAggressiveInlining(methodBuilder);
+
             generate(methodBuilder);
 
             methodTranslations.Add(sourceMethod, methodBuilder.GetToken());
@@ -109,6 +111,8 @@ namespace Slinq.Utils
                 var methodBuilder = CreateMethodBuilder<T>(typeBuilder, sourceMethod);
 
                 DeclareLocalVariables(methodBuilder, sourceMethod.GetMethodBody());
+
+                SetAggressiveInlining(methodBuilder);
 
                 methodsTranslations.Add(sourceMethod, methodBuilder.GetToken()); // add the translation before rewrite for recursive methods
                 
@@ -149,6 +153,12 @@ namespace Slinq.Utils
             }
 
             cilGenerator.GetType().GetField("m_maxStackSize", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(cilGenerator, sourceMethodBody.MaxStackSize); // todo: find better way
+        }
+
+        private static void SetAggressiveInlining(MethodBuilder methodBuilder)
+        {
+            methodBuilder.SetImplementationFlags(
+                methodBuilder.GetMethodImplementationFlags() | MethodImplAttributes.AggressiveInlining);
         }
 
         private static void ImplementInterface<T>(TypeBuilder typeBuilder, MethodBuilder methodBuilder)
