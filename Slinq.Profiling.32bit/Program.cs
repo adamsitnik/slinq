@@ -7,10 +7,14 @@ namespace Slinq.Profiling._32bit
         static void Main(string[] args)
         {
             var api = new DisplayTimeProfilingApi();
+            const int count = 1500000;
 
-            //new DateTimeSystemSorterProfile(api, 1500000).Profile();
-            new AlreadyLoadedDynamicSorterProfile(api, 1500000).Profile();
-            //new SystemSorterProfile(api, 1500000).Profile();
+            new PreloadedDynamicSorterRefBasedProfile(api, count).Profile();
+            new PreloadedDynamicSorterNoRefProfile(api, count).Profile();
+            new GenericSystemSorterProfile(api, count).Profile();
+            new DateTimeSystemSorterBasedOnCompareToProfile(api, count).Profile();
+            new DateTimeSystemSorterBasedOnOperatorsProfile(api, count).Profile();
+            new DynamicSorterProfile(api, count).Profile();
         }
     }
 }

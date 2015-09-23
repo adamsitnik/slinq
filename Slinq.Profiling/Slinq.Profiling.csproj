@@ -77,11 +77,16 @@
   <ItemGroup>
     <Compile Include="DisplayTimeProfilingApi.cs" />
     <Compile Include="IProfilingApi.cs" />
-    <Compile Include="Profiled\DateTimeArraySorter.cs" />
-    <Compile Include="Profiled\DateTimeSystemSorter.cs" />
-    <Compile Include="Profiles\AlreadyLoadedDynamicSorterProfile.cs" />
-    <Compile Include="Profiles\DateTimeSystemSorterProfile.cs" />
-    <Compile Include="Profiles\SystemSorterProfile.cs" />
+    <Compile Include="Profiled\PreloadedDynamicDateTimeArraySorterNoRef.cs" />
+    <Compile Include="Profiled\PreloadedDynamicDateTimeArraySorterRefBased.cs" />
+    <Compile Include="Profiled\DateTimeSystemSorterBasedOnCompareTo.cs" />
+    <Compile Include="Profiled\DateTimeSystemSorterBasedOnOperators.cs" />
+    <Compile Include="Profiles\PreloadedDynamicSorterNoRefProfile.cs" />
+    <Compile Include="Profiles\PreloadedDynamicSorterRefBasedProfile.cs" />
+    <Compile Include="Profiles\DateTimeSystemSorterBasedOnCompareToProfile.cs" />
+    <Compile Include="Profiles\DateTimeSystemSorterBasedOnOperatorsProfile.cs" />
+    <Compile Include="Profiles\DynamicSorterProfile.cs" />
+    <Compile Include="Profiles\GenericSystemSorterProfile.cs" />
     <Compile Include="ProfilingTemplate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SamplingProfilingApi.cs" />

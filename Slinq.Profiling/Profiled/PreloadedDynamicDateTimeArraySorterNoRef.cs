@@ -1,10 +1,10 @@
-using System;
+﻿using System;
 using System.Runtime.CompilerServices;
 using Slinq.Abstract;
 
 namespace Slinq.Profiling.Profiled
 {
-    public class DateTimeArraySorter : IArraySorter<DateTime>
+    public class PreloadedDynamicDateTimeArraySorterNoRef : IArraySorter<DateTime>
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Sort(DateTime[] array)
@@ -13,15 +13,15 @@ namespace Slinq.Profiling.Profiled
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private bool IsGreaterThan(ref DateTime ptr, ref DateTime ptr2)
+        private bool IsGreaterThan(DateTime ptr, DateTime ptr2)
         {
-            return ptr.CompareTo(ptr2) > 0;
+            return ptr > ptr2;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private bool IsLessThan(ref DateTime ptr, ref DateTime ptr2)
+        private bool IsLessThan(DateTime ptr, DateTime ptr2)
         {
-            return ptr.CompareTo(ptr2) < 0;
+            return ptr < ptr2;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -50,7 +50,7 @@ namespace Slinq.Profiling.Profiled
         {
             DateTime dateTime = array[num];
             DateTime dateTime2 = array[num2];
-            if (IsGreaterThan(ref dateTime, ref dateTime2))
+            if (IsGreaterThan(dateTime, dateTime2))
             {
                 array[num] = dateTime2;
                 array[num2] = dateTime;
@@ -64,12 +64,12 @@ namespace Slinq.Profiling.Profiled
             while (i <= num / 2)
             {
                 int num3 = 2 * i;
-                if (num3 < num && IsLessThan(ref array[num2 + num3 - 1], ref array[num2 + num3]))
+                if (num3 < num && IsLessThan(array[num2 + num3 - 1], array[num2 + num3]))
                 {
                     num3++;
                 }
 
-                if (!IsLessThan(ref dateTime, ref array[num2 + num3 - 1]))
+                if (!IsLessThan(dateTime, array[num2 + num3 - 1]))
                 {
                     break;
                 }
@@ -104,7 +104,7 @@ namespace Slinq.Profiling.Profiled
             {
                 int num3 = i;
                 DateTime dateTime = array[i + 1];
-                while (num3 >= num && !IsGreaterThan(ref dateTime, ref array[num3]))
+                while (num3 >= num && !IsGreaterThan(dateTime, array[num3]))
                 {
                     array[num3 + 1] = array[num3];
                     num3--;
@@ -139,11 +139,11 @@ namespace Slinq.Profiling.Profiled
             int num4 = num2 - 1;
             while (i < num4)
             {
-                while (i < num2 - 1 && IsLessThan(ref array[++i], ref dateTime))
+                while (i < num2 - 1 && IsLessThan(array[++i], dateTime))
                 {
                 }
 
-                while (num4 > num && IsLessThan(ref dateTime, ref array[--num4]))
+                while (num4 > num && IsLessThan(dateTime, array[--num4]))
                 {
                 }
 

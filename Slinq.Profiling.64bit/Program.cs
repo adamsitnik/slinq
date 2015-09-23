@@ -6,7 +6,15 @@ namespace Slinq.Profiling._64bit
     {
         static void Main(string[] args)
         {
-            new SystemSorterProfile(new InstrumentationProfilingApi(), 1000);
+            var api = new DisplayTimeProfilingApi();
+            const int count = 1500000;
+
+            new PreloadedDynamicSorterRefBasedProfile(api, count).Profile();
+            new PreloadedDynamicSorterNoRefProfile(api, count).Profile();
+            new GenericSystemSorterProfile(api, count).Profile();
+            new DateTimeSystemSorterBasedOnCompareToProfile(api, count).Profile();
+            new DateTimeSystemSorterBasedOnOperatorsProfile(api, count).Profile();
+            new DynamicSorterProfile(api, count).Profile();
         }
     }
 }

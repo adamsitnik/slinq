@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.Profiler;
+﻿using System;
+using Microsoft.VisualStudio.Profiler;
 
 namespace Slinq.Profiling._64bit
 {
@@ -14,7 +15,7 @@ namespace Slinq.Profiling._64bit
             DataCollection.ResumeProfile(ProfileLevel.Thread, DataCollection.CurrentId);
         }
 
-        public void StopProfiling()
+        public void StopProfiling(Type profilingTemplate)
         {
             DataCollection.StopProfile(ProfileLevel.Thread, DataCollection.CurrentId);
         }

@@ -1,21 +1,21 @@
 ﻿using System;
 using Slinq.Benchmarks;
-using Slinq.Profiling.Profiled;
+using Slinq.Utils;
 
 namespace Slinq.Profiling.Profiles
 {
-    public class DateTimeSystemSorterProfile : ProfilingTemplate<DateTimeSystemSorter, DateTime[]>
+    public class GenericSystemSorterProfile : ProfilingTemplate<SystemSorter<DateTime>, DateTime[]>
     {
         private readonly int _elementsCount;
 
-        public DateTimeSystemSorterProfile(IProfilingApi profilingApi, int elementsCount) : base(profilingApi)
+        public GenericSystemSorterProfile(IProfilingApi profilingApi, int elementsCount) : base(profilingApi)
         {
             _elementsCount = elementsCount;
         }
 
-        protected override DateTimeSystemSorter CreateProfiledObject()
+        protected override SystemSorter<DateTime> CreateProfiledObject()
         {
-            return new DateTimeSystemSorter();
+            return new SystemSorter<DateTime>();
         }
 
         protected override DateTime[] CreateInputData()
@@ -23,7 +23,7 @@ namespace Slinq.Profiling.Profiles
             return DataGenerator.GenerateRandomDates(_elementsCount);
         }
 
-        protected override object Execute(DateTimeSystemSorter profiledObject, DateTime[] inputData)
+        protected override object Execute(SystemSorter<DateTime> profiledObject, DateTime[] inputData)
         {
             profiledObject.Sort(inputData, 0, inputData.Length - 1);
 

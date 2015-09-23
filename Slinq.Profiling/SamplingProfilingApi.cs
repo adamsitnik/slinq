@@ -1,4 +1,6 @@
-﻿namespace Slinq.Profiling
+﻿using System;
+
+namespace Slinq.Profiling
 {
     /// <summary>
     /// VS profiler does not support Suspend & Resume for Sampling Mode, hence the class does nothing
@@ -13,7 +15,7 @@
         {
         }
 
-        public void StopProfiling()
+        public void StopProfiling(Type profilingTemplate)
         {
         }
     }

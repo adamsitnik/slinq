@@ -16,11 +16,11 @@ namespace Slinq.Profiling
             _watch = Stopwatch.StartNew();
         }
 
-        public void StopProfiling()
+        public void StopProfiling(Type profilingTemplate)
         {
             _watch.Stop();
 
-            Console.WriteLine("Total elapsed time: {0}", _watch.Elapsed);
+            Console.WriteLine("{0} for {1}", _watch.Elapsed, profilingTemplate.Name);
         }
     }
 }

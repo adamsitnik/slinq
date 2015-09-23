@@ -53,9 +53,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Slinq.Benchmarks\Slinq.Benchmarks.csproj">
+      <Project>{c4b5ce55-a379-42ad-a9e5-494c2cfd4545}</Project>
+      <Name>Slinq.Benchmarks</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Slinq.Profiling\Slinq.Profiling.csproj">
       <Project>{5173B686-933A-40F3-9A31-AEBF0DD02DD5}</Project>
       <Name>Slinq.Profiling</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Slinq\Slinq.csproj">
+      <Project>{6f8fa343-eaf6-4786-80be-b7a01d2af3fe}</Project>
+      <Name>Slinq</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

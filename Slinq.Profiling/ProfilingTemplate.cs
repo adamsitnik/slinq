@@ -26,7 +26,7 @@ namespace Slinq.Profiling
 
             var theRealProfiling = Execute(profiledObject, inputData);
             
-            _profilingApi.StopProfiling();
+            _profilingApi.StopProfiling(GetType());
 
             MakeReleaseBuildNotOmitTheResults(jitWarmUp, theRealProfiling);
         }

@@ -1,4 +1,6 @@
-﻿namespace Slinq.Profiling
+﻿using System;
+
+namespace Slinq.Profiling
 {
     public interface IProfilingApi
     {
@@ -6,6 +8,6 @@
 
         void ResumeProfiling();
 
-        void StopProfiling();
+        void StopProfiling(Type profilingTemplate);
     }
 }
