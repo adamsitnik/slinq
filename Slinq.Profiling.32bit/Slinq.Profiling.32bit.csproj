@@ -57,6 +57,10 @@
       <Project>{5173B686-933A-40F3-9A31-AEBF0DD02DD5}</Project>
       <Name>Slinq.Profiling</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Slinq\Slinq.csproj">
+      <Project>{6f8fa343-eaf6-4786-80be-b7a01d2af3fe}</Project>
+      <Name>Slinq</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

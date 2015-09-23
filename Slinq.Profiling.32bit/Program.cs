@@ -6,7 +6,11 @@ namespace Slinq.Profiling._32bit
     {
         static void Main(string[] args)
         {
-            new SystemSorterProfile(new InstrumentationProfilingApi(), 1000);
+            var api = new DisplayTimeProfilingApi();
+
+            //new DateTimeSystemSorterProfile(api, 1500000).Profile();
+            new AlreadyLoadedDynamicSorterProfile(api, 1500000).Profile();
+            //new SystemSorterProfile(api, 1500000).Profile();
         }
     }
 }

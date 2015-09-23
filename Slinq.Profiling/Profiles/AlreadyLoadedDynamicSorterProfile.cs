@@ -4,7 +4,7 @@ using Slinq.Profiling.Profiled;
 
 namespace Slinq.Profiling.Profiles
 {
-    internal class AlreadyLoadedDynamicSorterProfile : ProfilingTemplate<DateTimeArraySorter, DateTime[]>
+    public class AlreadyLoadedDynamicSorterProfile : ProfilingTemplate<DateTimeArraySorter, DateTime[]>
     {
         private readonly int _elementsCount;
 

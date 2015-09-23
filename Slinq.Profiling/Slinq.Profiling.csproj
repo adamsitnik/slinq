@@ -75,9 +75,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DisplayTimeProfilingApi.cs" />
     <Compile Include="IProfilingApi.cs" />
     <Compile Include="Profiled\DateTimeArraySorter.cs" />
+    <Compile Include="Profiled\DateTimeSystemSorter.cs" />
     <Compile Include="Profiles\AlreadyLoadedDynamicSorterProfile.cs" />
+    <Compile Include="Profiles\DateTimeSystemSorterProfile.cs" />
     <Compile Include="Profiles\SystemSorterProfile.cs" />
     <Compile Include="ProfilingTemplate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
