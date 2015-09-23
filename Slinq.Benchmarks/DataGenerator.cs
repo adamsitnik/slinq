@@ -142,14 +142,14 @@ namespace Slinq.Benchmarks
         }
     }
 
-    internal static class DataGenerator
+    public static class DataGenerator
     {
         /// <summary>
         /// same seed for all ensures that the values are going to be the same
         /// </summary>
         private const int InitialRandomSeed = 124506642;
 
-        internal static int[] GenerateRandomNumbers(int count = 300)
+        public static int[] GenerateRandomNumbers(int count = 300)
         {
             var random = new Random(InitialRandomSeed); 
 
@@ -157,7 +157,7 @@ namespace Slinq.Benchmarks
                 .Select(_ => random.Next()).ToArray();
         }
 
-        internal static DateTime[] GenerateRandomDates(int count = 300)
+        public static DateTime[] GenerateRandomDates(int count = 300)
         {
             var random = new Random(InitialRandomSeed);
 
@@ -170,7 +170,7 @@ namespace Slinq.Benchmarks
                 .ToArray();
         }
 
-        internal static HugeValueType[] GenerateHugeValueTypes(int count = 300)
+        public static HugeValueType[] GenerateHugeValueTypes(int count = 300)
         {
             var random = new Random(InitialRandomSeed);
 
